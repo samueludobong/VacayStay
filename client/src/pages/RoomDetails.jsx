@@ -15,6 +15,8 @@ const RoomDetails = () => {
     const [checkOutDate, setCheckOutDate] = useState(null);
     const [guests, setGuests] = useState(1);
 
+    const currency = import.meta.env.VITE_CURRENCY
+
     const [isAvailable, setIsAvailable] = useState(false);
 
     // Check if the Room is Available
@@ -117,7 +119,7 @@ const RoomDetails = () => {
                     </div>
                 </div>
                 {/* Room Price */}
-                <p className='text-2xl font-medium'>${room.pricePerNight}/night</p>
+                <p className='text-2xl font-medium'>{currency}{room.pricePerNight}/night</p>
             </div>
 
             {/* CheckIn CheckOut Form */}
