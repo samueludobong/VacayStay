@@ -29,7 +29,6 @@ const AllRooms = () => {
     const { facilityIcons, navigate, rooms, currency } = useAppContext();
     const [openFilters, setOpenFilters] = useState(false);
 
-    // State for managing the selected filters
     const [selectedFilters, setSelectedFilters] = useState({
         roomType: [],
         priceRange: [],
@@ -56,8 +55,6 @@ const AllRooms = () => {
         "Newest First"
     ];
 
-
-    // Handle changes for filters and sorting
     const handleFilterChange = (checked, value, type) => {
         setSelectedFilters((prevFilters) => {
             const updatedFilters = { ...prevFilters };
@@ -74,12 +71,10 @@ const AllRooms = () => {
         setSelectedSort(sortOption);
     }
 
-    // Function to check if a room matches the selected room types
     const matchesRoomType = (room) => {
         return selectedFilters.roomType.length === 0 || selectedFilters.roomType.includes(room.roomType);
     };
 
-    // Function to check if a room matches the selected price ranges
     const matchesPriceRange = (room) => {
         return selectedFilters.priceRange.length === 0 || selectedFilters.priceRange.some(range => {
             const [min, max] = range.split(' to ').map(Number);
@@ -87,7 +82,6 @@ const AllRooms = () => {
         });
     };
 
-    // Function to sort rooms based on the selected sort option
     const sortRooms = (a, b) => {
         if (selectedSort === 'Price Low to High') {
             return a.pricePerNight - b.pricePerNight;
@@ -108,7 +102,6 @@ const AllRooms = () => {
         return room.hotel.city.toLowerCase().includes(destination.toLowerCase());
     }
 
-    // Filter and sort rooms based on the selected filters and sort option
     const filteredRooms = useMemo(() => {
         return rooms
             .filter(room => matchesRoomType(room) && matchesPriceRange(room) && filterDestination(room))
@@ -158,8 +151,7 @@ const AllRooms = () => {
                                     </div>
                                 ))}
                             </div>
-                            {/* Room Price per Night */}
-                            <p className='text-xl font-medium text-gray-700'>${room.pricePerNight} /night</p>
+                         <p className='text-xl font-medium text-gray-700'>{ currency }{room.pricePerNight} /night</p>
                         </div>
                     </div>
                 ))}
