@@ -65,7 +65,9 @@ const Hero = () => {
         width="120" height="140" />
 </div>
 
-                   <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 
+            </main>
+            </section>
+        <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 
              flex flex-col md:flex-row max-md:items-center gap-4 
              mx-auto justify-center max-w-5xl">
                 <div>
@@ -107,9 +109,6 @@ const Hero = () => {
                 </button>
             </form>
 
-
-            </main>
-            </section>
   )
 }
 
