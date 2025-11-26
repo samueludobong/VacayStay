@@ -52,18 +52,19 @@ const Hero = () => {
         </div>
         <div aria-label="Photos of leaders" class="mt-12 grid grid-cols-2 gap-6 pb-6">
     <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
-        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=120&q=80"
+        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80"
         width="120" height="140" />
     <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
-        src="https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=120&q=80"
+        src="https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=400&q=80"
         width="120" height="140" />
     <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
-        src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=120&q=80"
+        src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80"
         width="120" height="140" />
     <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
-        src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=120&q=80"
+        src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=400&q=80"
         width="120" height="140" />
 </div>
+
 
             </main>
            <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 mt-8 
