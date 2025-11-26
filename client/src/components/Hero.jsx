@@ -30,15 +30,15 @@ const Hero = () => {
         class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
         <div class="flex flex-col items-center md:items-start">
             <p class="bg-[#49B9FF]/50 px-3.5 py-1 rounded-full mt-20 text-white">The Ultimate Hotel Experience</p>
-            <h1 class="text-black font-semibold text-3xl sm:text-4xl md:text-5xl max-w-xl mt-5">
+            <h1 class="text-white font-semibold text-3xl sm:text-4xl md:text-5xl max-w-xl mt-5">
                 Discover Your Perfect Gateway Destination
             </h1>
-            <p class="mt-4 text-black max-w-md text-sm sm:text-base leading-relaxed">
+            <p class="mt-4 text-white max-w-md text-sm sm:text-base leading-relaxed">
                 Unparalleled luxury and comfort await at the world's most exclusive hotels and resorts. Start your journey today.
             </p>
             <div class="flex flex-col md:flex-row items-center mt-8 gap-3">
                 <button
-                    class="bg-black text-white px-6 pr-2.5 py-2.5 rounded-full text-sm font-medium flex items-center space-x-2 hover:bg-[#49B9FF] transition"
+                    class="bg-[#396ce5] text-white px-6 pr-2.5 py-2.5 h-10 rounded-full text-sm font-medium flex items-center space-x-2 hover:bg-[#3360CC] transition"
                     type="button">
                     <span>
                         Visit Rooms
