@@ -25,56 +25,52 @@ const Hero = () => {
     }
 
     return (
-        <div className='flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white bg-[url("/src/assets/heroImage.png")] bg-no-repeat bg-cover bg-center h-screen'>
-
-            <p className='bg-[#49B9FF]/50 px-3.5 py-1 rounded-full mt-20'>The Ultimate Hotel Experience</p>
-            <h1 className='font-playfair text-2xl md:text-5xl md:text-[56px] md:leading-[56px] font-bold md:font-extrabold max-w-xl mt-4 text-black'>Discover Your Perfect Gateway Destination</h1>
-            <p className='max-w-130 mt-2 text-sm md:text-base text-black'>Unparalleled luxury and comfort await at the world's most exclusive hotels and resorts. Start your journey today.</p>
-
-            <form onSubmit={onSearch} className='bg-white text-gray-500 rounded-lg px-6 py-4 mt-8 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto'>
-
-                <div>
-                    <div className='flex items-center gap-2'>
-                        <img src={assets.calenderIcon} alt="" className='h-4' />
-                        <label htmlFor="destinationInput">Destination</label>
-                    </div>
-                    <input list='destinations' onChange={e => setDestination(e.target.value)} value={destination} id="destinationInput" type="text" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" placeholder="Type here" required />
-                    {/* Datalist */}
-                    <datalist id="destinations">
-                        {cities.map((city, index) => (
-                            <option key={index} value={city} />
-                        ))}
-                    </datalist>
-                </div>
-
-                <div>
-                    <div className='flex items-center gap-2'>
-                        <img src={assets.calenderIcon} alt="" className='h-4' />
-                        <label htmlFor="checkIn">Check in</label>
-                    </div>
-                    <input id="checkIn" type="date" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
-                </div>
-
-                <div>
-                    <div className='flex items-center gap-2'>
-                        <img src={assets.calenderIcon} alt="" className='h-4' />
-                        <label htmlFor="checkOut">Check out</label>
-                    </div>
-                    <input id="checkOut" type="date" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
-                </div>
-
-                <div className='flex md:flex-col max-md:gap-2 max-md:items-center'>
-                    <label htmlFor="guests">Guests</label>
-                    <input min={1} max={4} id="guests" type="number" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none  max-w-16" placeholder="0" />
-                </div>
-
-                <button className='flex items-center justify-center gap-1 rounded-md bg-black py-3 px-4 text-white my-auto cursor-pointer max-md:w-full max-md:py-1' >
-                    <img src={assets.searchIcon} alt="searchIcon" className='h-7' />
-                    <span>Search</span>
+      <section id="section" class="bg-[url(&quot;/src/assets/heroImage.png&quot;)] bg-no-repeat bg-cover bg-center h-screen mt-20">
+    <main
+        class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col items-center md:items-start">
+            <p class="bg-[#49B9FF]/50 px-3.5 py-1 rounded-full mt-20 text-white">The Ultimate Hotel Experience</p>
+            <h1 class="text-black font-semibold text-3xl sm:text-4xl md:text-5xl max-w-xl mt-5">
+                Discover Your Perfect Gateway Destination
+            </h1>
+            <p class="mt-4 text-black max-w-md text-sm sm:text-base leading-relaxed">
+                Unparalleled luxury and comfort await at the world's most exclusive hotels and resorts. Start your journey today.
+            </p>
+            <div class="flex flex-col md:flex-row items-center mt-8 gap-3">
+                <button
+                    class="bg-black text-white px-6 pr-2.5 py-2.5 rounded-full text-sm font-medium flex items-center space-x-2 hover:bg-[#49B9FF] transition"
+                    type="button">
+                    <span>
+                        Visit Rooms
+                    </span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.821 11.999h13.43m0 0-6.714-6.715m6.715 6.715-6.715 6.715" stroke="#fff"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </button>
-            </form>
+                <a class="text-black bg-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-200 transition"
+                    href="#">
+                    Get Started
+                </a>
+            </div>
         </div>
-    )
+        <div aria-label="Photos of leaders" class="mt-12 grid grid-cols-2 gap-6 pb-6">
+            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
+                src="https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?q=80&w=735&auto=format&fit=crop"
+                width="120" />
+            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
+                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=687&auto=format&fit=crop"
+                width="120" />
+            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop"
+                width="120" />
+            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
+                src="https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=687&auto=format&fit=crop"
+                width="120" />
+        </div>
+            </main>
+            </section>
+  )
 }
 
 export default Hero
