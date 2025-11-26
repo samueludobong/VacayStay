@@ -33,7 +33,7 @@ const Hero = () => {
             <h1 class="text-white font-semibold text-3xl sm:text-4xl md:text-5xl max-w-xl mt-5">
                 Discover Your Perfect Gateway Destination
             </h1>
-            <p class="mt-4 text-white max-w-md text-sm sm:text-base leading-relaxed">
+            <p class="mt-4 text-black max-w-md text-sm sm:text-base leading-relaxed">
                 Unparalleled luxury and comfort await at the world's most exclusive hotels and resorts. Start your journey today.
             </p>
             <div class="flex flex-col md:flex-row items-center mt-8 gap-3">
