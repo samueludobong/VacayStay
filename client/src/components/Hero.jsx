@@ -51,19 +51,20 @@ const Hero = () => {
             </div>
         </div>
         <div aria-label="Photos of leaders" class="mt-12 grid grid-cols-2 gap-6 pb-6">
-            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://unsplash.com/photos/pink-building-near-tree-L4I0ITCafK0"
-                width="120" />
-            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://unsplash.com/photos/a-large-white-building-with-a-fountain-in-front-of-it-nTfa_vfzSFA"
-                width="120" />
-            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://unsplash.com/photos/multicolored-high-rise-building-during-daytime-ZFXrgzHu1KU"
-                width="120" />
-            <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://unsplash.com/photos/a-tall-building-with-balconies-and-palm-trees-in-front-of-it-I-XkD_kK74s"
-                width="120" />
-        </div>
+    <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
+        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=120&q=80"
+        width="120" height="140" />
+    <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
+        src="https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=120&q=80"
+        width="120" height="140" />
+    <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
+        src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=120&q=80"
+        width="120" height="140" />
+    <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover shadow-lg"
+        src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=120&q=80"
+        width="120" height="140" />
+</div>
+
             </main>
            <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 mt-8 
              flex flex-col md:flex-row max-md:items-center gap-4 
