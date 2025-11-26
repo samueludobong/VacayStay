@@ -25,7 +25,7 @@ const Hero = () => {
     }
 
     return (
-      <section id="section" class="bg-[#0a1b43] mt-20 mb-30">
+      <section id="section" class="bg-[#0a1b43] mt-20">
     <main
         class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
         <div class="flex flex-col items-center md:items-start">
@@ -65,9 +65,7 @@ const Hero = () => {
         width="120" height="140" />
 </div>
 
-
-            </main>
-           <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 
+                   <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 
              flex flex-col md:flex-row max-md:items-center gap-4 
              mx-auto justify-center max-w-5xl">
                 <div>
@@ -108,6 +106,9 @@ const Hero = () => {
                     <span>Search</span>
                 </button>
             </form>
+
+
+            </main>
             </section>
   )
 }
