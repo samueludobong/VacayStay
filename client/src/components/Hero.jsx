@@ -25,7 +25,7 @@ const Hero = () => {
     }
 
     return (
-      <section id="section" class="bg-[#0a1b43] mt-20 pb-56 pt-20">
+      <section id="section" class="bg-[#0a1b43] mt-20 pb-26 pt-20">
     <main
         class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
         <div class="flex flex-col items-center md:items-start">
@@ -68,7 +68,7 @@ const Hero = () => {
         <form onSubmit={onSearch}
               className="bg-white text-black rounded-lg py-4 
                          flex flex-col md:flex-row max-md:items-center gap-4 
-                         mx-auto justify-center max-w-5xl mb-30 mt-[-20px]">
+                         mx-auto justify-center max-w-5xl mb-30">
                 <div>
                     <div className='flex items-center gap-2'>
                         <img src={assets.calenderIcon} alt="" className='h-4' />
