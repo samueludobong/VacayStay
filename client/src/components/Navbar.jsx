@@ -56,13 +56,16 @@ const Navbar = () => {
                         <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} ></div>
                     </NavLink>
                 ))}
-                {
-                    user && (
-                        <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
-                            {isOwner ? 'Dashboard' : 'List Your Hotel'}
-                        </button>
-                    )
-                }
+                {isOwner && (
+                    <button
+                        className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                        isScrolled ? 'text-black' : 'text-white'
+                        } transition-all`}
+                        onClick={() => (navigate('/owner') )}
+                    >
+                        {isOwner === 'Dashboard'}
+                    </button>
+                    )}
             </div>
 
             <div className="hidden md:flex items-center gap-4">
