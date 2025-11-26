@@ -51,15 +51,10 @@ const Navbar = () => {
 
             <div className="hidden md:flex items-center gap-4 lg:gap-8">
   {navLinks.map((navLink, index) => (
-    <NavLink
-      key={index}
-      to={navLink.path}
-      className="group flex flex-col gap-0.5 text-white"
-      onClick={() => scrollTo(0, 0)}
-    >
-      {navLink.name}
-      <div className="bg-[#1e3b96] h-0.5 w-0 group-hover:w-full transition-all duration-300"></div>
-    </NavLink>
+    <NavLink key={index} to={navLink.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-gray-700" : "text-white"}`} onClick={() => scrollTo(0, 0)}>
+                        {navLink.name}
+                        <div className={`${isScrolled ? "bg-[#1e3b96]" : "bg-[#1e3b96]"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} ></div>
+                    </NavLink>
   ))}
 
   {isOwner && (
