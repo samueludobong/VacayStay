@@ -65,9 +65,10 @@ const Hero = () => {
         width="120" height="140" />
 </div>
         </main>
-        <form onSubmit={onSearch} className="bg-white text-black rounded-lg py-4 
-             flex flex-col md:flex-row max-md:items-center gap-4 
-             mx-auto justify-center max-w-5xl mb-30">
+        <form onSubmit={onSearch}
+              className="bg-white text-black rounded-lg py-4 
+                         flex flex-col md:flex-row max-md:items-center gap-4 
+                         mx-auto justify-center max-w-5xl mb-30 mt-[-40px]">
                 <div>
                     <div className='flex items-center gap-2'>
                         <img src={assets.calenderIcon} alt="" className='h-4' />
@@ -106,7 +107,7 @@ const Hero = () => {
                     <span>Search</span>
                 </button>
             </form>
-      </div>
+      </section>
   )
 }
 
