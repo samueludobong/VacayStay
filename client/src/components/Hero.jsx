@@ -25,7 +25,7 @@ const Hero = () => {
     }
 
     return (
-      <section id="section" class="bg-[url(&quot;/src/assets/heroImage.png&quot;)] bg-no-repeat bg-cover bg-center h-screen mt-20">
+      <section id="section" class="bg-[#0a1b43] bg-no-repeat bg-cover bg-center h-screen mt-20">
     <main
         class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
         <div class="flex flex-col items-center md:items-start">
