@@ -29,7 +29,7 @@ const Hero = () => {
     <main
         class="flex flex-col md:flex-row items-center max-md:text-center justify-between mt-16 pb-16 px-6 sm:px-10 md:px-24 max-w-7xl mx-auto w-full">
         <div class="flex flex-col items-center md:items-start">
-            <p class="bg-[#396ce5]/50 px-3.5 py-1 rounded-full mt-20 text-white">The Ultimate Hotel Experience</p>
+            <p class="bg-[#396ce5] px-3.5 py-1 rounded-full mt-20 text-white">The Ultimate Hotel Experience</p>
             <h1 class="text-white font-semibold text-3xl sm:text-4xl md:text-5xl max-w-xl mt-5">
                 Discover Your Perfect Gateway Destination
             </h1>
