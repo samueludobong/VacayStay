@@ -50,23 +50,30 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden md:flex items-center gap-4 lg:gap-8">
-                {navLinks.map((navLink, index) => (
-                    <NavLink key={index} to={navLink.path} className={`group flex flex-col gap-0.5 text-white`} onClick={() => scrollTo(0, 0)}>
-                        {navLink.name}
-                        <div className="bg-#1e3b96 h-0.5 w-0 group-hover:w-full transition-all duration-300" ></div>
-                    </NavLink>
-                ))}
-                {isOwner && (
-                    <button
-                        className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
-                        isScrolled ? 'text-black' : 'text-white'
-                        } transition-all`}
-                        onClick={() => (navigate('/owner') )}
-                    >
-                        {isOwner === 'Dashboard'}
-                    </button>
-                    )}
-            </div>
+  {navLinks.map((navLink, index) => (
+    <NavLink
+      key={index}
+      to={navLink.path}
+      className="group flex flex-col gap-0.5 text-white"
+      onClick={() => scrollTo(0, 0)}
+    >
+      {navLink.name}
+      <div className="bg-[#1e3b96] h-0.5 w-0 group-hover:w-full transition-all duration-300"></div>
+    </NavLink>
+  ))}
+
+  {isOwner && (
+    <button
+      className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+        isScrolled ? 'text-black' : 'text-white'
+      } transition-all`}
+      onClick={() => navigate('/owner')}
+    >
+      Dashboard
+    </button>
+  )}
+</div>
+
 
             <div className="hidden md:flex items-center gap-4">
                 <img src={assets.searchIcon} alt="search" className={`${isScrolled && "invert"} h-7 transition-all duration-500`} />
