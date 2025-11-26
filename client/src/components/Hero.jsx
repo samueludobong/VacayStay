@@ -38,15 +38,11 @@ const Hero = () => {
             </p>
             <div class="flex flex-col md:flex-row items-center mt-8 gap-3">
                 <button
-                    class="bg-[#396ce5] text-white px-6 pr-2.5 py-2.5 h-10 rounded-full text-sm font-medium flex items-center space-x-2 hover:bg-[#3360CC] transition"
+                    class="bg-[#396ce5] text-white px-6 pr-2.5 py-2.5 h-24 rounded-sm text-sm font-medium flex items-center space-x-2 hover:bg-[#3360CC] transition"
                     type="button">
                     <span>
                         Visit Rooms
                     </span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.821 11.999h13.43m0 0-6.714-6.715m6.715 6.715-6.715 6.715" stroke="#fff"
-                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
                 </button>
                 <a class="text-black bg-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-200 transition"
                     href="#">
