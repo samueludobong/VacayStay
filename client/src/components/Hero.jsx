@@ -52,16 +52,16 @@ const Hero = () => {
         </div>
         <div aria-label="Photos of leaders" class="mt-12 grid grid-cols-2 gap-6 pb-6">
             <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?q=80&w=735&auto=format&fit=crop"
+                src="https://unsplash.com/photos/pink-building-near-tree-L4I0ITCafK0"
                 width="120" />
             <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=687&auto=format&fit=crop"
+                src="https://unsplash.com/photos/a-large-white-building-with-a-fountain-in-front-of-it-nTfa_vfzSFA"
                 width="120" />
             <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop"
+                src="https://unsplash.com/photos/multicolored-high-rise-building-during-daytime-ZFXrgzHu1KU"
                 width="120" />
             <img alt="" class="w-36 h-44 rounded-lg hover:scale-105 transition duration-300 object-cover flex-shrink-0 shadow-lg" height="140"
-                src="https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=687&auto=format&fit=crop"
+                src="https://unsplash.com/photos/a-tall-building-with-balconies-and-palm-trees-in-front-of-it-I-XkD_kK74s"
                 width="120" />
         </div>
             </main>
