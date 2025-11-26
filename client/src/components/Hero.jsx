@@ -38,7 +38,7 @@ const Hero = () => {
             </p>
             <div class="flex flex-col md:flex-row items-center mt-8 gap-3">
                 <button
-                    class="bg-[#396ce5] text-white px-6 pr-2.5 py-2.5 h-24 rounded-sm text-sm font-medium flex items-center space-x-2 hover:bg-[#3360CC] transition"
+                    class="bg-[#396ce5] text-white px-6 pr-2.5 py-2.5 h-16 rounded-sm text-sm font-medium flex items-center text-center space-x-2 hover:bg-[#3360CC] transition"
                     type="button">
                     <span>
                         Visit Rooms
