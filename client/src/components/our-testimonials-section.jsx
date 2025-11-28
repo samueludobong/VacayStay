@@ -1,4 +1,5 @@
 import SectionTitle from '@/components/section-title';
+import { StarIcon } from 'lucide-react';
 
 export default function OurTestimonialSection() {
 const data = [
