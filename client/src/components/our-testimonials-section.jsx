@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/section-title';
+import SectionTitle from '../components/section-title';
 
 export default function OurTestimonialSection() {
 const data = [
