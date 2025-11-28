@@ -8,7 +8,7 @@ const data = [
       "VacayStay made my trip so easy. The hotel was spotless, affordable, and exactly as described. Booking was completely stress-free!",
     name: "Richard Nelson",
     about: "Business Traveler",
-    rating: 5,
+    rating: 4,
     image:
       "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200",
   },
