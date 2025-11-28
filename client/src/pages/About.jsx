@@ -1,11 +1,11 @@
 import React from 'react'
-import Hero from '../components/Hero'
+import WatWeDo from '../components/what-we-do-section'
 
 
 const About = () => {
   return (
      <>
-            <Hero />
+            <WatWeDo />
    
      </>
   )
