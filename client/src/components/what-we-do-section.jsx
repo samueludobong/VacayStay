@@ -12,12 +12,12 @@ export default function WhatWeDoSection() {
                         <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="image"
                             className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-1" />
                         <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="image"
-                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[2]" />
+                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-2" />
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
                             alt="image"
-                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[3]" />
+                            className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-3" />
                         <div
-                            className="flex items-center justify-center text-xs  text-white size-9 rounded-full border-[3px] border-white bg-indigo-600 hover:-translate-y-1 transition z-[4]">
+                            className="flex items-center justify-center text-xs  text-white size-9 rounded-full border-[3px] border-white bg-indigo-600 hover:-translate-y-1 transition z-4">
                             50+
                         </div>
                     </div>
@@ -26,7 +26,7 @@ export default function WhatWeDoSection() {
             </div>
             <div className="text-sm text-slate-600 max-w-md">
                 <h1 className="text-xl uppercase font-semibold text-slate-700">What we do?</h1>
-                <div className="w-24 h-[3px] rounded-full bg-gradient-to-r from-indigo-600 to-[#DDD9FF]"></div>
+                <div className="w-24 h-[3px] rounded-full bg-linear-to-r from-indigo-600 to-[#DDD9FF]"></div>
                 <p className="mt-8">PrebuiltUI helps you build faster by transforming your design vision into fully functional,
                     production-ready UI components. </p>
                 <p className="mt-4">Whether you're launching a SaaS app, landing page, or dashboard, our collection of Tailwind
