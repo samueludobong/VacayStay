@@ -8,6 +8,11 @@ const AddRoom = () => {
 
     const { axios, getToken } = useAppContext()
 
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [contact, setContact] = useState("");
+    const [city, setCity] = useState("");
+
     const [images, setImages] = useState({ 1: null, 2: null, 3: null, 4: null })
     const [loading, setLoading] = useState(false);
 
