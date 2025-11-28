@@ -1,4 +1,17 @@
 
+
+function unsplashToDirect(url, width = 400, quality = 80) {
+    try {
+        const match = url.match(/photos\/([a-zA-Z0-9_-]+)/);
+        if (!match) throw new Error("Invalid Unsplash URL");
+
+        const photoId = match[1];
+        return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=${width}&q=${quality}`;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
 export default function WhatWeDoSection() {
     return (
         <section>
@@ -58,7 +71,7 @@ export default function WhatWeDoSection() {
 
             <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
                 <img className="max-w-sm w-full object-cover rounded-2xl"
-                    src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=451&h=451&auto=format&fit=crop"
+                    src={unsplashToDirect("https://unsplash.com/photos/two-person-standing-on-gray-tile-paving-TamMbr4okv4", 400, 80)}
                     alt="" />
                 </div>
                 </div>
