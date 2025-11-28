@@ -59,7 +59,7 @@ export default function WhatWeDoSection() {
 
             <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
                 <img className="max-w-sm w-full object-cover rounded-2xl"
-                    src="https://images.unsplash.com/photo-TamMbr4okv4?w=400&h=400&q=80&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="" />
                 </div>
                 </div>
