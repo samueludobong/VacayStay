@@ -38,7 +38,7 @@ export default function WhatWeDoSection() {
                 </p>
             </div>
             </div>
-            <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-20 mt-20">
             <div className="text-sm text-slate-600 max-w-md">
                 <h1 className="text-xl uppercase font-semibold text-slate-700">What we do?</h1>
                 <div className="w-24 h-[3px] rounded-full bg-linear-to-r from-indigo-600 to-[#DDD9FF]"></div>
