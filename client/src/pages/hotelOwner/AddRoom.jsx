@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets'
 import Title from '../../components/Title'
 import toast from 'react-hot-toast'
 import { useAppContext } from '../../context/AppContext'
-import { cities } from "../assets/assets";
+import { cities } from "../../assets/assets";
 
 
 const AddRoom = () => {
