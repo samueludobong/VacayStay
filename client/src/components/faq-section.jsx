@@ -8,7 +8,7 @@ export default function FaqSection() {
     const [isOpen, setIsOpen] = useState(false);
 const data = [
     {
-        question: 'Do I need prior experience to book a hotel through Otel Rental?',
+        question: 'Do I need prior experience to book a hotel through VacayStay Rental?',
         answer: "No experience is needed. Booking is simple and user-friendly, whether you’re a first-time guest or a frequent traveler.",
     },
     {
