@@ -17,12 +17,12 @@ const AboutUsEro = () => {
                     View Rooms
                 </button>
                   <a href="mailto:medaiconsulting17@gmail.com" class="flex items-center gap-2 border border-slate-600 active:scale-95 hover:bg-white/10 transition text-slate-600 rounded-md px-6 h-11">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-video-icon lucide-video"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mails-icon lucide-mails"><path d="M17 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 1-1.732"/><path d="m22 5.5-6.419 4.179a2 2 0 0 1-2.162 0L7 5.5"/><rect x="7" y="3" width="15" height="12" rx="2"/></svg>
                     <span>Email us</span>
                     </a>
             </div>
         </div>
-        <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/hero-section-showcase-5.png" alt="hero" class="max-w-sm sm:max-w-md lg:max-w-lg 2xl:max-w-xl transition-all duration-300" />
+        <img src="https://github.com/samueludobong/VacayStay-Media/blob/main/jason-rosewell-P5aY_FocXAI-unsplash%20(1).jpg" alt="hero" class="max-w-sm sm:max-w-md lg:max-w-lg 2xl:max-w-xl transition-all duration-300" />
     </main>
   )
 }
