@@ -22,7 +22,7 @@ const AboutUsEro = () => {
                     </a>
             </div>
         </div>
-        <img src="https://github.com/samueludobong/VacayStay-Media/blob/main/jason-rosewell-P5aY_FocXAI-unsplash%20(1).jpg" alt="hero" class="max-w-sm sm:max-w-md lg:max-w-lg 2xl:max-w-xl transition-all duration-300" />
+        <img src="https://drive.google.com/file/d/1QT4K7LtQ59JpUlU2fm-qqgh8B5Ju7qdw/view?usp=drive_link" alt="hero" class="max-w-sm sm:max-w-md lg:max-w-lg 2xl:max-w-xl transition-all duration-300" />
     </main>
   )
 }
