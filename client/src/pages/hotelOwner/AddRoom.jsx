@@ -67,6 +67,10 @@ const AddRoom = () => {
                     }
                 })
                 setImages({ 1: null, 2: null, 3: null, 4: null })
+                    setName("");
+                    setAddress("");
+                    setContact("");
+                    setCity("");
             } else {
                 toast.error(data.message)
             }
