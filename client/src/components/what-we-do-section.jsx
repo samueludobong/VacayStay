@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from "lucide-react";
 
 export default function WhatWeDoSection() {
     return (
@@ -35,7 +34,6 @@ export default function WhatWeDoSection() {
                     beautifully and scale effortlessly.</p>
                 <button className="flex items-center gap-2 mt-8 hover:opacity-90 transition btn py-3 px-8 rounded-full text-white">
                     <span>Read more</span>
-                    <ArrowRightIcon className='size-5' />
                 </button>
             </div>
         </section>
