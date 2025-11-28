@@ -17,7 +17,7 @@ const data = [
       "Amazing service! The room was cozy and the check-in experience was incredibly smooth. I’ll definitely book through VacayStay again.",
     name: "Sophia Martinez",
     about: "Content Creator",
-    rating: 5,
+    rating: 3,
     image:
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
   },
@@ -26,7 +26,7 @@ const data = [
       "Found the perfect hotel within minutes. Great prices, great locations, and a super clean room. VacayStay is a lifesaver!",
     name: "Ethan Roberts",
     about: "Frequent Traveler",
-    rating: 5,
+    rating: 4,
     image:
       "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60",
   },
@@ -35,7 +35,7 @@ const data = [
       "Loved how transparent everything was—no hidden fees, no stress. The hotel was beautiful and exactly what I needed.",
     name: "Isabella Kim",
     about: "Vacation Guest",
-    rating: 5,
+    rating: 2,
     image:
       "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60",
   },
@@ -44,7 +44,7 @@ const data = [
       "I’ve tried many booking platforms, but this one is simply the best. Smooth experience, great support, and reliable hotels.",
     name: "Liam Johnson",
     about: "Solo Traveler",
-    rating: 5,
+    rating: 3,
     image:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&h=100&auto=format&fit=crop",
   },
@@ -53,7 +53,7 @@ const data = [
       "The hotel exceeded my expectations — modern, clean, and super comfortable. VacayStay made the whole process effortless.",
     name: "Ava Patel",
     about: "Family Vacationer",
-    rating: 5,
+    rating: 4,
     image:
       "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/userImage/userImage1.png",
   },
