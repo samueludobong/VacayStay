@@ -3,7 +3,7 @@
 export default function WhatWeDoSection() {
     return (
         <section>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-20 mt-20">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-20">
             <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
                 <img className="max-w-sm w-full object-cover rounded-2xl"
                     src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=451&h=451&auto=format&fit=crop"
