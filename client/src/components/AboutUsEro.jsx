@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutUsEro = () => {
   return (
-    <main class="flex flex-col max-md:gap-20 md:flex-row pb-20 items-center justify-between mt-20 px-4 md:px-16 lg:px-24 xl:px-32">
+    <main class="flex flex-col max-md:gap-20 md:flex-row pb-20 items-center justify-between mt-40 px-4 md:px-16 lg:px-24 xl:px-32">
         <div class="flex flex-col items-center md:items-start">
 <h1 class="text-center md:text-left text-4xl leading-[46px] md:text-5xl md:leading-[68px] font-semibold max-w-xl text-slate-900">
     Stress-free<br />
