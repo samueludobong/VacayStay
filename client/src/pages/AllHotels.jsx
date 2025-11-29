@@ -8,7 +8,7 @@ const AllHotels = () => {
     const { hotels } = useAppContext();
 
     return hotels.length > 0 && (
-        <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 bg-slate-50 py-20'>
+        <div className='flex flex-col items-center px-6 md:px-16 lg:px-24 bg-slate-50 py-20 mt-30'>
             <Title 
                 title="Hotels" 
                 subTitle="Discover our handpicked selection of exceptional properties around the world, offering unparalleled luxury and unforgettable experiences." 
