@@ -3,17 +3,10 @@ import { assets } from '../../assets/assets'
 import Title from '../../components/Title'
 import toast from 'react-hot-toast'
 import { useAppContext } from '../../context/AppContext'
-import { cities } from "../../assets/assets";
-
 
 const AddRoom = () => {
 
     const { axios, getToken } = useAppContext()
-
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [contact, setContact] = useState("");
-    const [city, setCity] = useState("");
 
     const [images, setImages] = useState({ 1: null, 2: null, 3: null, 4: null })
     const [loading, setLoading] = useState(false);
@@ -31,111 +24,56 @@ const AddRoom = () => {
     })
 
     const onSubmitHandler = async (e) => {
-    e.preventDefault();
-
-    const hotelRes = await axios.post(
-        `/api/hotels/`,
-        { name, contact, address, city },
-        { headers: { Authorization: `Bearer ${await getToken()}` } }
-    );
-
-    const hotel = hotelRes.data?.hotel;
-    if (!hotel?._id) {
-        toast.error("Unable to create hotel");
-        return;
-    }
-
-    if (!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)) {
-        toast.error("Please fill in all the details");
-        return;
-    }
-
-    setLoading(true);
-
-    try {
-        const formData = new FormData();
-        formData.append("roomType", inputs.roomType);
-        formData.append("pricePerNight", inputs.pricePerNight);
-
-        const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key]);
-        formData.append("amenities", JSON.stringify(amenities));
-
-        formData.append("hotelId", hotel._id);
-
-        Object.keys(images).forEach((key) => {
-            if (images[key]) formData.append("images", images[key]);
-        });
-
-        const { data } = await axios.post(
-            "/api/rooms/",
-            formData,
-            { headers: { Authorization: `Bearer ${await getToken()}` } }
-        );
-
-        if (data.success) {
-            toast.success(data.message);
-
-            setInputs({
-                roomType: "",
-                pricePerNight: 0,
-                amenities: {
-                    "Free WiFi": false,
-                    "Free Breakfast": false,
-                    "Room Service": false,
-                    "Mountain View": false,
-                    "Pool Access": false
-                }
-            });
-
-            setImages({ 1: null, 2: null, 3: null, 4: null });
-
-            setName("");
-            setAddress("");
-            setContact("");
-            setCity("");
-        } else {
-            toast.error(data.message);
+        e.preventDefault()
+        // Check if all inputs are filled
+        if (!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)) {
+            toast.error("Please fill in all the details")
+            return;
         }
+        setLoading(true);
+        try {
+            const formData = new FormData()
+            formData.append('roomType', inputs.roomType)
+            formData.append('pricePerNight', inputs.pricePerNight)
+            // Converting Amenities to Array & keeping only enabled Amenities
+            const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key])
+            formData.append('amenities', JSON.stringify(amenities))
 
-    } catch (err) {
-        toast.error(err.message);
-    } finally {
-        setLoading(false);
+            // Adding Images to FormData
+            Object.keys(images).forEach((key) => {
+                images[key] && formData.append('images', images[key])
+            })
+
+            const { data } = await axios.post('/api/rooms/', formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
+
+            if (data.success) {
+                toast.success(data.message)
+                setInputs({
+                    roomType: '',
+                    pricePerNight: 0,
+                    amenities: {
+                        'Free WiFi': false,
+                        'Free Breakfast': false,
+                        'Room Service': false,
+                        'Mountain View': false,
+                        'Pool Access': false
+                    }
+                })
+                setImages({ 1: null, 2: null, 3: null, 4: null })
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        } finally {
+            setLoading(false);
+        }
     }
-};
-
 
     return (
-
         <form onSubmit={onSubmitHandler}>
-
             <Title align='left' font='outfit' title='Add Room' subTitle='Fill in the details carefully and accurate room details, pricing, and amenities, to enhance the user booking experience.' />
-                            <div className="relative flex flex-col items-center md:w-1/2 p-8 md:p-10">
-                                <div className="w-full mt-4">
-                                    <label htmlFor="name" className="font-medium text-gray-500">Hotel Name</label>
-                                    <input onChange={(e) => setName(e.target.value)} value={name} placeholder="Type here" className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" type="text" required />
-                                </div>
-            
-                                <div className="w-full mt-4">
-                                    <label htmlFor="contact" className="font-medium text-gray-500">Phone</label>
-                                    <input id="contact" onChange={(e) => setContact(e.target.value)} value={contact} placeholder="Type here" className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" type="text" required />
-                                </div>
-            
-                                <div className="w-full mt-4">
-                                    <label htmlFor="address" className="font-medium text-gray-500">Address</label>
-                                    <textarea id="address" rows="2" onChange={(e) => setAddress(e.target.value)} value={address} placeholder="Type here" className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light resize-none" type="text" required />
-                                </div>
-        
-                                <div className="w-full mt-4 max-w-60 mr-auto">
-                                    <label htmlFor="city" className="font-medium text-gray-500">City</label>
-                                    <select id="city" onChange={(e) => setCity(e.target.value)} value={city} className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" required>
-                                        <option value="">Select City</option>
-                                        {cities.map((city) => (
-                                            <option key={city} value={city}>{city}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
             {/* Upload Area For Images */}
             <p className='text-gray-800 mt-10'>Images</p>
             <div className='grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap'>
