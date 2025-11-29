@@ -10,17 +10,27 @@ const HotelReg = () => {
     const [address, setAddress] = useState("");
     const [contact, setContact] = useState("");
     const [city, setCity] = useState("");
+    const [images, setImages] = useState({ 1: null, 2: null, 3: null, 4: null })
+    const [loading, setLoading] = useState(false);
 
     const onSubmitHandler = async (event) => {
         try {
             event.preventDefault();
+            setLoading(true);
 
             const { data } = await axios.post(`/api/hotels/`, { name, contact, address, city }, { headers: { Authorization: `Bearer ${await getToken()}` } });
+
+            Object.keys(images).forEach((key) => {
+            if (images[key]) formData.append("images", images[key]);
+        });
+
 
             if (data.success) {
                 toast.success(data.message);
                 setIsOwner(true);
                 setShowHotelReg(false);
+            setImages({ 1: null, 2: null, 3: null, 4: null });
+
             } else {
                 toast.error(data.message);
             }
@@ -52,6 +62,17 @@ const HotelReg = () => {
                         <textarea id="address" rows="2" onChange={(e) => setAddress(e.target.value)} value={address} placeholder="Type here" className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light resize-none" type="text" required />
                     </div>
 
+                    <p className='text-gray-800 mt-10'>Images</p>
+                                <div className='grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap'>
+                                    {Object.keys(images).map((key) => (
+                                        <label key={key} htmlFor={`roomImage${key}`}>
+                                            <img className='max-h-13 cursor-pointer opacity-80' src={images[key] ? URL.createObjectURL(images[key]) : assets.uploadArea} alt="" />
+                                            <input type="file" accept='image/*' id={`roomImage${key}`} hidden
+                                                onChange={e => setImages({ ...images, [key]: e.target.files[0] })} />
+                                        </label>
+                                    ))}
+                                </div>
+
                     {/* Drop Down City */}
                     <div className="w-full mt-4 max-w-60 mr-auto">
                         <label htmlFor="city" className="font-medium text-gray-500">City</label>
@@ -63,9 +84,10 @@ const HotelReg = () => {
                         </select>
                     </div>
 
-                    <button className="bg-indigo-500 hover:bg-indigo-600 transition-all text-white mr-auto px-6 py-2 rounded cursor-pointer mt-6">
-                        Register
+                    <button className='bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer' disabled={loading}>
+                        {loading ? "Adding..." : "Register"}
                     </button>
+
                 </div>
             </form>
         </div>
