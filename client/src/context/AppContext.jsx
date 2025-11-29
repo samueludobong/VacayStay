@@ -18,6 +18,7 @@ export const AppProvider = ({ children }) => {
 
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
+    const [isPending, setPending] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
     const [hotels, setHotels] = useState([]);
@@ -37,7 +38,8 @@ export const AppProvider = ({ children }) => {
             if (data.success) {
                 setIsOwner(data.role === "hotelOwner");
                 setAdmin(data.role === "Admin");
-                setSearchedCities(data.recentSearchedCities)
+                setSearchedCities(data.recentSearchedCities);
+                fetchOwnerHotels(data._id)
             } else {
                 setTimeout(() => {
                     fetchUser();
@@ -76,6 +78,21 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const fetchOwnerHotels = async (ownerId) => {
+    try {
+        const { data } = axios.get('/api/hotels/owner', {
+                headers: { Authorization: `Bearer ${await getToken()}` }
+            });
+
+        if (data.success) {
+            setPending(data.hotels);
+        }
+    } catch (error) {
+        toast.error("Unable to fetch your hotels");
+    }
+};
+
+
     useEffect(() => {
         if (user) {
             fetchUser();
@@ -95,6 +112,7 @@ export const AppProvider = ({ children }) => {
         user, getToken,
         isOwner, setIsOwner,
         isAdmin, setAdmin,
+        isPending, setPending,
         axios,
         showHotelReg, setShowHotelReg,
         facilityIcons,

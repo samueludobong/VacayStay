@@ -24,7 +24,7 @@ const Navbar = () => {
     const location = useLocation();
 
     const { openSignIn } = useClerk()
-    const { user, setShowHotelReg, isOwner, navigate, isAdmin } = useAppContext()
+    const { user, setShowHotelReg, isOwner, navigate, isAdmin, isPending } = useAppContext()
 
     useEffect(() => {
         if (location.pathname !== "/") {
@@ -58,27 +58,37 @@ const Navbar = () => {
                 ))}
                     {user && (
     <>
-        {isAdmin ? (
-            <button
-                className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
-                    isScrolled ? "text-white" : "text-white"
-                } transition-all`}
-                onClick={() => navigate("/admin")}
-            >
-                Admin Panel
-            </button>
-        ) : (
-            <button
-                className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
-                    isScrolled ? "text-white" : "text-white"
-                } transition-all`}
-                onClick={() =>
-                    isOwner ? navigate("/owner") : setShowHotelReg(true)
-                }
-            >
-                {isOwner ? "Dashboard" : "List Your Hotel"}
-            </button>
-        )}
+        {
+    isAdmin ? (
+        <button
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+            onClick={() => navigate("/admin")}
+        >
+            Admin Panel
+        </button>
+    ) : isPending ? (
+        <div
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+        >
+            Pending Approval
+        </div>
+    ) : (
+        <button
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+            onClick={() =>
+                isOwner ? navigate("/owner") : setShowHotelReg(true)
+            }
+        >
+            {isOwner ? "Dashboard" : "List Your Hotel"}
+        </button>
+    )
+}
     </>
 )}
             </div>
