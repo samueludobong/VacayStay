@@ -1,0 +1,19 @@
+import mongoose from "mongoose";
+const { Schema } = mongoose;
+
+const hotelSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    address: { type: String, required: true },
+    contact: { type: String, required: true },
+    owner: { type: String, ref: "User", required: true },
+    city: { type: String, required: true },
+    images: [{ type: String }],
+
+  },
+  { timestamps: true }
+);
+
+const HotelTemp = mongoose.model("HotelPending", hotelSchema);
+
+export default HotelTemp

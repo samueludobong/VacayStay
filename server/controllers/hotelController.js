@@ -1,4 +1,5 @@
 import Hotel from "../models/Hotel.js";
+import HotelTemp from "../models/HotelTemp.js";
 import User from "../models/User.js";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -20,7 +21,7 @@ export const registerHotel = async (req, res) => {
       })
     );
 
-    await Hotel.create({
+    await HotelTemp.create({
       name,
       address,
       contact,
@@ -29,7 +30,7 @@ export const registerHotel = async (req, res) => {
       images: uploadedImages,
     });
 
-    await User.findByIdAndUpdate(owner, { role: "hotelOwner" });
+    // await User.findByIdAndUpdate(owner, { role: "hotelOwner" });
 
     res.json({ success: true, message: "Hotel registered successfully" });
 
