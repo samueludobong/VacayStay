@@ -85,7 +85,7 @@ export const AppProvider = ({ children }) => {
         });
 
         if (data.success) {
-            setHotels(data.hotels);
+            setPending(data.hotels);
         }
     } catch (error) {
         console.log("FETCH HOTELS ERROR:", error.response?.data || error);
