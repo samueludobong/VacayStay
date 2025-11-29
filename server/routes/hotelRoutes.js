@@ -1,4 +1,5 @@
 import express from "express";
+import HotelTemp from "../models/HotelTemp.js";
 import { protect } from "../middleware/authMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
 
