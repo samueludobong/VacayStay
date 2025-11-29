@@ -16,12 +16,8 @@ const AllHotels = () => {
 
             <div className='flex flex-wrap items-center justify-center gap-6 mt-20'>
                 {hotels.slice(0, 4).map((hotel, index) => (
-                    <HotelCard 
-                        key={hotel._id} 
-                        hotel={hotel} 
-                        index={index} 
-                    />
-                ))}
+    <HotelCard key={hotel._id} hotel={hotel} index={index} />
+))}
             </div>
         </div>
     );
