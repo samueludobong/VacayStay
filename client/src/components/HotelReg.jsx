@@ -14,30 +14,47 @@ const HotelReg = () => {
     const [loading, setLoading] = useState(false);
 
     const onSubmitHandler = async (event) => {
-        try {
-            event.preventDefault();
-            setLoading(true);
+    try {
+        event.preventDefault();
+        setLoading(true);
 
-            const { data } = await axios.post(`/api/hotels/`, { name, contact, address, city }, { headers: { Authorization: `Bearer ${await getToken()}` } });
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("contact", contact);
+        formData.append("address", address);
+        formData.append("city", city);
 
-            Object.keys(images).forEach((key) => {
+        Object.keys(images).forEach((key) => {
             if (images[key]) formData.append("images", images[key]);
         });
 
-
-            if (data.success) {
-                toast.success(data.message);
-                setIsOwner(true);
-                setShowHotelReg(false);
-            setImages({ 1: null, 2: null });
-
-            } else {
-                toast.error(data.message);
+        const { data } = await axios.post(
+            `/api/hotels/`,
+            formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${await getToken()}`,
+                    "Content-Type": "multipart/form-data",
+                },
             }
-        } catch (error) {
-            toast.error(error.message);
+        );
+
+        if (data.success) {
+            toast.success(data.message);
+            setIsOwner(true);
+            setShowHotelReg(false);
+            setImages({ 1: null, 2: null });
+        } else {
+            toast.error(data.message);
         }
-    };
+
+    } catch (error) {
+        toast.error(error.message);
+    } finally {
+        setLoading(false);
+    }
+};
+
 
 
     return (
