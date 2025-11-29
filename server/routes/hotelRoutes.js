@@ -4,6 +4,7 @@ import { registerHotel, getAllHotels } from "../controllers/hotelController.js";
 
 const hotelRouter = express.Router();
 
-hotelRouter.post("/", protect, registerHotel, getAllHotels);
+hotelRouter.post("/", protect, registerHotel);
+hotelRouter.get("/", getAllHotels);
 
 export default hotelRouter;
