@@ -20,3 +20,19 @@ export const registerHotel = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const getAllHotels = async (req, res) => {
+  try {
+    const hotels = await Hotel.find();
+
+    res.json({
+      success: true,
+      hotels,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
