@@ -78,16 +78,17 @@ export const AppProvider = ({ children }) => {
         }
     }
 
-    const fetchOwnerHotels = async (ownerId) => {
+    const fetchOwnerHotels = async () => {
     try {
-        const { data } = axios.get('/api/hotels/owner', {
-                headers: { Authorization: `Bearer ${await getToken()}` }
-            });
+        const { data } = await axios.get("/api/hotels/owner", {
+            headers: { Authorization: `Bearer ${await getToken()}` }
+        });
 
         if (data.success) {
-            setPending(data.hotels);
+            setHotels(data.hotels);
         }
     } catch (error) {
+        console.log("FETCH HOTELS ERROR:", error.response?.data || error);
         toast.error("Unable to fetch your hotels");
     }
 };
