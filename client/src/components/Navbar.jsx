@@ -51,14 +51,14 @@ const Navbar = () => {
 
             <div className="hidden md:flex items-center gap-4 lg:gap-8">
                 {navLinks.map((navLink, index) => (
-                    <NavLink key={index} to={navLink.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-gray-700" : "text-white"}`} onClick={() => scrollTo(0, 0)}>
+                    <NavLink key={index} to={navLink.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-white" : "text-white"}`} onClick={() => scrollTo(0, 0)}>
                         {navLink.name}
-                        <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} ></div>
+                        <div className={`${isScrolled ? "bg-white" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} ></div>
                     </NavLink>
                 ))}
                 {
                     user && (
-                        <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
+                        <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-white' : 'text-white'} transition-all`} onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
                             {isOwner ? 'Dashboard' : 'List Your Hotel'}
                         </button>
                     )
