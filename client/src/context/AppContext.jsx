@@ -85,8 +85,8 @@ export const AppProvider = ({ children }) => {
         });
 
         if (data.success) {
-            setPending(data.hotels);
-            console.log("FETCHED OWNER HOTELS:", data.hotels);
+            setPending(data.hotelTemp);
+            console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
         }
     } catch (error) {
         console.log("FETCH HOTELS ERROR:", error.response?.data || error);
