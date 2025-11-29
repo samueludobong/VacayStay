@@ -17,6 +17,7 @@ export const AppProvider = ({ children }) => {
     const { getToken } = useAuth()
 
     const [isOwner, setIsOwner] = useState(false);
+    const [isAdmin, setAdmin] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
     const [hotels, setHotels] = useState([]);
@@ -35,10 +36,9 @@ export const AppProvider = ({ children }) => {
             const { data } = await axios.get('/api/user', { headers: { Authorization: `Bearer ${await getToken()}` } })
             if (data.success) {
                 setIsOwner(data.role === "hotelOwner");
+                setAdmin(data.role === "Admin");
                 setSearchedCities(data.recentSearchedCities)
             } else {
-                // Retry Fetching User Details after 5 seconds
-                // Useful when user creates account using email & password
                 setTimeout(() => {
                     fetchUser();
                 }, 2000);
@@ -94,6 +94,7 @@ export const AppProvider = ({ children }) => {
         currency, navigate,
         user, getToken,
         isOwner, setIsOwner,
+        isAdmin, setAdmin,
         axios,
         showHotelReg, setShowHotelReg,
         facilityIcons,
