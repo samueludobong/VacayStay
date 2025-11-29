@@ -10,7 +10,7 @@ const HotelReg = () => {
     const [address, setAddress] = useState("");
     const [contact, setContact] = useState("");
     const [city, setCity] = useState("");
-    const [images, setImages] = useState({ 1: null, 2: null, 3: null, 4: null })
+    const [images, setImages] = useState({ 1: null, 2: null })
     const [loading, setLoading] = useState(false);
 
     const onSubmitHandler = async (event) => {
@@ -29,7 +29,7 @@ const HotelReg = () => {
                 toast.success(data.message);
                 setIsOwner(true);
                 setShowHotelReg(false);
-            setImages({ 1: null, 2: null, 3: null, 4: null });
+            setImages({ 1: null, 2: null });
 
             } else {
                 toast.error(data.message);
