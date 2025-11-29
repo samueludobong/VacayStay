@@ -31,56 +31,81 @@ const AddRoom = () => {
     })
 
     const onSubmitHandler = async (e) => {
-        e.preventDefault()
-        const { vacayinfo } = await axios.post(`/api/hotels/`, { name, contact, address, city }, { headers: { Authorization: `Bearer ${await getToken()}` } });
-        if (!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)) {
-            toast.error("Please fill in all the details")
-            return;
-        }
-        setLoading(true);
-        try {
-            const formData = new FormData()
-            formData.append('roomType', inputs.roomType)
-            formData.append('pricePerNight', inputs.pricePerNight)
-            // Converting Amenities to Array & keeping only enabled Amenities
-            const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key])
-            formData.append('amenities', JSON.stringify(amenities))
+    e.preventDefault();
 
-            // Adding Images to FormData
-            Object.keys(images).forEach((key) => {
-                images[key] && formData.append('images', images[key])
-            })
+    const hotelRes = await axios.post(
+        `/api/hotels/`,
+        { name, contact, address, city },
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+    );
 
-            const { data } = await axios.post('/api/rooms/', formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
-
-            if (data.success) {
-                toast.success(data.message)
-                setInputs({
-                    roomType: '',
-                    pricePerNight: 0,
-                    amenities: {
-                        'Free WiFi': false,
-                        'Free Breakfast': false,
-                        'Room Service': false,
-                        'Mountain View': false,
-                        'Pool Access': false
-                    }
-                })
-                setImages({ 1: null, 2: null, 3: null, 4: null })
-                    setName("");
-                    setAddress("");
-                    setContact("");
-                    setCity("");
-            } else {
-                toast.error(data.message)
-            }
-
-        } catch (error) {
-            toast.error(error.message)
-        } finally {
-            setLoading(false);
-        }
+    const hotel = hotelRes.data?.hotel;
+    if (!hotel?._id) {
+        toast.error("Unable to create hotel");
+        return;
     }
+
+    if (!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)) {
+        toast.error("Please fill in all the details");
+        return;
+    }
+
+    setLoading(true);
+
+    try {
+        const formData = new FormData();
+        formData.append("roomType", inputs.roomType);
+        formData.append("pricePerNight", inputs.pricePerNight);
+
+        const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key]);
+        formData.append("amenities", JSON.stringify(amenities));
+
+        formData.append("hotelId", hotel._id);
+
+        Object.keys(images).forEach((key) => {
+            if (images[key]) formData.append("images", images[key]);
+        });
+
+        // 4️⃣ SAVE ROOM
+        const { data } = await axios.post(
+            "/api/rooms/",
+            formData,
+            { headers: { Authorization: `Bearer ${await getToken()}` } }
+        );
+
+        if (data.success) {
+            toast.success(data.message);
+
+            // RESET FIELDS
+            setInputs({
+                roomType: "",
+                pricePerNight: 0,
+                amenities: {
+                    "Free WiFi": false,
+                    "Free Breakfast": false,
+                    "Room Service": false,
+                    "Mountain View": false,
+                    "Pool Access": false
+                }
+            });
+
+            setImages({ 1: null, 2: null, 3: null, 4: null });
+
+            setName("");
+            setAddress("");
+            setContact("");
+            setCity("");
+        } else {
+            toast.error(data.message);
+        }
+
+    } catch (err) {
+        toast.error(err.message);
+    } finally {
+        setLoading(false);
+    }
+};
+
 
     return (
 

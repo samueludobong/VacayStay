@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    _id: { type: String, required: true }, // Clerk ID
+    _id: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true },
-    image: { type: String, default: "" }, // optional
+    image: { type: String, default: "" },
     role: { type: String, enum: ["user", "hotelOwner"], default: "user" },
-    recentSearchedCities: { type: [String], default: [] }, // not required
+    recentSearchedCities: { type: [String], default: [] },
   },
   { timestamps: true }
 );
