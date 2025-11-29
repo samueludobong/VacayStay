@@ -55,3 +55,13 @@ export const getAllHotels = async (req, res) => {
     });
   }
 };
+
+export const getPendingHotels = async (req, res) => {
+    try {
+        const hotelTemp = await HotelTemp.find({ owner: req.user._id });
+        res.json({ success: true, hotelTemp });
+    } catch (error) {
+      res.json({ success: false, message: error.message });
+      console.log(error);
+    }
+};
