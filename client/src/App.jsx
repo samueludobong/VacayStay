@@ -7,6 +7,10 @@ import Layout from './pages/hotelOwner/Layout'
 import Dashboard from './pages/hotelOwner/Dashboard'
 import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
+import AdminLayout from './pages/admin/Layout'
+import AdminDashboard from './pages/admin/Dashboard'
+import AdminRooms from './pages/admin/AddRoom'
+import AdminHotels from './pages/admin/ListRoom'
 import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
@@ -36,11 +40,15 @@ const App = () => {
         <Route path='/rooms/:id' element={<RoomDetails />} />
         <Route path='my-bookings' element={<MyBookings />} />
         < Route path="/loader/:nextUrl" element={<Loader />} />
-        <Route path="/owner" element={<Layout />} />
-        <Route path="/admin" element={<Layout />}>
+        <Route path="/owner" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="add-room" element={<AddRoom />} />
           <Route path="list-room" element={<ListRoom />} />
+          </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="add-room" element={<AdminRooms />} />
+          <Route path="list-room" element={<AdminHotels />} />
         </Route>
       </Routes>
       </div>
