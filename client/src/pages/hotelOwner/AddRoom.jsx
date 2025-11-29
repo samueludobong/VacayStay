@@ -66,7 +66,6 @@ const AddRoom = () => {
             if (images[key]) formData.append("images", images[key]);
         });
 
-        // 4️⃣ SAVE ROOM
         const { data } = await axios.post(
             "/api/rooms/",
             formData,
@@ -76,7 +75,6 @@ const AddRoom = () => {
         if (data.success) {
             toast.success(data.message);
 
-            // RESET FIELDS
             setInputs({
                 roomType: "",
                 pricePerNight: 0,

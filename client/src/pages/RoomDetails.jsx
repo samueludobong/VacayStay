@@ -19,11 +19,9 @@ const RoomDetails = () => {
 
     const [isAvailable, setIsAvailable] = useState(false);
 
-    // Check if the Room is Available
     const checkAvailability = async () => {
         try {
 
-            //  Check is Check-In Date is greater than Check-Out Date
             if (checkInDate >= checkOutDate) {
                 toast.error('Check-In Date should be less than Check-Out Date')
                 return;
@@ -46,7 +44,6 @@ const RoomDetails = () => {
         }
     }
 
-    // onSubmitHandler function to check availability & book the room
     const onSubmitHandler = async (e) => {
         try {
             e.preventDefault();
