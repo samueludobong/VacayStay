@@ -6,7 +6,7 @@ import { useAppContext } from '../context/AppContext';
 const HotelCard = ({ hotel, index }) => {
 
     return (
-        <Link to={'/hotels/rooms' + hotel._id} onClick={() => scrollTo(0, 0)} key={hotel._id} className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'>
+        <Link to={`/hotels/rooms/${hotel._id}`} onClick={() => scrollTo(0, 0)} key={hotel._id} className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'>
         
             {hotel.images?.[0] && (
                 <img src={hotel.images[0]} alt="hotel-img" draggable="false" />
