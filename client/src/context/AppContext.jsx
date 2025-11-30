@@ -41,7 +41,7 @@ export const AppProvider = ({ children }) => {
                 setIsOwner(data.role === "hotelOwner");
                 setAdmin(data.role === "Admin");
                 setSearchedCities(data.recentSearchedCities);
-                fetchOwnerHotels(data._id)
+                fetchOwnerHotels(data._id);
             } else {
                 setTimeout(() => {
                     fetchUser();
@@ -134,6 +134,10 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         if (user) {
             fetchUser();
+            fetchOwnerHotels();
+            fetchHotels();
+            fetchRooms();
+            fetchOrders(); 
         }
     }, [user]);
 
