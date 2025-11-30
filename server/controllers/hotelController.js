@@ -42,7 +42,7 @@ export const registerHotel = async (req, res) => {
 
 export const getAllHotels = async (req, res) => {
   try {
-    const hotels = await Hotel.find();
+    const hotels = await Hotel.find({ isAvailable: true });
 
     res.json({
       success: true,
@@ -55,6 +55,7 @@ export const getAllHotels = async (req, res) => {
     });
   }
 };
+
 
 export const toggleRoomAvailability = async (req, res) => {
   try {

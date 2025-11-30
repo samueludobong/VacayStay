@@ -50,14 +50,27 @@ export const getRooms = async (req, res) => {
 export const getOwnerRooms = async (req, res) => {
   try {
     const hotelData = await Hotel.findOne({ owner: req.auth.userId });
-    const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate("hotel");
+
+    if (!hotelData) {
+      return res.json({
+        success: false,
+        message: "No hotel found for this owner",
+      });
+    }
+
+    const rooms = await Room.find({
+      hotel: hotelData._id.toString(),
+      isAvailable: true, 
+    }).populate("hotel");
+
     res.json({ success: true, rooms });
   } catch (error) {
     console.log(error);
-    
+
     res.json({ success: false, message: error.message });
   }
 };
+
 
 export const toggleRoomAvailability = async (req, res) => {
   try {
