@@ -116,7 +116,12 @@ export const AppProvider = ({ children }) => {
         });
 
         if (data.success) {
-            setPending(data.hotelTemp);
+            if (data.success) {
+            setPending(data.hotelTemp.length > 0);
+            console.log("HAS PENDING HOTELS:", data.hotelTemp.length > 0);
+}
+
+
             console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
         }
     } catch (error) {
