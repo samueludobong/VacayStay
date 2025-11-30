@@ -4,7 +4,6 @@ import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import stripe from "stripe";
 
-// Function to Check Availablity of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
 
   try {
@@ -22,8 +21,6 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   }
 };
 
-// API to check availability of room
-// POST /api/bookings/check-availability
 export const checkAvailabilityAPI = async (req, res) => {
   try {
     const { room, checkInDate, checkOutDate } = req.body;
@@ -34,8 +31,6 @@ export const checkAvailabilityAPI = async (req, res) => {
   }
 };
 
-// API to create a new booking
-// POST /api/bookings/book
 export const createBooking = async (req, res) => {
   try {
 
@@ -43,7 +38,6 @@ export const createBooking = async (req, res) => {
 
     const user = req.user._id;
 
-    // Before Booking Check Availability
     const isAvailable = await checkAvailability({
       checkInDate,
       checkOutDate,
@@ -54,11 +48,9 @@ export const createBooking = async (req, res) => {
       return res.json({ success: false, message: "Room is not available" });
     }
 
-    // Get totalPrice from Room
     const roomData = await Room.findById(room).populate("hotel");
     let totalPrice = roomData.pricePerNight;
 
-    // Calculate totalPrice based on nights
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
     const timeDiff = checkOut.getTime() - checkIn.getTime();
@@ -107,8 +99,6 @@ export const createBooking = async (req, res) => {
   }
 };
 
-// API to get all bookings for a user
-// GET /api/bookings/user
 export const getUserBookings = async (req, res) => {
   try {
     const user = req.user._id;
@@ -127,9 +117,8 @@ export const getHotelBookings = async (req, res) => {
       return res.json({ success: false, message: "No Hotel found" });
     }
     const bookings = await Booking.find({ hotel: hotel._id }).populate("room hotel user").sort({ createdAt: -1 });
-    // Total Bookings
+
     const totalBookings = bookings.length;
-    // Total Revenue
     const totalRevenue = bookings.reduce((acc, booking) => acc + booking.totalPrice, 0);
 
     res.json({ success: true, dashboardData: { totalBookings, totalRevenue, bookings } });
@@ -137,6 +126,55 @@ export const getHotelBookings = async (req, res) => {
     res.json({ success: false, message: "Failed to fetch bookings" });
   }
 };
+
+export const generateOrders = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate("room", "name")
+      .populate("user", "name");
+
+    const orders = bookings.map((b) => {
+    const finalStatus = getFinalStatus(b);
+
+      return {
+        id: `#${b._id.toString().slice(-6)}`,
+        user: b.user?.name || b.user,
+        date: b.checkInDate.toISOString().split("T")[0],
+        checkOutDate: b.checkOutDate.toISOString().split("T")[0],
+        name: b.room?.name || "Unknown Room",
+        price: `${b.totalPrice} USD`,
+        status: finalStatus,
+      };
+    });
+
+
+    res.json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+function getFinalStatus(booking) {
+  if (booking.status === "cancelled") {
+    return booking.isPaid ? "Cancelled & Refunded" : "Cancelled";
+  }
+
+  if (booking.isPaid) {
+    if (booking.status === "confirmed") return "Paid & Confirmed";
+    return "Paid (Awaiting Confirmation)";
+  }
+
+  if (booking.status === "confirmed") return "Confirmed (Unpaid)";
+
+  return "Pending Payment";
+}
+
 
 
 export const stripePayment = async (req, res) => {
@@ -152,7 +190,6 @@ export const stripePayment = async (req, res) => {
 
     const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
 
-    // Create Line Items for Stripe
     const line_items = [
       {
         price_data: {

@@ -10,7 +10,7 @@ import ListRoom from './pages/hotelOwner/ListRoom'
 import AdminLayout from './pages/admin/Layout'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminRooms from './pages/admin/AddRoom'
-import AdminHotels from './pages/admin/ListRoom'
+import AdminHotels from './pages/admin/ListHotels'
 import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
@@ -52,7 +52,7 @@ const App = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboard />} />
         <Route path="add-room" element={<AdminRooms />} />
-        <Route path="list-room" element={<AdminHotels />} />
+        <Route path="hotels" element={<AdminHotels />} />
       </Route>
     </Routes>
   </div>

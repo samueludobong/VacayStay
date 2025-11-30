@@ -20,9 +20,11 @@ export const AppProvider = ({ children }) => {
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);
     const [Pending, setPendingCurrent] = useState(false);
+    const [PendingPayment, setPendingPayment] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
     const [hotels, setHotels] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [searchedCities, setSearchedCities] = useState([]); // max 3 recent searched cities
 
     const facilityIcons = {
@@ -65,6 +67,20 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const fetchOrders = async () => {
+        try {
+            const { data } = await axios.get('/api/bookings/orders')
+            if (data.success) {
+                setOrders(data.orders)
+            }
+            else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const fetchHotels = async () => {
         try {
             const { data } = await axios.get('/api/hotels')
@@ -93,6 +109,20 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+     const fetchPendingPayments = async () => {
+        try {
+            const { data } = await axios.get('/api/hotels/payment')
+            if (data.success) {
+                setPendingCurrent(data.pendingBookings)
+            }
+            else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const fetchOwnerHotels = async () => {
     try {
         const { data } = await axios.get("/api/hotels/owner", {
@@ -107,8 +137,8 @@ export const AppProvider = ({ children }) => {
         console.log("FETCH HOTELS ERROR:", error.response?.data || error);
         toast.error("Unable to fetch your hotels");
     }
-};
-
+    };
+    
 
     useEffect(() => {
         if (user) {
@@ -124,9 +154,17 @@ export const AppProvider = ({ children }) => {
         fetchHotels();
     }, []);
 
-        useEffect(() => {
-        fetchPendingHotels();
-        }, []);
+    useEffect(() => {
+    fetchPendingHotels();
+    }, []);
+
+    useEffect(() => {
+    fetchPendingPayments();
+    }, []);
+
+    useEffect(() => {
+    fetchOrders();
+    }, []);
     
     const value = {
         currency, navigate,
@@ -135,11 +173,13 @@ export const AppProvider = ({ children }) => {
         isAdmin, setAdmin,
         isPending, setPending,
         Pending, setPendingCurrent,
+        PendingPayment, setPendingPayment,
         axios,
         showHotelReg, setShowHotelReg,
         facilityIcons,
         rooms, setRooms,
         hotels, setHotels,
+        orders, setOrders,
         searchedCities, setSearchedCities
     };
 

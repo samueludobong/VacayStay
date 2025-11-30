@@ -7,7 +7,7 @@ import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
 export default function Dashboard() {
 
-    const { Pending } = useAppContext()
+    const { Pending, PendingPayment, orders } = useAppContext()
   
     const Card = ({ children }) => (
   <div className="rounded-2xl shadow-sm bg-white">{children}</div>
@@ -17,31 +17,50 @@ const CardContent = ({ children }) => (
   <div className="p-5">{children}</div>
 );
 
-    
-  const orders = [
-    { id: "#123245", date: "14-12-2020", name: "Decorative box", price: "125 USD", status: "Delivered" },
-    { id: "#678457", date: "13-12-2020", name: "Plantation box", price: "120 USD", status: "Cancelled" },
-    { id: "#123245", date: "12-12-2020", name: "Camera film", price: "156 USD", status: "Delivered" },
-    { id: "#873245", date: "10-12-2020", name: "Visualtace", price: "125 USD", status: "Delivered" },
-    { id: "#273245", date: "11-11-2020", name: "Decorative box", price: "180 USD", status: "Pending" },
-    { id: "#879245", date: "10-11-2020", name: "Decorative box", price: "190 USD", status: "Delivered" },
-  ];
+
+const STATUS_MAP = {
+  Paid: {
+    color: "text-green-500",
+    icon: <BadgeCheck className="w-4 h-4 text-green-500" />,
+  },
+  "Paid & Confirmed": {
+    color: "text-green-500",
+    icon: <BadgeCheck className="w-4 h-4 text-green-500" />,
+  },
+  "Paid (Awaiting Confirmation)": {
+    color: "text-green-500",
+    icon: <Clock className="w-4 h-4 text-green-500" />,
+  },
+  Cancelled: {
+    color: "text-red-500",
+    icon: <XCircle className="w-4 h-4 text-red-500" />,
+  },
+  "Cancelled & Refunded": {
+    color: "text-red-500",
+    icon: <XCircle className="w-4 h-4 text-red-500" />,
+  },
+  "Pending Payment": {
+    color: "text-yellow-500",
+    icon: <Clock className="w-4 h-4 text-yellow-500" />,
+  },
+  "Confirmed (Unpaid)": {
+    color: "text-yellow-500",
+    icon: <Clock className="w-4 h-4 text-yellow-500" />,
+  },
+};
 
   const statusColor = (status) => {
-    if (status === "Delivered") return "text-green-500";
-    if (status === "Cancelled") return "text-red-500";
-    return "text-yellow-500";
-  };
+  return STATUS_MAP[status]?.color || "text-gray-500";
+};
 
-  const statusIcon = (status) => {
-    if (status === "Delivered") return <BadgeCheck className="w-4 h-4 text-green-500" />;
-    if (status === "Cancelled") return <XCircle className="w-4 h-4 text-red-500" />;
-    return <Clock className="w-4 h-4 text-yellow-500" />;
-  };
+const statusIcon = (status) => {
+  return STATUS_MAP[status]?.icon || <Clock className="w-4 h-4 text-gray-500" />;
+};
+
 
   return (
     <div className="w-full p-6 bg-slate-50 min-h-screen">
-      <h1 className="text-3xl font-semibold mb-6 flex items-center gap-2">Orders <span>😍</span></h1>
+      <h1 className="text-3xl font-semibold mb-6 flex items-center gap-2">Admin Dashboard</h1>
 
       {/* Top Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -49,21 +68,21 @@ const CardContent = ({ children }) => (
           <CardContent className="p-5">
             <p className="text-slate-600">Pending Hotel Requests</p>
             <h2 className="text-3xl font-semibold">{ Pending.length }</h2>
-            <p className="text-sm text-blue-500 mt-1"></p>
+            <p className="text-sm text-blue-500 mt-1">From An Hour Ago</p>
           </CardContent>
         </Card>
 
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
-            <p className="text-slate-600">Pending Orders</p>
-            <h2 className="text-3xl font-semibold">123</h2>
-            <p className="text-sm text-purple-500 mt-1">Impression - 11%</p>
+            <p className="text-slate-600">Pending Payments</p>
+            <h2 className="text-3xl font-semibold">{PendingPayment.length}</h2>
+            <p className="text-sm text-purple-500 mt-1">Non Paid Customers</p>
           </CardContent>
         </Card>
 
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
-            <p className="text-slate-600">Delivered Orders</p>
+            <p className="text-slate-600">Booked Rooms</p>
             <h2 className="text-3xl font-semibold">150</h2>
             <p className="text-sm text-orange-500 mt-1">Impression - 18%</p>
           </CardContent>
