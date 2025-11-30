@@ -1,8 +1,20 @@
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
+
+
 export default function OrdersDashboard() {
+
+    const Card = ({ children }) => (
+  <div className="rounded-2xl shadow-sm bg-white">{children}</div>
+);
+
+const CardContent = ({ children }) => (
+  <div className="p-5">{children}</div>
+);
+
+    
   const orders = [
     { id: "#123245", date: "14-12-2020", name: "Decorative box", price: "125 USD", status: "Delivered" },
     { id: "#678457", date: "13-12-2020", name: "Plantation box", price: "120 USD", status: "Cancelled" },
