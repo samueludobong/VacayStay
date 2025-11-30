@@ -1,90 +1,88 @@
-import React, { useEffect, useState } from 'react'
-import { assets } from '../../assets/assets'
-import Title from '../../components/Title';
-import { useAppContext } from '../../context/AppContext';
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
-const Dashboard = () => {
+export default function OrdersDashboard() {
+  const orders = [
+    { id: "#123245", date: "14-12-2020", name: "Decorative box", price: "125 USD", status: "Delivered" },
+    { id: "#678457", date: "13-12-2020", name: "Plantation box", price: "120 USD", status: "Cancelled" },
+    { id: "#123245", date: "12-12-2020", name: "Camera film", price: "156 USD", status: "Delivered" },
+    { id: "#873245", date: "10-12-2020", name: "Visualtace", price: "125 USD", status: "Delivered" },
+    { id: "#273245", date: "11-11-2020", name: "Decorative box", price: "180 USD", status: "Pending" },
+    { id: "#879245", date: "10-11-2020", name: "Decorative box", price: "190 USD", status: "Delivered" },
+  ];
 
-    const { currency, user, getToken, toast, axios } = useAppContext();
+  const statusColor = (status) => {
+    if (status === "Delivered") return "text-green-500";
+    if (status === "Cancelled") return "text-red-500";
+    return "text-yellow-500";
+  };
 
-    const [dashboardData, setDashboardData] = useState({
-        bookings: [],
-        totalBookings: 0,
-        totalRevenue: 0,
-    });
+  const statusIcon = (status) => {
+    if (status === "Delivered") return <BadgeCheck className="w-4 h-4 text-green-500" />;
+    if (status === "Cancelled") return <XCircle className="w-4 h-4 text-red-500" />;
+    return <Clock className="w-4 h-4 text-yellow-500" />;
+  };
 
-    const fetchDashboardData = async () => {
-        try {
-            const { data } = await axios.get('/api/bookings/hotel', { headers: { Authorization: `Bearer ${await getToken()}` } })
-            if (data.success) {
-                setDashboardData(data.dashboardData)
-            } else {
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(error.message)
-        }
-    }
+  return (
+    <div className="w-full p-6 bg-slate-50 min-h-screen">
+      <h1 className="text-3xl font-semibold mb-6 flex items-center gap-2">Orders <span>😍</span></h1>
 
-    useEffect(() => {
-        if (user) {
-            fetchDashboardData();
-        }
-    }, [user]);
+      {/* Top Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <Card className="rounded-2xl shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-slate-600">New Orders</p>
+            <h2 className="text-3xl font-semibold">245</h2>
+            <p className="text-sm text-blue-500 mt-1">Impression - 20%</p>
+          </CardContent>
+        </Card>
 
-    return (
-        <div>
-            <Title align='left' font='outfit' title='Dashboard' subTitle='Monitor your room listings, track bookings and analyze revenue—all in one place. Stay updated with real-time insights to ensure smooth operations.' />
-            <div className='flex gap-4 my-8'>
-                <div className='bg-primary/3 border border-primary/10 rounded flex p-4 pr-8'>
-                    <img className='max-sm:hidden h-10' src={assets.totalBookingIcon} alt="" />
-                    <div className='flex flex-col sm:ml-4 font-medium'>
-                        <p className='text-blue-500 text-lg'>Total Bookings</p>
-                        <p className='text-neutral-400 text-base'>{ dashboardData.totalBookings }</p>
-                    </div>
-                </div>
-                <div className='bg-primary/3 border border-primary/10 rounded flex p-4 pr-8'>
-                    <img className='max-sm:hidden h-10' src={assets.totalRevenueIcon} alt="" />
-                    <div className='flex flex-col sm:ml-4 font-medium'>
-                        <p className='text-blue-500 text-lg'>Total Revenue</p>
-                        <p className='text-neutral-400 text-base'>{currency} { dashboardData.totalRevenue }</p>
-                    </div>
-                </div>
-            </div>
+        <Card className="rounded-2xl shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-slate-600">Pending Orders</p>
+            <h2 className="text-3xl font-semibold">123</h2>
+            <p className="text-sm text-purple-500 mt-1">Impression - 11%</p>
+          </CardContent>
+        </Card>
 
-            <h2 className='text-xl text-blue-950/70 font-medium mb-5'>Recent Bookings</h2>
-            {/* Table with heads User Name, Room Name, Amount Paid, Payment Status */}
-            <div className='w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll'>
-                <table className='w-full' >
-                    <thead className='bg-gray-50'>
-                        <tr>
-                            <th className='py-3 px-4 text-gray-800 font-medium'>User Name</th>
-                            <th className='py-3 px-4 text-gray-800 font-medium max-sm:hidden'>Room Name</th>
-                            <th className='py-3 px-4 text-gray-800 font-medium text-center'>Total Amount</th>
-                            <th className='py-3 px-4 text-gray-800 font-medium text-center'>Payment Status</th>
-                        </tr>
-                    </thead>
-                    <tbody className='text-sm'>
-                        {
-                            dashboardData.bookings.map((item, index) => (
-                                <tr key={index}>
-                                    <td className='py-3 px-4 text-gray-700 border-t border-gray-300'>{item.user.username}</td>
-                                    <td className='py-3 px-4 text-gray-400 border-t border-gray-300 max-sm:hidden'>{item.room.roomType}</td>
-                                    <td className='py-3 px-4 text-gray-400 border-t border-gray-300 text-center'>{currency} {item.totalPrice}</td>
-                                    <td className='py-3 px-4  border-t border-gray-300 flex'>
-                                        <button className={`py-1 px-3 text-xs rounded-full mx-auto ${item.isPaid ? "bg-green-200 text-green-600" : "bg-amber-200 text-yellow-600"}`}>
-                                            {item.isPaid ? "Completed" : "Pending"}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <Card className="rounded-2xl shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-slate-600">Delivered Orders</p>
+            <h2 className="text-3xl font-semibold">150</h2>
+            <p className="text-sm text-orange-500 mt-1">Impression - 18%</p>
+          </CardContent>
+        </Card>
+      </div>
 
-        </div>
-    )
+      {/* Table */}
+      <div className="bg-white rounded-2xl shadow-sm p-4 overflow-x-auto">
+        <table className="w-full text-left min-w-[700px]">
+          <thead>
+            <tr className="text-slate-600 border-b">
+              <th className="p-3">Order ID</th>
+              <th className="p-3">Ordered Date</th>
+              <th className="p-3">Product Name</th>
+              <th className="p-3">Product Price</th>
+              <th className="p-3">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={index} className="border-b hover:bg-slate-50 transition">
+                <td className="p-3">{order.id}</td>
+                <td className="p-3">{order.date}</td>
+                <td className="p-3">{order.name}</td>
+                <td className="p-3">{order.price}</td>
+                <td className="p-3 flex items-center gap-2">
+                  {statusIcon(order.status)}
+                  <span className={statusColor(order.status)}>{order.status}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
-
-export default Dashboard
