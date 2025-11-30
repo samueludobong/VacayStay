@@ -28,8 +28,13 @@ const ListRoom = () => {
         toast.success("Hotel approved!");
         fetchPending();
     } catch (error) {
-        toast.error(error.response?.data?.message || "Failed to approve");
-    }
+    console.error(error);
+    toast.error(
+        error.response?.data?.message || 
+        error.message || 
+        "Failed to approve"
+    );
+}
 };
 
     const declineHotel = async (id) => {
@@ -38,8 +43,13 @@ const ListRoom = () => {
             toast.success("Hotel declined!");
             fetchPending();
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to decline");
-        }
+            console.error(error); // log full error
+            toast.error(
+                error.response?.data?.message || 
+                error.message || 
+                "Failed to decline"
+            );
+}
     };
 
 
@@ -52,7 +62,7 @@ const ListRoom = () => {
     return (
         <div>
             <Title align='left' font='outfit' title='Hotel Listings' subTitle='View, edit, or manage all listed hotels. Keep the information up-to-date to provide the best experience for users.' />
-            <p className='text-gray-500 mt-8'>Pending Hotel Request</p>
+            <p className='text-gray-500 mt-8'>Pending Hotel Requests</p>
             {/* Table with heads User Name, Room Name, Amount Paid, Payment Status */}
             <div className='w-full text-left border border-gray-300 rounded-lg overflow-y-scroll mt-3'>
                 <table className='w-full' >
