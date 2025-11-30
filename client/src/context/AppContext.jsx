@@ -95,19 +95,20 @@ export const AppProvider = ({ children }) => {
         }
     }
 
-    const fetchPendingHotels = async () => {
-        try {
-            const { data } = await axios.get('/api/hotels/pending')
-            if (data.success) {
-                setPendingCurrent(data.hotelsP)
-            }
-            else {
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(error.message)
+const fetchPendingHotels = async () => {
+    try {
+        const { data } = await axios.get('/api/hotels/pending', {
+            headers: { Authorization: `Bearer ${await getToken()}` }
+        });
+        if (data.success) {
+            setPendingCurrent(data.hotelsP);
+        } else {
+            toast.error(data.message);
         }
+    } catch (error) {
+        toast.error(error.message);
     }
+};
 
      const fetchPendingPayments = async () => {
         try {
