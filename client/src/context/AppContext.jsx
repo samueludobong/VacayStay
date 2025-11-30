@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -16,7 +15,7 @@ export const AppProvider = ({ children }) => {
     const navigate = useNavigate();
     const { user } = useUser();
     const { getToken } = useAuth()
-    const location = useLocation();
+
 
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
@@ -175,16 +174,6 @@ export const AppProvider = ({ children }) => {
     }
     };
     
-    useEffect(() => {
-        fetchPendingHotels();
-            fetchHotels();
-            fetchRooms();
-        fetchOrders(); 
-        fetch_hotelRooms();
-        fetchCities();
-    }, [location.pathname]);
-
-
     useEffect(() => {
         if (user) {
             fetchUser();
