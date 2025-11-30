@@ -47,72 +47,73 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${isScrolled ? "bg-[#1e3b96] shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4" : "bg-[#1e3b96] py-4 md:py-6"}`}>
-    {/* Logo */}
-    <Link to="/">
-        <img src={assets.logo} alt="logo" className="h-9" />
-    </Link>
+            <Link to="/">
+                <img src={assets.logo} alt="logo" className={`h-9`} />
+            </Link>
 
-    {/* Desktop Menu */}
-    <div className="hidden md:flex items-center gap-4 lg:gap-8">
-        {navLinks.map((navLink, index) => (
-            <NavLink
-                key={index}
-                to={navLink.path}
-                className="group flex flex-col gap-0.5 text-white"
-                onClick={() => scrollTo(0, 0)}
-            >
-                {navLink.name}
-                <div className="bg-white h-0.5 w-0 group-hover:w-full transition-all duration-300"></div>
-            </NavLink>
-        ))}
+            <div className="hidden md:flex items-center gap-4 lg:gap-8">
+                {navLinks.map((navLink, index) => (
+                    <NavLink key={index} to={navLink.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-white" : "text-white"}`} onClick={() => scrollTo(0, 0)}>
+                        {navLink.name}
+                        <div className={`${isScrolled ? "bg-white" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} ></div>
+                    </NavLink>
+                ))}
+                    {user && (
+    <>
+        {(isAdmin !== null && isPending !== null && isOwner !== null) ? (
+    isAdmin ? (
+        <button
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+            onClick={() => navigate("/admin")}
+        >
+            Admin Panel
+        </button>
+    ) : isPending ? (
+        <div
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+        >
+            Pending Approval
+        </div>
+    ) : (
+        <button
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+                isScrolled ? "text-white" : "text-white"
+            } transition-all`}
+            onClick={() =>
+                isOwner ? navigate("/owner") : setShowHotelReg(true)
+            }
+        >
+            {isOwner ? "Dashboard" : "List Your Hotel"}
+        </button>
+    )
+) : (
+    <div></div>
+)}
 
-        {user && (
-            <>
-                {(isAdmin !== null && isPending !== null && isOwner !== null) ? (
-                    isAdmin ? (
-                        <button
-                            className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer text-white transition-all"
-                            onClick={() => navigate("/admin")}
-                        >
-                            Admin Panel
-                        </button>
-                    ) : isPending ? (
-                        <div className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer text-white transition-all">
-                            Pending Approval
-                        </div>
-                    ) : (
-                        <button
-                            className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer text-white transition-all"
-                            onClick={() => isOwner ? navigate("/owner") : setShowHotelReg(true)}
-                        >
-                            {isOwner ? "Dashboard" : "List Your Hotel"}
-                        </button>
-                    )
-                ) : null}
-            </>
-        )}
+    </>
+)}
+            </div>
 
-        {/* Search Icon */}
-        <img src={assets.searchIcon} alt="search" className="h-7 transition-all duration-500" />
+            <div className="hidden md:flex items-center gap-4">
+                <img src={assets.searchIcon} alt="search" className={`h-7 transition-all duration-500`} />
+                {user ? (
+                    <UserButton >
+                        <UserButton.MenuItems>
+                            <UserButton.Action label="My Bookings" labelIcon={<BookIcon />} onClick={() => navigate('/my-bookings')} />
+                        </UserButton.MenuItems>
+                    </UserButton>
+                ) : (
+                    <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer">
+                        Login
+                    </button>
+                )}
+            </div>
 
-        {/* User / Login */}
-        {user ? (
-            <UserButton>
-                <UserButton.MenuItems>
-                    <UserButton.Action label="My Bookings" labelIcon={<BookIcon />} onClick={() => navigate('/my-bookings')} />
-                </UserButton.MenuItems>
-            </UserButton>
-        ) : (
-            <button
-                onClick={openSignIn}
-                className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer"
-            >
-                Login
-            </button>
-        )}
-    </div>
-
-    {/* Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle */}
     <div className="flex items-center gap-3 md:hidden">
         <UserButton />
         <img
@@ -189,8 +190,7 @@ const Navbar = () => {
             </button>
         )}
     </div>
-</nav>
-
+        </nav>
     );
 };
 
