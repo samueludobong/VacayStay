@@ -119,7 +119,7 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             src={assets.menuIcon}
             alt="menu"
-            className={`invert h-4`}
+            className={`h-4`}
         />
     </div>
 
