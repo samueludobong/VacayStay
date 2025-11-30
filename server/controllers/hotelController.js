@@ -86,8 +86,6 @@ export const getAllPending = async (req, res) => {
 export const approvePending = async (req, res) => {
   try {
     const { id } = req.params;
-    const owner = req.owner;
-
 
     const pending = await HotelTemp.findById(id);
     if (!pending) return res.status(404).json({ success: false, message: "Hotel not found" });
@@ -98,8 +96,7 @@ export const approvePending = async (req, res) => {
 
     await pending.deleteOne();
 
-    await User.findByIdAndUpdate(owner, { role: "hotelOwner" });
-
+    await User.findByIdAndUpdate(pending.owner, { role: "hotelOwner" });
 
     res.json({ success: true, message: "Hotel approved and moved." });
   } catch (error) {
@@ -107,6 +104,7 @@ export const approvePending = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 export const declinePending = async (req, res) => {
   try {

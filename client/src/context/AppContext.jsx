@@ -101,7 +101,7 @@ const fetchPendingHotels = async () => {
             headers: { Authorization: `Bearer ${await getToken()}` }
         });
         if (data.success) {
-            setPendingCurrent(data.hotelTemp);
+            setPending(data.hotelTemp);
             console.log("FETCHED PENDING HOTELS:", data.hotelTemp);
         } 
     } catch (error) {
@@ -123,21 +123,6 @@ const fetchPendingHotels = async () => {
         }
     }
 
-    const fetchOwnerHotels = async () => {
-    try {
-        const { data } = await axios.get("/api/hotels/owner", {
-            headers: { Authorization: `Bearer ${await getToken()}` }
-        });
-
-        if (data.success) {
-            setPending(data.hotelTemp);
-            console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
-        }
-    } catch (error) {
-        console.log("FETCH HOTELS ERROR:", error.response?.data || error);
-        toast.error("Unable to fetch your hotels");
-    }
-    };
     
 
     useEffect(() => {
