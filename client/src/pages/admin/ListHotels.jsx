@@ -90,14 +90,14 @@ const ListRoom = () => {
                                         <div className='flex items-center justify-center gap-2'>
                                             <button
                                                 className='px-3 py-1 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition'
-                                                onClick={() => approveHotel(item.name)}
+                                                onClick={() => approveHotel(item._id)}
                                             >
                                                 Approve
                                             </button>
 
                                             <button
                                                 className='px-3 py-1 bg-red-500 text-white rounded-md text-xs hover:bg-red-600 transition'
-                                                onClick={() => declineHotel(item.name)}
+                                                onClick={() => declineHotel(item._id)}
                                             >
                                                 Decline
                                             </button>
