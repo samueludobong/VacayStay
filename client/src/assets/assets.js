@@ -23,10 +23,6 @@ import badgeIcon from './badgeIcon.svg'
 import menuIcon from './menuIcon.svg'
 import closeMenu from './closeMenu.svg'
 import guestsIcon from './guestsIcon.svg'
-import roomImg1 from './roomImg1.png'
-import roomImg2 from './roomImg2.png'
-import roomImg3 from './roomImg3.png'
-import roomImg4 from './roomImg4.png'
 import regImage from './regImage.png'
 import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.png";
 import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.png";
@@ -41,7 +37,7 @@ import roomIcon from "./meeting-room-stroke-rounded.svg";
 import hotelIcon from "./hotel-02-stroke-rounded.svg";
 import paymentIcon from "./credit-card-pos-stroke-rounded.svg";
 import userIcon2 from "./user-account-stroke-rounded.svg";
-import cityIcon from "./city-01-stroke-rounded.svg ";
+import cityIcon from "./city.svg";
 
 
 
