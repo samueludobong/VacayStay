@@ -80,10 +80,10 @@ export const approvePending = async (req, res) => {
     if (!pending) return res.status(404).json({ success: false, message: "Hotel not found" });
 
     const hotelData = pending.toObject();
-    delete hotelData._id;
+    delete hotelData._id; // remove _id to avoid conflict
     await Hotel.create(hotelData);
 
-    await pending.remove();
+    await pending.deleteOne(); // safer than remove()
 
     res.json({ success: true, message: "Hotel approved and moved." });
   } catch (error) {
@@ -92,21 +92,24 @@ export const approvePending = async (req, res) => {
   }
 };
 
-
 export const declinePending = async (req, res) => {
-    try {
-        const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-        const pending = await HotelTemp.findById(id);
-        if (!pending) return res.status(404).json({ success: false, message: "Payment not found" });
-
-        await pending.remove();
-
-        res.json({ success: true, message: "Payment declined and deleted." });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+    const pending = await HotelTemp.findById(id);
+    if (!pending) {
+      return res.status(404).json({ success: false, message: "Hotel not found" });
     }
+
+    await pending.deleteOne();
+
+    res.json({ success: true, message: "Hotel declined and deleted." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
+
 
 
 export const getPending = async (req, res) => {
