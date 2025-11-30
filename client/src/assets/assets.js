@@ -41,6 +41,7 @@ import roomIcon from "./meeting-room-stroke-rounded.svg";
 import hotelIcon from "./hotel-02-stroke-rounded.svg";
 import paymentIcon from "./credit-card-pos-stroke-rounded.svg";
 import userIcon2 from "./user-account-stroke-rounded.svg";
+import cityIcon from "./city-01-stroke-rounded.svg ";
 
 
 
@@ -81,6 +82,7 @@ export const assets = {
     hotelIcon,
     paymentIcon,
     userIcon2,
+    cityIcon,
 }
 
 export const cities = [

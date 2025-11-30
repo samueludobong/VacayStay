@@ -8,9 +8,8 @@ const Sidebar = () => {
         { name: "Dashboard", path: "/admin", icon: assets.dashboardIcon },
         { name: "Hotels", path: "/admin/hotels", icon: assets.hotelIcon },
         { name: "Rooms", path: "/admin/list-room", icon: assets.roomIcon },
-        { name: "Payments", path: "/admin/list-room", icon: assets.paymentIcon },
-        { name: "Users", path: "/admin/list-room", icon: assets.userIcon2 },
-        { name: "Cities", path: "/admin/list-city", icon: assets.addIcon },
+        { name: "Users", path: "/admin/list-users", icon: assets.userIcon2 },
+        { name: "Cities", path: "/admin/list-city", icon: assets.cityIcon },
     ];
 
     return (

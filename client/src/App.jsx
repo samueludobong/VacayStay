@@ -11,6 +11,7 @@ import AdminLayout from './pages/admin/Layout'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminRooms from './pages/admin/ListRooms'
 import AdminCity from './pages/admin/ListCities'
+import AdminUsers from './pages/admin/ListUsers'
 import AdminHotels from './pages/admin/ListHotels'
 import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
@@ -58,6 +59,7 @@ const App = () => {
         <Route path="hotels" element={<AdminHotels />} />
         <Route path="list-room" element={<AdminRooms />} />
         <Route path="list-city" element={<AdminCity />} />
+        <Route path="list-users" element={<AdminUsers />} />
       </Route>
     </Routes>
   </div>

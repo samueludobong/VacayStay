@@ -1,6 +1,36 @@
+import User from "../models/User.js";
 
-// Get User data using Token (JWT)
-// GET /api/user/
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json({ success: true, users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch users" });
+  }
+};
+
+
+export const updateUserRole = async (req, res) => {
+  const { userId, role } = req.body;
+
+  if (!["user", "Admin"].includes(role)) {
+    return res.status(400).json({ success: false, message: "Invalid role" });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    user.role = role;
+    await user.save();
+
+    res.json({ success: true, message: `User role updated to ${role}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to update role" });
+  }
+};
 export const getUserData = async (req, res) => {
   try {
     const role = req.user.role;
@@ -11,8 +41,6 @@ export const getUserData = async (req, res) => {
   }
 };
 
-// Store User Recent Searched Cities
-// POST /api/user/recent-searched-cities
 export const storeRecentSearchedCities = async (req, res) => {
   try {
     const { recentSearchedCity } = req.body;
