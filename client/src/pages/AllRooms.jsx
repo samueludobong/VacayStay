@@ -121,18 +121,17 @@ const AllRooms = () => {
     }
 
     return (
-        <div>
-                        <button type="button" class="flex items-center gap-2.5 border border-[#1e3b96] px-4 py-2 text-sm text-gray-800 rounded bg-white hover:text-white hover:bg-[#1e3b96] active:scale-95 transition"
+        <div className='flex flex-col-reverse lg:flex-row items-start justify-between pt-28 md:pt-35 px-4 md:px-16 lg:px-24 xl:px-32'>
+
+            <div>
+                <div className="flex flex-col items-start text-left">                 
+            <button type="button" class="flex items-center gap-2.5 border border-[#1e3b96] px-4 py-2 text-sm text-gray-800 rounded bg-white hover:text-white hover:bg-[#1e3b96] active:scale-95 transition"
             onClick={() => navigate("/hotels")}>
         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 6.5H1M6.5 12 1 6.5 6.5 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Back
             </button>
-        <div className='flex flex-col-reverse lg:flex-row items-start justify-between pt-28 md:pt-35 px-4 md:px-16 lg:px-24 xl:px-32'>
-        
-            <div>
-                <div className="flex flex-col items-start text-left">
                 <h1 className='font-playfair text-4xl md:text-[40px]'>
                     {filteredRooms[0]?.hotel?.name} Hotel Rooms
                 </h1>
@@ -200,8 +199,7 @@ const AllRooms = () => {
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
+        </div>
     )
 }
 
