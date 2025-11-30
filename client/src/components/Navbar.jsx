@@ -60,7 +60,7 @@ const Navbar = () => {
                 ))}
                     {user && (
     <>
-        {
+        {(isAdmin !== null && isPending !== null && isOwner !== null) ? (
     isAdmin ? (
         <button
             className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
@@ -90,7 +90,10 @@ const Navbar = () => {
             {isOwner ? "Dashboard" : "List Your Hotel"}
         </button>
     )
-}
+) : (
+    <div></div>
+)}
+
     </>
 )}
             </div>
