@@ -15,6 +15,7 @@ import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
 import AllHotels from './pages/AllHotels'
+import AllRooms from './pages/AllRooms'
 import RoomDetails from './pages/RoomDetails'
 import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
@@ -39,6 +40,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/hotels" element={<AllHotels />} />
+      <Route path="/hotels/rooms/:id" element={<AllRooms />} />
       <Route path="/rooms/:id" element={<RoomDetails />} />
       <Route path="my-bookings" element={<MyBookings />} />
       <Route path="/loader/:nextUrl" element={<Loader />} />

@@ -13,11 +13,10 @@ const AllHotels = () => {
                 title="Hotels" 
                 subTitle="Discover our handpicked selection of exceptional properties around the world, offering unparalleled luxury and unforgettable experiences." 
             />
-
             <div className='flex flex-wrap items-center justify-center gap-6 mt-20'>
                 {hotels.slice(0, 4).map((hotel, index) => (
-    <HotelCard key={hotel._id} hotel={hotel} index={index} />
-))}
+                    <HotelCard key={hotel._id} hotel={hotel} index={index} />
+                ))}
             </div>
         </div>
     );

@@ -26,8 +26,10 @@ const AllRooms = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { facilityIcons, navigate, rooms, currency } = useAppContext();
+    const { facilityIcons, navigate, hotel_rooms, currency } = useAppContext();
     const [openFilters, setOpenFilters] = useState(false);
+
+    const rooms = hotel_rooms;
 
     const [selectedFilters, setSelectedFilters] = useState({
         roomType: [],

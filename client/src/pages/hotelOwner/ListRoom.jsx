@@ -8,7 +8,6 @@ const ListRoom = () => {
     const { axios, getToken, user } = useAppContext()
     const [rooms, setRooms] = React.useState([])
 
-    // Fetch Rooms of the Hotel Owner
     const fetchRooms = async () => {
         try {
             const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${await getToken()}` } })
@@ -23,7 +22,6 @@ const ListRoom = () => {
         }
     }
 
-    // Toggle Availability of the Room
     const toggleAvailability = async (roomId) => {
         const { data } = await axios.post("/api/rooms/toggle-availability", { roomId }, { headers: { Authorization: `Bearer ${await getToken()}` } })
         if (data.success) {

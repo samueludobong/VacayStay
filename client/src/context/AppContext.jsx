@@ -25,6 +25,7 @@ export const AppProvider = ({ children }) => {
     const [PendingPayment, setPendingPayment] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
+    const [hotel_rooms, set_hotel_Rooms] = useState([]);
     const [hotels, setHotels] = useState([]);
     const [orders, setOrders] = useState([]);
     const [searchedCities, setSearchedCities] = useState([]); // max 3 recent searched cities
@@ -83,6 +84,8 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    
+
     const fetchOrders = async () => {
         try {
             const { data } = await axios.get('/api/bookings/orders')
@@ -110,6 +113,20 @@ export const AppProvider = ({ children }) => {
             toast.error(error.message)
         }
     }
+
+    const fetch_hotelRooms = async () => {
+            try {
+                const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${await getToken()}` } })
+                if (data.success) {
+                    set_hotel_Rooms(data.rooms)
+                }
+                else {
+                    toast.error(data.message)
+                }
+            } catch (error) {
+                toast.error(error.message)
+            }
+        }
 
 
      const fetchPendingPayments = async () => {
@@ -150,7 +167,8 @@ export const AppProvider = ({ children }) => {
         fetchPendingHotels();
             fetchHotels();
             fetchRooms();
-            fetchOrders(); 
+        fetchOrders(); 
+        fetch_hotelRooms();
     }, [location.pathname]);
 
 
@@ -182,6 +200,9 @@ export const AppProvider = ({ children }) => {
     fetchOrders();
     }, []);
     
+    useEffect(() => {
+    fetch_hotelRooms();
+    }, []);
     const value = {
         currency, navigate,
         user, getToken,
@@ -192,6 +213,7 @@ export const AppProvider = ({ children }) => {
         PendingPayment, setPendingPayment,
         axios,
         showHotelReg, setShowHotelReg,
+        hotel_rooms, set_hotel_Rooms,
         facilityIcons,
         rooms, setRooms,
         hotels, setHotels,

@@ -4,12 +4,10 @@ import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext';
 
 const HotelCard = ({ hotel, index }) => {
-    const { currency } = useAppContext();
 
     return (
-        <div className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'>
-
-            {/* Optional: If hotel has images */}
+        <Link to={'/hotels/rooms' + hotel._id} onClick={() => scrollTo(0, 0)} key={hotel._id} className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'>
+        
             {hotel.images?.[0] && (
                 <img src={hotel.images[0]} alt="hotel-img" draggable="false" />
             )}
@@ -36,11 +34,11 @@ const HotelCard = ({ hotel, index }) => {
 
                 <div className='flex items-center justify-between mt-4'>
                     <p className='text-xl text-gray-800'>
-                        {currency}{hotel.pricePerNight || "—"}
+                        {hotel.city || ""}
                     </p>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

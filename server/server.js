@@ -1,4 +1,3 @@
-
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
@@ -16,7 +15,7 @@ connectDB();
 connectCloudinary();
 
 const app = express();
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(cors());
 
 app.post("/api/stripe",express.raw({ type: "application/json" }),stripeWebhooks);
 
