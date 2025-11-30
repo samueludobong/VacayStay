@@ -3,6 +3,7 @@ import Title from '../../components/Title'
 import { useAppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
 
+
 const ListRoom = () => {
 
     const { axios, getToken, user } = useAppContext()
@@ -24,7 +25,7 @@ const ListRoom = () => {
 
     const approveHotel = async (id) => {
     try {
-        await axios.post(`/api/hotels/pending/approve/${id}`, {}, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post(`/api/hotels/pending/approve/${id}`, {}, { headers: { Authorization: `Bearer ${await getToken()}` } });
         toast.success("Hotel approved!");
         fetchPending();
     } catch (error) {
@@ -39,7 +40,7 @@ const ListRoom = () => {
 
     const declineHotel = async (id) => {
         try {
-            await axios.delete(`/api/hotels/pending/decline/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+            await axios.delete(`/api/hotels/pending/decline/${id}`, { headers: { Authorization: `Bearer ${await getToken()}` } });
             toast.success("Hotel declined!");
             fetchPending();
         } catch (error) {
