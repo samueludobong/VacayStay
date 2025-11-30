@@ -37,10 +37,10 @@ import listIcon from "./listIcon.svg";
 import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
-import roomIcon from "./door-open-svgrepo-com.svg";
-import hotelIcon from "./hotel-3-svgrepo-com.svg";
-import paymentIcon from "./payment-svgrepo-com.svg";
-import userIcon2 from "./users-svgrepo-com.svg";
+import roomIcon from "./meeting-room-stroke-rounded.svg";
+import hotelIcon from "./hotel-02-stroke-rounded.svg";
+import paymentIcon from "./credit-card-pos-stroke-rounded.svg";
+import userIcon2 from "./user-account-stroke-rounded.svg";
 
 
 
