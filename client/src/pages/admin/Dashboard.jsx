@@ -7,7 +7,7 @@ import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
 export default function Dashboard() {
 
-    const { isPending, PendingPayment, orders } = useAppContext()
+    const { Pending, PendingPayment, orders } = useAppContext()
   
     const Card = ({ children }) => (
   <div className="rounded-2xl shadow-sm bg-white">{children}</div>
@@ -67,7 +67,7 @@ const statusIcon = (status) => {
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
             <p className="text-slate-600">Pending Hotel Requests</p>
-            <h2 className="text-3xl font-semibold">{ isPending.length }</h2>
+            <h2 className="text-3xl font-semibold">{ Pending.length }</h2>
             <p className="text-sm text-blue-500 mt-1">From An Hour Ago</p>
           </CardContent>
         </Card>

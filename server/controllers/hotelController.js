@@ -151,3 +151,19 @@ export const getPendingHotels = async (req, res) => {
       console.log(error);
     }
 };
+
+export const getPending = async (req, res) => {
+  try {
+    const hotelsP = await HotelTemp.find();
+
+    res.json({
+      success: true,
+      hotelsP,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

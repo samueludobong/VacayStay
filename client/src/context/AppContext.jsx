@@ -15,10 +15,12 @@ export const AppProvider = ({ children }) => {
     const navigate = useNavigate();
     const { user } = useUser();
     const { getToken } = useAuth()
+    const location = useLocation();
 
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);
+    const [Pending, setPendingCurrent] = useState(false);
     const [PendingPayment, setPendingPayment] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
@@ -46,6 +48,20 @@ export const AppProvider = ({ children }) => {
                 setTimeout(() => {
                     fetchUser();
                 }, 2000);
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
+    const fetchPendingHotels = async () => {
+        try {
+            const { data } = await axios.get('/api/hotels/pending')
+            if (data.success) {
+                setPendingCurrent(data.hotelsP)
+            }
+            else {
+                toast.error(data.message)
             }
         } catch (error) {
             toast.error(error.message)
@@ -121,7 +137,6 @@ export const AppProvider = ({ children }) => {
             console.log("HAS PENDING HOTELS:", data.hotelTemp.length > 0);
 }
 
-
             console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
         }
     } catch (error) {
@@ -130,16 +145,25 @@ export const AppProvider = ({ children }) => {
     }
     };
     
+    useEffect(() => {
+        fetchPendingHotels();
+            fetchHotels();
+            fetchRooms();
+            fetchOrders(); 
+    }, [location.pathname]);
+
 
     useEffect(() => {
         if (user) {
             fetchUser();
-            fetchOwnerHotels();
-            fetchHotels();
-            fetchRooms();
-            fetchOrders(); 
+            
         }
     }, [user]);
+
+    useEffect(() => {
+        fetchPendingHotels();
+
+    }, []);
 
     useEffect(() => {
         fetchRooms();
@@ -162,6 +186,7 @@ export const AppProvider = ({ children }) => {
         user, getToken,
         isOwner, setIsOwner,
         isAdmin, setAdmin,
+        Pending, setPendingCurrent,
         isPending, setPending,
         PendingPayment, setPendingPayment,
         axios,
