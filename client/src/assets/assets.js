@@ -40,7 +40,7 @@ import totalRevenueIcon from "./totalRevenueIcon.svg";
 import roomIcon from "./door-open-svgrepo-com.svg";
 import hotelIcon from "./hotel-3-svgrepo-com.svg";
 import paymentIcon from "./payment-svgrepo-com.svg";
-import userIcon from "./users-svgrepo-com.svg";
+import userIcon2 from "./users-svgrepo-com.svg";
 
 
 
@@ -80,7 +80,7 @@ export const assets = {
     roomIcon,
     hotelIcon,
     paymentIcon,
-    userIcon,
+    userIcon2,
 }
 
 export const cities = [
