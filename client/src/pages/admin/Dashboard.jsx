@@ -1,11 +1,14 @@
 import React from "react";
+import { useAppContext } from "../../context/AppContext";
 
 import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
 
 
-export default function OrdersDashboard() {
+export default function Dashboard() {
 
+    const { Pending } = useAppContext()
+  
     const Card = ({ children }) => (
   <div className="rounded-2xl shadow-sm bg-white">{children}</div>
 );
@@ -44,9 +47,9 @@ const CardContent = ({ children }) => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
-            <p className="text-slate-600">New Orders</p>
-            <h2 className="text-3xl font-semibold">245</h2>
-            <p className="text-sm text-blue-500 mt-1">Impression - 20%</p>
+            <p className="text-slate-600">Pending Hotel Requests</p>
+            <h2 className="text-3xl font-semibold">{ Pending.length }</h2>
+            <p className="text-sm text-blue-500 mt-1"></p>
           </CardContent>
         </Card>
 

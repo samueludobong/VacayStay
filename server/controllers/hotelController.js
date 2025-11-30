@@ -56,6 +56,22 @@ export const getAllHotels = async (req, res) => {
   }
 };
 
+export const getAllPending = async (req, res) => {
+  try {
+    const hotelsP = await HotelTemp.find();
+
+    res.json({
+      success: true,
+      hotelsP,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const getPendingHotels = async (req, res) => {
     try {
         const hotelTemp = await HotelTemp.find({ owner: req.user._id });

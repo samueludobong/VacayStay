@@ -22,38 +22,45 @@ import Loader from './components/Loader'
 
 const App = () => {
 
-  // Check Is Route Starts With Owner
   const isOwnerPath = useLocation().pathname.includes("owner");
 
   const { showHotelReg } = useAppContext();
 
   return (
-    <div className='font-inter'>
-      <Toaster />
-      {!isOwnerPath && <Navbar />}
-      {showHotelReg && <HotelReg />}
-      <div className='min-h-[70vh]'>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/hotels' element={<AllHotels />} />
-        <Route path='/rooms/:id' element={<RoomDetails />} />
-        <Route path='my-bookings' element={<MyBookings />} />
-        < Route path="/loader/:nextUrl" element={<Loader />} />
-        <Route path="/owner" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="add-room" element={<AddRoom />} />
-          <Route path="list-room" element={<ListRoom />} />
-          </Route>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="add-room" element={<AdminRooms />} />
-          <Route path="list-room" element={<AdminHotels />} />
-        </Route>
-      </Routes>
-      </div>
-      <Footer />
-    </div>
+    <div className="font-inter flex flex-col min-h-screen">
+  <Toaster />
+  {!isOwnerPath && <Navbar />}
+
+  {showHotelReg && <HotelReg />}
+
+  {/* Main content MUST flex-grow */}
+  <div className="grow">
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/hotels" element={<AllHotels />} />
+      <Route path="/rooms/:id" element={<RoomDetails />} />
+      <Route path="my-bookings" element={<MyBookings />} />
+      <Route path="/loader/:nextUrl" element={<Loader />} />
+
+      <Route path="/owner" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="add-room" element={<AddRoom />} />
+        <Route path="list-room" element={<ListRoom />} />
+      </Route>
+
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="add-room" element={<AdminRooms />} />
+        <Route path="list-room" element={<AdminHotels />} />
+      </Route>
+    </Routes>
+  </div>
+
+  {/* Footer stays at bottom */}
+  <Footer />
+</div>
+
   )
 }
 

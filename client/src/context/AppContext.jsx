@@ -19,6 +19,7 @@ export const AppProvider = ({ children }) => {
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);
+    const [Pending, setPendingCurrent] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
     const [hotels, setHotels] = useState([]);
@@ -78,6 +79,20 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const fetchPendingHotels = async () => {
+        try {
+            const { data } = await axios.get('/api/hotels/pending')
+            if (data.success) {
+                setPendingCurrent(data.hotelsP)
+            }
+            else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const fetchOwnerHotels = async () => {
     try {
         const { data } = await axios.get("/api/hotels/owner", {
@@ -109,12 +124,17 @@ export const AppProvider = ({ children }) => {
         fetchHotels();
     }, []);
 
+        useEffect(() => {
+        fetchPendingHotels();
+        }, []);
+    
     const value = {
         currency, navigate,
         user, getToken,
         isOwner, setIsOwner,
         isAdmin, setAdmin,
         isPending, setPending,
+        Pending, setPendingCurrent,
         axios,
         showHotelReg, setShowHotelReg,
         facilityIcons,
