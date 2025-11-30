@@ -23,7 +23,7 @@ const HotelCard = ({ hotel, index }) => {
                     <p className='font-playfair text-xl font-medium text-gray-800'>{hotel.name}</p>
 
                     <div className='flex items-center gap-1'>
-                        ⭐ 4.5
+                    {Math.floor(Math.random() * 5) + 1} ⭐
                     </div>
                 </div>
 

@@ -125,7 +125,7 @@ const AllRooms = () => {
             <div>
                 {/* Main Title */}
                 <div className="flex flex-col items-start text-left">
-                    <h1 className='font-playfair text-4xl md:text-[40px]'>Hotel Rooms</h1>
+                    <h1 className='font-playfair text-4xl md:text-[40px]'>{room.hotel.name} Hotel Rooms</h1>
                     <p className='text-sm md:text-base text-gray-500/90 mt-2 max-w-174'>Take advantage of our limited-time offers and special packages to enhance your stay and create unforgettable memories.</p>
                 </div>
 
@@ -135,10 +135,10 @@ const AllRooms = () => {
                         <img title='View Room Details' onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} src={room.images[0]} alt="hotel-img" className='max-h-65 md:w-1/2 rounded-xl shadow-lg object-cover cursor-pointer' />
                         <div className='md:w-1/2 flex flex-col gap-2'>
                             <p className='text-gray-500'>{room.hotel.city}</p>
-                            <p onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} className='text-gray-800 text-3xl font-playfair cursor-pointer' title='View Room Details'>{room.hotel.name}</p>
+                            <p onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} className='text-gray-800 text-3xl font-playfair cursor-pointer' title='View Room Details'>{room.roomType}</p>
                             <div className='flex items-center'>
                                 <StarRating />
-                                <p className='ml-2'>200+ reviews</p>
+                                <p className="ml-2">{Math.floor(Math.random() * 500) + 1}+ reviews</p>
                             </div>
                             <div className='flex items-center gap-1 text-gray-500 mt-2 text-sm'>
                                 <img src={assets.locationIcon} alt="location-icon" />
@@ -160,8 +160,8 @@ const AllRooms = () => {
             </div>
 
             {/* Filters */}
-            <div className="bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16">
-                <div className={`flex items-center justify-between px-5 py-2.5 min-lg:border-b border-gray-300 ${openFilters && "border-b"}`}>
+            <div className="bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 lg:mt-16">
+                <div className={`flex items-center justify-between px-5 py-2.5 lg:border-b border-gray-300 ${openFilters && "border-b"}`}>
                     <p className='text-base font-medium text-gray-800'>FILTERS</p>
                     <div className='text-xs cursor-pointer'>
                         <span onClick={() => setOpenFilters(!openFilters)} className='lg:hidden'>
