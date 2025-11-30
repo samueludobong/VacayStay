@@ -19,7 +19,6 @@ export const AppProvider = ({ children }) => {
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);
-    const [Pending, setPendingCurrent] = useState(false);
     const [PendingPayment, setPendingPayment] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
@@ -95,25 +94,12 @@ export const AppProvider = ({ children }) => {
         }
     }
 
-const fetchPendingHotels = async () => {
-    try {
-        const { data } = await axios.get('/api/hotels/pending', {
-            headers: { Authorization: `Bearer ${await getToken()}` }
-        });
-        if (data.success) {
-            setPending(data.hotelTemp);
-            console.log("FETCHED PENDING HOTELS:", data.hotelTemp);
-        } 
-    } catch (error) {
-       console.log(error);
-    }
-};
 
      const fetchPendingPayments = async () => {
         try {
             const { data } = await axios.get('/api/hotels/payment')
             if (data.success) {
-                setPendingCurrent(data.pendingBookings)
+                setPendingPayment(data.pendingBookings)
             }
             else {
                 toast.error(data.message)
@@ -123,6 +109,21 @@ const fetchPendingHotels = async () => {
         }
     }
 
+    const fetchOwnerHotels = async () => {
+    try {
+        const { data } = await axios.get("/api/hotels/owner", {
+            headers: { Authorization: `Bearer ${await getToken()}` }
+        });
+
+        if (data.success) {
+            setPending(data.hotelTemp);
+            console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
+        }
+    } catch (error) {
+        console.log("FETCH HOTELS ERROR:", error.response?.data || error);
+        toast.error("Unable to fetch your hotels");
+    }
+    };
     
 
     useEffect(() => {
@@ -140,10 +141,6 @@ const fetchPendingHotels = async () => {
     }, []);
 
     useEffect(() => {
-    fetchPendingHotels();
-    }, []);
-
-    useEffect(() => {
     fetchPendingPayments();
     }, []);
 
@@ -157,7 +154,6 @@ const fetchPendingHotels = async () => {
         isOwner, setIsOwner,
         isAdmin, setAdmin,
         isPending, setPending,
-        Pending, setPendingCurrent,
         PendingPayment, setPendingPayment,
         axios,
         showHotelReg, setShowHotelReg,
