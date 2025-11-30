@@ -91,16 +91,24 @@ const HotelReg = () => {
                                     ))}
                                 </div>
 
-                    {/* Drop Down City */}
-                    <div className="w-full mt-4 max-w-60 mr-auto">
-                        <label htmlFor="city" className="font-medium text-gray-500">City</label>
-                        <select id="city" onChange={(e) => setCity(e.target.value)} value={city} className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" required>
-                            <option value="">Select City</option>
-                            {cities.map((city) => (
-                                <option key={city} value={city}>{city}</option>
-                            ))}
-                        </select>
-                    </div>
+                            <div className="w-full mt-4 max-w-60 mr-auto">
+                            <label htmlFor="city" className="font-medium text-gray-500">City</label>
+                            <select
+                                id="city"
+                                onChange={(e) => setCity(e.target.value)}
+                                value={city}
+                                className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light"
+                                required
+                            >
+                                <option value="">Select City</option>
+                                {cities.map((cityObj) => (
+                                <option key={cityObj._id} value={cityObj.name}>
+                                    {cityObj.name}
+                                </option>
+                                ))}
+                            </select>
+                            </div>
+
 
                     <button className='bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer' disabled={loading}>
                         {loading ? "Adding..." : "Register"}
