@@ -14,6 +14,8 @@ hotelRouter.delete("/pending/decline/:id", declinePending);
 hotelRouter.get("/payment", getAllPendingPayments);
 hotelRouter.get("/pending_hotels", getAllPending);
 hotelRouter.get("/owner", protect, getPendingHotels);
+hotelRouter.post("/toggle-availability", protect, toggleRoomAvailability);
+
 
 
 export default hotelRouter;

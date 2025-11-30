@@ -10,7 +10,7 @@ export const registerHotel = async (req, res) => {
     const { name, address, contact, city } = req.body;
     const owner = req.user._id;
 
-    const existingHotel = await Hotel.findOne({ owner });
+    const existingHotel = await HotelTemp.findOne({ owner });
     if (existingHotel) {
       return res.json({ success: false, message: "Hotel already registered" });
     }
@@ -31,7 +31,6 @@ export const registerHotel = async (req, res) => {
       images: uploadedImages,
     });
 
-    // await User.findByIdAndUpdate(owner, { role: "hotelOwner" });
 
     res.json({ success: true, message: "Hotel registered successfully" });
 
@@ -57,6 +56,18 @@ export const getAllHotels = async (req, res) => {
   }
 };
 
+export const toggleRoomAvailability = async (req, res) => {
+  try {
+    const { roomId } = req.body;
+    const roomData = await Hotel.findById(roomId);
+    roomData.isAvailable = !roomData.isAvailable;
+    await roomData.save();
+    res.json({ success: true, message: "Room availability Updated" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
 export const getAllPending = async (req, res) => {
   try {
     const hotels_pending = await HotelTemp.find();
@@ -75,15 +86,20 @@ export const getAllPending = async (req, res) => {
 export const approvePending = async (req, res) => {
   try {
     const { id } = req.params;
+    const owner = req.owner;
+
 
     const pending = await HotelTemp.findById(id);
     if (!pending) return res.status(404).json({ success: false, message: "Hotel not found" });
 
     const hotelData = pending.toObject();
-    delete hotelData._id; // remove _id to avoid conflict
+    delete hotelData._id;
     await Hotel.create(hotelData);
 
-    await pending.deleteOne(); // safer than remove()
+    await pending.deleteOne();
+
+    await User.findByIdAndUpdate(owner, { role: "hotelOwner" });
+
 
     res.json({ success: true, message: "Hotel approved and moved." });
   } catch (error) {

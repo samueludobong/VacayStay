@@ -9,6 +9,8 @@ const hotelSchema = new Schema(
     owner: { type: String, ref: "User", required: true },
     city: { type: String, required: true },
     images: [{ type: String }],
+    isAvailable: { type: Boolean, default: true },
+
 
   },
   { timestamps: true }
