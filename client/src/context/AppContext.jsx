@@ -26,6 +26,7 @@ export const AppProvider = ({ children }) => {
     const [showHotelReg, setShowHotelReg] = useState(false);
     const [rooms, setRooms] = useState([]);
     const [hotel_rooms, set_hotel_Rooms] = useState([]);
+    const [cities, setCity] = useState([]);
     const [hotels, setHotels] = useState([]);
     const [orders, setOrders] = useState([]);
     const [searchedCities, setSearchedCities] = useState([]); // max 3 recent searched cities
@@ -143,6 +144,17 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+        const fetchCities = async () => {
+            try {
+                const { data } = await axios.get('/api/cities', { headers: { Authorization: `Bearer ${await getToken()}` } });
+                if (data.success) setCity(data.cities);
+                else toast.error(data.message);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        };
+    
+
     const fetchOwnerHotels = async () => {
     try {
         const { data } = await axios.get("/api/hotels/owner", {
@@ -169,6 +181,7 @@ export const AppProvider = ({ children }) => {
             fetchRooms();
         fetchOrders(); 
         fetch_hotelRooms();
+        fetchCities();
     }, [location.pathname]);
 
 
@@ -181,7 +194,7 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         fetchPendingHotels();
-
+        fetchCities();
     }, []);
 
     useEffect(() => {
@@ -210,6 +223,7 @@ export const AppProvider = ({ children }) => {
         isAdmin, setAdmin,
         Pending, setPendingCurrent,
         isPending, setPending,
+        cities, setCity,
         PendingPayment, setPendingPayment,
         axios,
         showHotelReg, setShowHotelReg,

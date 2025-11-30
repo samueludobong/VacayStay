@@ -4,13 +4,12 @@ import { useAppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
 
 const ListRoom = () => {
-
     const { axios, getToken, user } = useAppContext()
     const [rooms, setRooms] = React.useState([])
 
     const fetchRooms = async () => {
         try {
-            const { data } = await axios.get('/api/rooms/owner/dasb', { headers: { Authorization: `Bearer ${await getToken()}` } })
+            const { data } = await axios.get('/api/rooms')
             if (data.success) {
                 setRooms(data.rooms)
             }

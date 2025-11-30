@@ -25,7 +25,7 @@ const AddRoom = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault()
-        // Check if all inputs are filled
+
         if (!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)) {
             toast.error("Please fill in all the details")
             return;
@@ -35,11 +35,11 @@ const AddRoom = () => {
             const formData = new FormData()
             formData.append('roomType', inputs.roomType)
             formData.append('pricePerNight', inputs.pricePerNight)
-            // Converting Amenities to Array & keeping only enabled Amenities
+
             const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key])
             formData.append('amenities', JSON.stringify(amenities))
 
-            // Adding Images to FormData
+
             Object.keys(images).forEach((key) => {
                 images[key] && formData.append('images', images[key])
             })
@@ -74,7 +74,7 @@ const AddRoom = () => {
     return (
         <form onSubmit={onSubmitHandler}>
             <Title align='left' font='outfit' title='Add Room' subTitle='Fill in the details carefully and accurate room details, pricing, and amenities, to enhance the user booking experience.' />
-            {/* Upload Area For Images */}
+
             <p className='text-gray-800 mt-10'>Images</p>
             <div className='grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap'>
                 {Object.keys(images).map((key) => (

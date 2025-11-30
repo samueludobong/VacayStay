@@ -9,7 +9,8 @@ import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import AdminLayout from './pages/admin/Layout'
 import AdminDashboard from './pages/admin/Dashboard'
-import AdminRooms from './pages/admin/AddRoom'
+import AdminRooms from './pages/admin/ListRooms'
+import AdminCity from './pages/admin/ListCities'
 import AdminHotels from './pages/admin/ListHotels'
 import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
@@ -28,7 +29,7 @@ const App = () => {
   const { showHotelReg } = useAppContext();
 
   return (
-    <div className="font-inter flex flex-col min-h-screen">
+    <div className="font-inter flex flex-col">
   <Toaster />
   {!isOwnerPath && <Navbar />}
 
@@ -55,11 +56,11 @@ const App = () => {
         <Route index element={<AdminDashboard />} />
         <Route path="add-room" element={<AdminRooms />} />
         <Route path="hotels" element={<AdminHotels />} />
+        <Route path="list-room" element={<AdminRooms />} />
+        <Route path="list-city" element={<AdminCity />} />
       </Route>
     </Routes>
   </div>
-
-  {/* Footer stays at bottom */}
   <Footer />
 </div>
 
