@@ -127,6 +127,7 @@ export const declinePending = async (req, res) => {
 };
 
 
+
 export const getAllPendingPayments = async (req, res) => {
   try {
     const pendingBookings = await Booking.find({ isPaid: false });
@@ -146,10 +147,9 @@ export const getAllPendingPayments = async (req, res) => {
 export const getPendingHotels = async (req, res) => {
     try {
         const hotelTemp = await HotelTemp.find({ owner: req.user._id });
-        res.json({ success: true, hotelsP: hotelTemp }); 
+        res.json({ success: true, hotelTemp });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+      res.json({ success: false, message: error.message });
+      console.log(error);
     }
 };
-

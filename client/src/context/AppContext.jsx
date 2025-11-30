@@ -101,12 +101,10 @@ const fetchPendingHotels = async () => {
             headers: { Authorization: `Bearer ${await getToken()}` }
         });
         if (data.success) {
-            setPendingCurrent(data.hotelsP);
-        } else {
-            toast.error(data.message);
-        }
+            setPendingCurrent(data.hotelTemp);
+        } 
     } catch (error) {
-        toast.error(error.message);
+       console.log(error);
     }
 };
 

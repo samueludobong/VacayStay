@@ -44,6 +44,7 @@ const HotelReg = () => {
             setIsOwner(true);
             setShowHotelReg(false);
             setImages({ 1: null, 2: null });
+            window.location.reload();
         } else {
             toast.error(data.message);
         }
