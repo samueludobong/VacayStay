@@ -2,7 +2,7 @@ import express from "express";
 import { protect } from "../middleware/authMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
 
-import { registerHotel, getAllHotels, getAllPending, getPendingHotels, getPending, getAllPendingPayments, approvePending, declinePending } from "../controllers/hotelController.js";
+import { registerHotel, getAllHotels, getAllPending, getPendingHotels, getPending, getAllPendingPayments, approvePending, declinePending, toggleRoomAvailability } from "../controllers/hotelController.js";
 
 const hotelRouter = express.Router();
 
