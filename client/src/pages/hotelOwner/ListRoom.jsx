@@ -10,7 +10,7 @@ const ListRoom = () => {
 
     const fetchRooms = async () => {
         try {
-            const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${await getToken()}` } })
+            const { data } = await axios.get('/api/rooms/owner/dasb', { headers: { Authorization: `Bearer ${await getToken()}` } })
             if (data.success) {
                 setRooms(data.rooms)
             }

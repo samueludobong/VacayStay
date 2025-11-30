@@ -71,6 +71,18 @@ export const getOwnerRooms = async (req, res) => {
   }
 };
 
+export const getOwnerRoomsDasB = async (req, res) => {
+  try {
+    const hotelData = await Hotel.findOne({ owner: req.auth.userId });
+    const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate("hotel");
+    res.json({ success: true, rooms });
+  } catch (error) {
+    console.log(error);
+    
+    res.json({ success: false, message: error.message });
+  }
+};
+
 
 export const toggleRoomAvailability = async (req, res) => {
   try {
