@@ -1,7 +1,7 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 
@@ -14,9 +14,9 @@ export const AppProvider = ({ children }) => {
     const currency = import.meta.env.VITE_CURRENCY || "$";
     const navigate = useNavigate();
     const { user } = useUser();
-    const { getToken } = useAuth();
+    const { getToken } = useAuth()
 
-    // --- STATE ---
+
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);
@@ -28,8 +28,7 @@ export const AppProvider = ({ children }) => {
     const [cities, setCity] = useState([]);
     const [hotels, setHotels] = useState([]);
     const [orders, setOrders] = useState([]);
-    const [searchedCities, setSearchedCities] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [searchedCities, setSearchedCities] = useState([]); // max 3 recent searched cities
 
     const facilityIcons = {
         "Free WiFi": assets.freeWifiIcon,
@@ -39,179 +38,190 @@ export const AppProvider = ({ children }) => {
         "Pool Access": assets.poolIcon,
     };
 
-    // --- RESET CONTEXT ON LOGOUT ---
-    const resetAppContext = () => {
-        setIsOwner(false);
-        setAdmin(false);
-        setPending(false);
-        setPendingCurrent(false);
-        setPendingPayment(false);
-        setShowHotelReg(false);
-        setRooms([]);
-        set_hotel_Rooms([]);
-        setCity([]);
-        setHotels([]);
-        setOrders([]);
-        setSearchedCities([]);
-    };
-
-    // --- FETCH FUNCTIONS ---
     const fetchUser = async () => {
-        if (!user) return;
         try {
-            const token = await getToken();
-            const { data } = await axios.get('/api/user', { headers: { Authorization: `Bearer ${token}` } });
+            const { data } = await axios.get('/api/user', { headers: { Authorization: `Bearer ${await getToken()}` } })
             if (data.success) {
                 setIsOwner(data.role === "hotelOwner");
                 setAdmin(data.role === "Admin");
-                setSearchedCities(data.recentSearchedCities || []);
-                fetchOwnerHotels();
+                setSearchedCities(data.recentSearchedCities);
+                fetchOwnerHotels(data._id);
+            } else {
+                setTimeout(() => {
+                    fetchUser();
+                }, 2000);
             }
         } catch (error) {
-            console.log("Fetch user error:", error);
-            toast.error(error.response?.data?.message || error.message);
+            toast.error(error.message)
         }
-    };
+    }
 
     const fetchPendingHotels = async () => {
-        if (!user) return;
         try {
-            const { data } = await axios.get('/api/hotels/pending');
-            if (data.success) setPendingCurrent(data.hotelsP);
+            const { data } = await axios.get('/api/hotels/pending')
+            if (data.success) {
+                setPendingCurrent(data.hotelsP)
+            }
+            else {
+                toast.error(data.message)
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
+            toast.error(error.message)
         }
-    };
+    }
 
     const fetchRooms = async () => {
         try {
-            const { data } = await axios.get('/api/rooms');
-            if (data.success) setRooms(data.rooms);
+            const { data } = await axios.get('/api/rooms')
+            if (data.success) {
+                setRooms(data.rooms)
+            }
+            else {
+                toast.error(data.message)
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
+            toast.error(error.message)
         }
-    };
+    }
+
+    
+
+    const fetchOrders = async () => {
+        try {
+            const { data } = await axios.get('/api/bookings/orders')
+            if (data.success) {
+                setOrders(data.orders)
+            }
+            else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
 
     const fetchHotels = async () => {
         try {
-            const { data } = await axios.get('/api/hotels');
-            if (data.success) setHotels(data.hotels);
+            const { data } = await axios.get('/api/hotels')
+            if (data.success) {
+                setHotels(data.hotels)
+            }
+            else {
+                toast.error(data.message)
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
+            toast.error(error.message)
         }
-    };
-
-    const fetchOrders = async () => {
-        if (!user) return;
-        try {
-            const { data } = await axios.get('/api/bookings/orders');
-            if (data.success) setOrders(data.orders);
-        } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
-        }
-    };
+    }
 
     const fetch_hotelRooms = async () => {
-        if (!user) return;
-        try {
-            const token = await getToken();
-            const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${token}` } });
-            if (data.success) set_hotel_Rooms(data.rooms);
-        } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
+            try {
+                const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${await getToken()}` } })
+                if (data.success) {
+                    set_hotel_Rooms(data.rooms)
+                }
+                else {
+                    toast.error(data.message)
+                }
+            } catch (error) {
+                toast.error(error.message)
+            }
         }
-    };
 
-    const fetchPendingPayments = async () => {
-        if (!user) return;
-        try {
-            const { data } = await axios.get('/api/hotels/payment');
-            if (data.success) setPendingPayment(data.pendingBookings);
-        } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
-        }
-    };
 
-    const fetchCities = async () => {
-        if (!user) return;
+     const fetchPendingPayments = async () => {
         try {
-            const token = await getToken();
-            const { data } = await axios.get('/api/cities', { headers: { Authorization: `Bearer ${token}` } });
-            if (data.success) setCity(data.cities);
+            const { data } = await axios.get('/api/hotels/payment')
+            if (data.success) {
+                setPendingPayment(data.pendingBookings)
+            }
+            else {
+                toast.error(data.message)
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || error.message);
+            toast.error(error.message)
         }
-    };
+    }
+
+        const fetchCities = async () => {
+            try {
+                const { data } = await axios.get('/api/cities', { headers: { Authorization: `Bearer ${await getToken()}` } });
+                if (data.success) setCity(data.cities);
+                else toast.error(data.message);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        };
+    
 
     const fetchOwnerHotels = async () => {
-        if (!user) return;
-        try {
-            const token = await getToken();
-            const { data } = await axios.get('/api/hotels/owner', { headers: { Authorization: `Bearer ${token}` } });
-            if (data.success) setPending(data.hotelTemp.length > 0);
-        } catch (error) {
-            toast.error("Unable to fetch your hotels");
+    try {
+        const { data } = await axios.get("/api/hotels/owner", {
+            headers: { Authorization: `Bearer ${await getToken()}` }
+        });
+
+        if (data.success) {
+            if (data.success) {
+            setPending(data.hotelTemp.length > 0);
+            console.log("HAS PENDING HOTELS:", data.hotelTemp.length > 0);
+}
+
+            console.log("FETCHED OWNER HOTELS:", data.hotelTemp);
         }
+    } catch (error) {
+        console.log("FETCH HOTELS ERROR:", error.response?.data || error);
+        toast.error("Unable to fetch your hotels");
+    }
     };
-
-    // --- EFFECTS ---
+    
     useEffect(() => {
-        if (!user) {
-            resetAppContext();
-            setLoading(false);
-            return;
+        if (user) {
+            fetchUser();
+            
         }
-
-        // fetch user-related data
-        setLoading(true);
-        Promise.all([
-            fetchUser(),
-            fetchPendingHotels(),
-            fetch_hotelRooms(),
-            fetchPendingPayments(),
-            fetchOrders(),
-            fetchCities()
-        ]).finally(() => setLoading(false));
-
-        // fetch general data (does not require user)
-        fetchRooms();
-        fetchHotels();
-
     }, [user]);
 
-    // --- CONTEXT VALUE ---
+    useEffect(() => {
+        fetchPendingHotels();
+        fetchCities();
+    }, []);
+
+    useEffect(() => {
+        fetchRooms();
+    }, []);
+
+    useEffect(() => {
+        fetchHotels();
+    }, []);
+
+    useEffect(() => {
+    fetchPendingPayments();
+    }, []);
+
+    useEffect(() => {
+    fetchOrders();
+    }, []);
+    
+    useEffect(() => {
+    fetch_hotelRooms();
+    }, []);
     const value = {
-        currency,
-        navigate,
-        user,
-        getToken,
-        isOwner,
-        setIsOwner,
-        isAdmin,
-        setAdmin,
-        Pending,
-        setPendingCurrent,
-        isPending,
-        setPending,
-        cities,
-        setCity,
-        PendingPayment,
-        setPendingPayment,
+        currency, navigate,
+        user, getToken,
+        isOwner, setIsOwner,
+        isAdmin, setAdmin,
+        Pending, setPendingCurrent,
+        isPending, setPending,
+        cities, setCity,
+        PendingPayment, setPendingPayment,
         axios,
-        showHotelReg,
-        setShowHotelReg,
-        hotel_rooms,
-        set_hotel_Rooms,
+        showHotelReg, setShowHotelReg,
+        hotel_rooms, set_hotel_Rooms,
         facilityIcons,
-        rooms,
-        setRooms,
-        hotels,
-        setHotels,
-        orders,
-        setOrders,
-        searchedCities,
-        setSearchedCities,
-        loading
+        rooms, setRooms,
+        hotels, setHotels,
+        orders, setOrders,
+        searchedCities, setSearchedCities
     };
 
     return (
@@ -219,6 +229,7 @@ export const AppProvider = ({ children }) => {
             {children}
         </AppContext.Provider>
     );
+
 };
 
 export const useAppContext = () => useContext(AppContext);
