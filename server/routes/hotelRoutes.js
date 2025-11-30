@@ -8,7 +8,7 @@ const hotelRouter = express.Router();
 
 hotelRouter.post("/", upload.array("images", 5), protect, registerHotel);
 hotelRouter.get("/", getAllHotels);
-hotelRouter.get("/pending", getPendingHotels);
+hotelRouter.get("/pending", protect, getPendingHotels);
 hotelRouter.post("/pending/approve/:id", approvePending);
 hotelRouter.delete("/pending/decline/:id", declinePending);
 hotelRouter.get("/payment", getAllPendingPayments);
