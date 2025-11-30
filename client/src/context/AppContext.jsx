@@ -102,6 +102,7 @@ const fetchPendingHotels = async () => {
         });
         if (data.success) {
             setPendingCurrent(data.hotelTemp);
+            console.log("FETCHED PENDING HOTELS:", data.hotelTemp);
         } 
     } catch (error) {
        console.log(error);
