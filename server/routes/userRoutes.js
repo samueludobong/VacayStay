@@ -6,7 +6,7 @@ const userRouter = express.Router();
 
 userRouter.get("/", protect, getUserData);
 userRouter.post("/store-recent-search", protect, storeRecentSearchedCities);
-userRouter.get("/find-users", protect, getUsers);
+userRouter.get("/find-users", getUsers);
 userRouter.post("/update-role", protect, updateUserRole);
 
 export default userRouter;
