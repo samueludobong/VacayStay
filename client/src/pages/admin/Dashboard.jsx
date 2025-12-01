@@ -8,6 +8,31 @@ import { BadgeCheck, XCircle, Clock } from "lucide-react";
 export default function Dashboard() {
 
     const { Pending, PendingPayment, orders } = useAppContext()
+
+  const [dashboardData, setDashboardData] = useState({
+          bookings: [],
+          totalBookings: 0,
+          totalRevenue: 0,
+      });
+  
+      const fetchDashboardData = async () => {
+          try {
+              const { data } = await axios.get('/api/bookings/hotelAdmin')
+              if (data.success) {
+                  setDashboardData(data.dashboardData)
+              } else {
+                  toast.error(data.message)
+              }
+          } catch (error) {
+              toast.error(error.message)
+          }
+      }
+  
+      useEffect(() => {
+          if (user) {
+              fetchDashboardData();
+          }
+      }, [user]);
   
     const Card = ({ children }) => (
   <div className="rounded-2xl shadow-sm bg-white">{children}</div>
@@ -62,7 +87,6 @@ const statusIcon = (status) => {
     <div className="w-full p-6 bg-slate-50 min-h-screen">
       <h1 className="text-3xl font-semibold mb-6 flex items-center gap-2">Admin Dashboard</h1>
 
-      {/* Top Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
@@ -83,13 +107,12 @@ const statusIcon = (status) => {
         <Card className="rounded-2xl shadow-sm">
           <CardContent className="p-5">
             <p className="text-slate-600">Booked Rooms</p>
-            <h2 className="text-3xl font-semibold">150</h2>
+            <h2 className="text-3xl font-semibold">{ dashboardData.totalBookings }</h2>
             <p className="text-sm text-orange-500 mt-1">Impression - 18%</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Table */}
       <div className="bg-white rounded-2xl shadow-sm p-4 overflow-x-auto">
         <table className="w-full text-left min-w-[700px]">
           <thead>

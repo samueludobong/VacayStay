@@ -16,7 +16,6 @@ export const AppProvider = ({ children }) => {
     const { user } = useUser();
     const { getToken } = useAuth();
 
-    // --- STATE ---
     const [isOwner, setIsOwner] = useState(false);
     const [isAdmin, setAdmin] = useState(false);
     const [isPending, setPending] = useState(false);

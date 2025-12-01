@@ -127,6 +127,37 @@ export const getHotelBookings = async (req, res) => {
   }
 };
 
+export const getHotelBookingsAll = async (req, res) => {
+  try {
+    const hotels = await Hotel.find({});
+    if (!hotels || hotels.length === 0) {
+      return res.json({ success: false, message: "No hotels found" });
+    }
+
+    const hotelIds = hotels.map(hotel => hotel._id);
+
+    const bookings = await Booking.find({ hotel: { $in: hotelIds } })
+      .populate("room hotel user")
+      .sort({ createdAt: -1 });
+
+    const totalBookings = bookings.length;
+    const totalRevenue = bookings.reduce((acc, booking) => acc + booking.totalPrice, 0);
+
+    res.json({
+      success: true,
+      dashboardData: {
+        totalBookings,
+        totalRevenue,
+        bookings
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Failed to fetch bookings" });
+  }
+};
+
 export const generateOrders = async (req, res) => {
   try {
     const bookings = await Booking.find()
