@@ -32,8 +32,7 @@ const App = () => {
     <div className="font-inter flex flex-col min-h-screen">
       <Toaster />
 
-      {!isOwnerPath && <Navbar />}
-      {!isAdmin && <Navbar />}
+      {!(isOwnerPath || isAdmin) && <Navbar />}
 
       {showHotelReg && <HotelReg />}
 
