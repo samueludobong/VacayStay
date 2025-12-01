@@ -24,49 +24,50 @@ import MyBookings from './pages/MyBookings'
 import Loader from './components/Loader'
 
 const App = () => {
-
   const isOwnerPath = useLocation().pathname.includes("owner");
-
+  const isAdmin = useLocation().pathname.includes("admin");
   const { showHotelReg } = useAppContext();
 
   return (
-    <div className="font-inter flex flex-col">
-  <Toaster />
-  {!isOwnerPath && <Navbar />}
+    <div className="font-inter flex flex-col min-h-screen">
+      <Toaster />
 
-  {showHotelReg && <HotelReg />}
+      {!isOwnerPath && <Navbar />}
+      {!isAdmin && <Navbar />}
 
-  {/* Main content MUST flex-grow */}
-  <div className="grow">
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/hotels" element={<AllHotels />} />
-      <Route path="/hotels/rooms/:id" element={<AllRooms />} />
-      <Route path="/rooms/:id" element={<RoomDetails />} />
-      <Route path="my-bookings" element={<MyBookings />} />
-      <Route path="/loader/:nextUrl" element={<Loader />} />
+      {showHotelReg && <HotelReg />}
 
-      <Route path="/owner" element={<Layout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="add-room" element={<AddRoom />} />
-        <Route path="list-room" element={<ListRoom />} />
-      </Route>
+      <div className="grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/hotels" element={<AllHotels />} />
+          <Route path="/hotels/rooms/:id" element={<AllRooms />} />
+          <Route path="/rooms/:id" element={<RoomDetails />} />
+          <Route path="my-bookings" element={<MyBookings />} />
+          <Route path="/loader/:nextUrl" element={<Loader />} />
 
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<AdminDashboard />} />
-        <Route path="add-room" element={<AdminRooms />} />
-        <Route path="hotels" element={<AdminHotels />} />
-        <Route path="list-room" element={<AdminRooms />} />
-        <Route path="list-city" element={<AdminCity />} />
-        <Route path="list-users" element={<AdminUsers />} />
-      </Route>
-    </Routes>
-  </div>
-  <Footer />
-</div>
+          <Route path="/owner" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="add-room" element={<AddRoom />} />
+            <Route path="list-room" element={<ListRoom />} />
+          </Route>
 
-  )
-}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="add-room" element={<AdminRooms />} />
+            <Route path="hotels" element={<AdminHotels />} />
+            <Route path="list-room" element={<AdminRooms />} />
+            <Route path="list-city" element={<AdminCity />} />
+            <Route path="list-users" element={<AdminUsers />} />
+          </Route>
+        </Routes>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
 
 export default App
