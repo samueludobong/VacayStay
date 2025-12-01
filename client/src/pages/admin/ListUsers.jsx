@@ -72,8 +72,9 @@ const ListUsers = () => {
                     onChange={(e) => updateRole(item._id, e.target.value)}
                     className="border border-gray-300 rounded px-2 py-1"
                   >
-                    <option value="user">user</option>
-                    <option value="Admin">Admin</option>
+                    <option value="user">User</option>
+                     <option value="Admin">Admin</option>
+                     <option value="HotelOwner">HotelOwner</option>
                   </select>
                 </td>
               </tr>
