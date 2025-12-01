@@ -74,7 +74,7 @@ const ListUsers = () => {
                   >
                     <option value="user">User</option>
                      <option value="Admin">Admin</option>
-                     <option value="HotelOwner">HotelOwner</option>
+                     <option value="hotelOwner">HotelOwner</option>
                   </select>
                 </td>
               </tr>
