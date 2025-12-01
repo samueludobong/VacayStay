@@ -1,3 +1,9 @@
+import React, { useEffect } from 'react'
+import Navbar from '../../components/hotelOwner/Navbar'
+import Sidebar from '../../components/hotelOwner/Sidebar'
+import { Outlet } from 'react-router-dom'
+import { useAppContext } from '../../context/AppContext'
+
 const Layout = () => {
     const { isOwner, navigate } = useAppContext()
 
@@ -12,7 +18,6 @@ const Layout = () => {
             <div className='flex flex-1 overflow-hidden'>
                 <Sidebar />
 
-                {/* main content */}
                 <div className='flex-1 p-4 pt-16 md:px-10 overflow-y-auto'>
                     <Outlet />
                 </div>
@@ -20,3 +25,6 @@ const Layout = () => {
         </div>
     )
 }
+
+
+export default Layout
