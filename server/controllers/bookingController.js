@@ -68,6 +68,8 @@ export const createBooking = async (req, res) => {
       totalPrice,
     });
 
+    res.json({ success: true, message: "Booking created successfully" });
+
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: req.user.email,
@@ -90,7 +92,6 @@ export const createBooking = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.json({ success: true, message: "Booking created successfully" });
 
   } catch (error) {
     console.log(error);
