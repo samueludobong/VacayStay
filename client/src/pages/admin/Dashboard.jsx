@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppContext } from "../../context/AppContext";
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 import { BadgeCheck, XCircle, Clock } from "lucide-react";
