@@ -9,7 +9,7 @@ const ListUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get("/api/users/find-users");
+      const { data } = await axios.get("/api/user/find-users");
       if (data.success) {
         setUsers(data.users);
       } else {
@@ -23,7 +23,7 @@ const ListUsers = () => {
   const updateRole = async (userId, role) => {
     try {
       const { data } = await axios.post(
-        "/api/users/update-role",
+        "/api/user/update-role",
         { userId, role },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
