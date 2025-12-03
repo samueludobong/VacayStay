@@ -1,4 +1,4 @@
-import transporter from "../configs/nodemailer.js";
+import resend from "../configs/resend.js";
 import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
@@ -90,7 +90,7 @@ export const createBooking = async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
 
 
   } catch (error) {
