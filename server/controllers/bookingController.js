@@ -71,7 +71,7 @@ export const createBooking = async (req, res) => {
     res.json({ success: true, message: "Booking created successfully" });
 
     const mailOptions = {
-      from: process.env.SENDER_EMAIL,
+      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
       to: req.user.email,
       subject: 'Hotel Booking Details',
       html: `
