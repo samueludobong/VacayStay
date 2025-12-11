@@ -161,6 +161,7 @@ export const AppProvider = ({ children }) => {
             setLoading(false);
             fetchRooms();
             fetchHotels();
+            fetch_hotelRooms();
             return;
         }
 
