@@ -29,7 +29,7 @@ const AllRooms = () => {
     console.log(id);
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [rooms, setRoom] = useState(null);
+    const [rooms, setRoom] = useState([]);
 
     const { facilityIcons, navigate, hotel_rooms, currency } = useAppContext();
     const [openFilters, setOpenFilters] = useState(false);
@@ -62,9 +62,10 @@ const AllRooms = () => {
     ];
 
     useEffect(() => {
-        const room = hotel_rooms.find(room => room.hotel === id);
-        room && setRoom(room);
-    }, [hotel_rooms]);
+    const matchedRooms = hotel_rooms.filter(room => room.hotel === id);
+    setRoom(matchedRooms);
+}, [hotel_rooms, id]);
+
 
     const handleFilterChange = (checked, value, type) => {
         setSelectedFilters((prevFilters) => {
