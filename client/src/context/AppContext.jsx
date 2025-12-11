@@ -38,7 +38,6 @@ export const AppProvider = ({ children }) => {
         "Pool Access": assets.poolIcon,
     };
 
-    // --- RESET CONTEXT ON LOGOUT ---
     const resetAppContext = () => {
         setIsOwner(false);
         setAdmin(false);
@@ -54,7 +53,6 @@ export const AppProvider = ({ children }) => {
         setSearchedCities([]);
     };
 
-    // --- FETCH FUNCTIONS ---
     const fetchUser = async () => {
         if (!user) return;
         try {
@@ -114,7 +112,7 @@ export const AppProvider = ({ children }) => {
         if (!user) return;
         try {
             const token = await getToken();
-            const { data } = await axios.get('/api/rooms/owner', { headers: { Authorization: `Bearer ${token}` } });
+            const { data } = await axios.get('/api/rooms');
             if (data.success) set_hotel_Rooms(data.rooms);
         } catch (error) {
             toast.error(error.response?.data?.message || error.message);
