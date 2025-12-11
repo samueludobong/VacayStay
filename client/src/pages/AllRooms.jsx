@@ -26,6 +26,7 @@ const RadioButton = ({ label, selected = true, onChange = () => { } }) => {
 
 const AllRooms = () => {
     const { id } = useParams();
+    console.log(id);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [rooms, setRoom] = useState(null);
@@ -62,9 +63,6 @@ const AllRooms = () => {
 
     useEffect(() => {
         const room = hotel_rooms.find(room => room.hotel === id);
-        console.log(room);
-        console.log(hotel_rooms);
-        console.log(id);
         room && setRoom(room);
     }, [hotel_rooms]);
 
