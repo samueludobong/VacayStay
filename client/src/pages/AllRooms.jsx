@@ -33,6 +33,8 @@ const AllRooms = () => {
     const { facilityIcons, navigate, hotel_rooms, currency } = useAppContext();
     const [openFilters, setOpenFilters] = useState(false);
 
+    console.log(hotel_rooms);
+
 
     const [selectedFilters, setSelectedFilters] = useState({
         roomType: [],
