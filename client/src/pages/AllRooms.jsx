@@ -63,7 +63,7 @@ const AllRooms = () => {
     ];
 
     useEffect(() => {
-    const matchedRooms = hotel_rooms.filter(room => room.hotel === id);
+    const matchedRooms = hotel_rooms.filter(room => room.hotel._id === id);
         setRoom(matchedRooms);
         console.log(matchedRooms);
 }, [hotel_rooms, id]);
