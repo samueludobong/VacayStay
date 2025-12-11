@@ -27,14 +27,13 @@ const RadioButton = ({ label, selected = true, onChange = () => { } }) => {
 const AllRooms = () => {
     const { id } = useParams();
 
+    const randomNumber = Math.floor(Math.random() * 500) + 1;
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [rooms, setRoom] = useState([]);
 
     const { facilityIcons, navigate, hotel_rooms, currency } = useAppContext();
     const [openFilters, setOpenFilters] = useState(false);
-
-    console.log(hotel_rooms);
-
 
     const [selectedFilters, setSelectedFilters] = useState({
         roomType: [],
@@ -65,7 +64,6 @@ const AllRooms = () => {
     useEffect(() => {
     const matchedRooms = hotel_rooms.filter(room => room.hotel._id === id);
         setRoom(matchedRooms);
-        console.log(matchedRooms);
 }, [hotel_rooms, id]);
 
 
@@ -159,7 +157,7 @@ const AllRooms = () => {
                             <p onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} className='text-gray-800 text-3xl font-playfair cursor-pointer' title='View Room Details'>{room.roomType}</p>
                             <div className='flex items-center'>
                                 <StarRating />
-                                <p className="ml-2">{Math.floor(Math.random() * 500) + 1}+ reviews</p>
+                                <p className="ml-2">{randomNumber}+ reviews</p>
                             </div>
                             <div className='flex items-center gap-1 text-gray-500 mt-2 text-sm'>
                                 <img src={assets.locationIcon} alt="location-icon" />
