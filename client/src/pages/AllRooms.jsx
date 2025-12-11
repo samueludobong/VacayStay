@@ -62,6 +62,9 @@ const AllRooms = () => {
 
     useEffect(() => {
         const room = hotel_rooms.find(room => room.hotel === id);
+        console.log(room);
+        console.log(hotel_rooms);
+        console.log(id);
         room && setRoom(room);
     }, [hotel_rooms]);
 
