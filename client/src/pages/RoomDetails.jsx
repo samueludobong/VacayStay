@@ -123,7 +123,6 @@ const RoomDetails = () => {
                 <p className='text-2xl font-medium'>{currency}{room.pricePerNight}/night</p>
             </div>
 
-            {/* CheckIn CheckOut Form */}
             <form
   onSubmit={(e) => {
     e.preventDefault();
