@@ -1,5 +1,5 @@
 import Newsletter from "../models/NewsLetter.js";
-import { transporter } from "../mailer.js";
+import { transporter } from "../configs/node.js";
 
 app.post("/api/newsletter/subscribe", async (req, res) => {
   const { email } = req.body;
