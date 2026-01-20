@@ -1,5 +1,5 @@
 import Newsletter from "../models/NewsLetter.js";
-import transporter from "../configs/node.js";
+import { transporter } from "../configs/node.js";
 
 export const Subscribe = async (req, res) => {
   const { email } = req.body;
