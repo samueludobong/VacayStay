@@ -3,10 +3,8 @@ import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext';
 
 const Hero = () => {
-
     const { navigate, getToken, axios, setSearchedCities, rooms } = useAppContext();
     const [destination, setDestination] = useState("");
-
 
     const onSearch = async (e) => {
         e.preventDefault();
@@ -72,7 +70,7 @@ const Hero = () => {
                 <div>
                     <div className='flex items-center gap-2'>
                         <img src={assets.calenderIcon} alt="" className='h-4' />
-                        <label htmlFor="destinationInput">Destination</label>
+                        <label htmlFor="destinationInput">Room Type</label>
                     </div>
                     <input list='destinations' onChange={e => setDestination(e.target.value)} value={destination} id="destinationInput" type="text" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" placeholder="Type here" required />
                     <datalist id="destinations">
