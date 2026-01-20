@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
+import Experience from './pages/Experience'
 import About from './pages/About'
 import Navbar from './components/Navbar'
 import Layout from './pages/hotelOwner/Layout'
@@ -40,6 +41,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/experience" element={<Experience />} />
           <Route path="/hotels" element={<AllHotels />} />
           <Route path="/hotels/rooms/:id" element={<AllRooms />} />
           <Route path="/rooms/:id" element={<RoomDetails />} />
