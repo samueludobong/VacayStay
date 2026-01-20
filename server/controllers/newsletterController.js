@@ -1,5 +1,5 @@
 import Newsletter from "../models/NewsLetter.js";
-import { transporter } from "../configs/node.js";
+import transporter from "../configs/node.js";
 
 export const Subscribe = async (req, res) => {
   const { email } = req.body;
@@ -26,7 +26,6 @@ export const Subscribe = async (req, res) => {
     console.log("GMAIL IS READY");
   }
 });
-
 
     await transporter.sendMail({
       from: `"Travel App" <${process.env.GMAIL_USER}>`,
