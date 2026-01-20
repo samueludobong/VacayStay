@@ -75,7 +75,7 @@ const Hero = () => {
                     </div>
                     <input list='destinations' onChange={e => setDestination(e.target.value)} value={destination} id="destinationInput" type="text" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" placeholder="Type here" required />
                     <datalist id="destinations">
-                        {rooms.map((roomType, index) => (
+                        {rooms.roomType.map((roomType, index) => (
                             <option key={index} value={roomType} />
                         ))}
                     </datalist>
