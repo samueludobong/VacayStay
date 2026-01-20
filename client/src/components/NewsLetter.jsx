@@ -1,40 +1,54 @@
 import React, { useState } from "react";
 import Title from "./Title";
 import { assets } from "../assets/assets";
+import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
+
 
 const NewsLetter = () => {
+    const { axios } = useAppContext();
+    
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [message, setMessage] = useState("");
 
-  const handleSubscribe = async () => {
-    if (!email) {
-      setStatus("error");
-      setMessage("Please enter an email address");
-      return;
-    }
+const handleSubscribe = async () => {
+  if (!email) {
+    setStatus("error");
+    setMessage("Please enter an email address");
+    return;
+  }
 
-    try {
-      setStatus("loading");
+  try {
+    setStatus("loading");
 
-      const res = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+    const { data } = await axios.post(
+      "/api/newsletter/subscribe",
+      { email },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-      const data = await res.json();
+    // Axios automatically throws on non-2xx, so if we’re here → success
+    setStatus("success");
+    setMessage(data.message || "Subscribed successfully 🎉");
+    setEmail("");
 
-      if (!res.ok) throw new Error(data.message);
+  } catch (error) {
+    // Axios error handling
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Something went wrong";
 
-      setStatus("success");
-      setMessage("Subscribed successfully 🎉");
-      setEmail("");
-    } catch (err) {
-      setStatus("error");
-      setMessage(err.message || "Something went wrong");
-    }
-  };
+    setStatus("error");
+    setMessage(message);
+  }
+};
 
   return (
     <div className="flex flex-col items-center max-w-5xl lg:w-full rounded-2xl px-4 py-12 md:py-16 mx-2 lg:mx-auto my-30 bg-gray-900 text-white">
