@@ -1,4 +1,5 @@
 import sgMail from "@sendgrid/mail";
+import Newsletter from "../models/NewsLetter.js";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
