@@ -33,7 +33,6 @@ const handleSubscribe = async () => {
       }
     );
 
-    // Axios automatically throws on non-2xx, so if we’re here → success
     setStatus("success");
     setMessage(data.message || "Subscribed successfully 🎉");
     setEmail("");
