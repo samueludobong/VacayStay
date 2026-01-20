@@ -22,28 +22,18 @@ const handleSubscribe = async () => {
   try {
     setStatus("loading");
 
-    const { data } = await axios.post(
-      "/api/newsletter/subscribe",
-      { email },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const { data } = await axios.post("/api/newsletter/subscribe", {
+      email,
+    });
 
-    setStatus("success");
-    setMessage(data.message || "Subscribed successfully 🎉");
-    setEmail("");
-
-  } catch (error) {
-    const message =
-      error.response?.data?.message ||
-      error.message ||
-      "Something went wrong";
-
+    if (data.message) {
+      setStatus("success");
+      setMessage(data.message);
+      setEmail("");
+    }
+  } catch (err) {
     setStatus("error");
-    setMessage(message);
+    setMessage(err.response?.data?.message || err.message);
   }
 };
 
