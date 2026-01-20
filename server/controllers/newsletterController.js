@@ -17,7 +17,16 @@ export const Subscribe = async (req, res) => {
       return res.status(409).json({ message: "Email already subscribed" });
     }
 
-    await Newsletter.create({ email: normalizedEmail });
+     await Newsletter.create({ email: normalizedEmail });
+     
+     transporter.verify((error, success) => {
+  if (error) {
+    console.log("GMAIL VERIFY ERROR:", error);
+  } else {
+    console.log("GMAIL IS READY");
+  }
+});
+
 
     await transporter.sendMail({
       from: `"Travel App" <${process.env.GMAIL_USER}>`,

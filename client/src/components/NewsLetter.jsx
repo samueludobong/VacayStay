@@ -9,7 +9,7 @@ const NewsLetter = () => {
     const { axios } = useAppContext();
     
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
 const handleSubscribe = async () => {
@@ -37,7 +37,6 @@ const handleSubscribe = async () => {
     setEmail("");
 
   } catch (error) {
-    // Axios error handling
     const message =
       error.response?.data?.message ||
       error.message ||
