@@ -29,18 +29,18 @@ const ContactUSEro = () => {
     if (data.message) {
       setStatus("success");
       setMessage(data.message);
+      setEmail("");
       setTimeout(() => {
       setMessage("");
     }, 2000);
-      setEmail("");
     }
   } catch (err) {
     setStatus("error");
     setEmail("");
+    setMessage(err.response?.data?.message || err.message);
     setTimeout(() => {
       setMessage("");
     }, 2000);
-    setMessage(err.response?.data?.message || err.message);
   }
 };
 
