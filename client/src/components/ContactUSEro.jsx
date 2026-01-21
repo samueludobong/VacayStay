@@ -7,7 +7,9 @@ const ContactUSEro = () => {
   const { axios } = useAppContext();
       
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState("idle");
+    const [message, setMessage] = useState("");
+  
 
 
   const handleSubscribe = async () => {
@@ -63,6 +65,16 @@ const ContactUSEro = () => {
         {status === "loading" ? "Subscribing..." : "Subscribe"}
       </button>
     </div>
+
+          {message && (
+        <p
+          className={`mt-4 text-sm ${
+            status === "success" ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          {message}
+        </p>
+      )}
 
     <p className="text-xs mt-2 text-white">
       Only the updates you actually want.
