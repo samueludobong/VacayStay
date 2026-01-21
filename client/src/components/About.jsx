@@ -1,3 +1,5 @@
+import { assets } from "../assets/assets";
+
 export default function About() {
 
     const data = [
@@ -30,8 +32,7 @@ export default function About() {
                     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="" className="w-64 sm:w-80 rounded-3xl max-w-none" />
 
                     <div className="bg-white w-1/2 aspect-square absolute right-0 bottom-0 rounded-full translate-x-1/4 translate-y-1/3 shadow-[0_4px_55px_rgba(149,0,162,0.15)] flex items-center justify-center">
-                        <img src="./assets/circular-text.png" alt="" className="w-full animate-spin_slow" />
-                        <img src="./assets/dev-icon.png" alt="" className="w-1/4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                        <img src={assets.logo} alt="" className="w-full animate-spin_slow" />
                     </div>
                 </div>
                 <div className="flex-1">
