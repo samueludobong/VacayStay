@@ -90,7 +90,7 @@ export default function Contact() {
                 </div>
                 <textarea rows="6" placeholder="Enter your message" className="w-full px-4 py-2 focus:ring-1 outline-none border border-black rounded-md bg-grey-500 mb-6 dark:bg-darkHover/30" required name="message"></textarea>
                 <div className="h-captcha mb-6 max-w-full" data-captcha="true"></div>
-                <button type='submit' className="py-2 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-black rounded-full mx-auto hover:bg-black-300 duration-500 border-black">
+                <button type='submit' className="py-2 px-8 w-max flex items-center justify-between gap-2 bg-black text-white rounded-full mx-auto hover:bg-black-300 duration-500 border-black">
                 Submit now
                 </button>
                 <p className='mt-4'>{result}</p>
