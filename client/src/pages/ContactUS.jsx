@@ -5,6 +5,7 @@ import Services from '../components/Services'
 import About from '../components/About'
 import Header from '../components/ContactUSEro'
 import Navbar from '../components/Navbar'
+import FaqSection from '../components/faq-section'
 
 
 export default function ContactUS() {
@@ -12,6 +13,7 @@ export default function ContactUS() {
         <>
             <Navbar />
             <Header />
+            <FaqSection />
             <Contact />
         </>
     )
