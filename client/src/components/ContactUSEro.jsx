@@ -15,38 +15,92 @@ const ContactUSEro = () => {
   return (
     <>
       <section className="flex flex-col items-center text-white text-sm pb-20 px-4 font-poppins bg-[#0a1b43]">
-          <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/refs/heads/main/assets/hero/bg-gradient-2.png" className="absolute inset-0 -z-10 size-full opacity" alt="" />
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-20 w-full mt-24">
+  <div className="max-md:px-4 lg:w-1/2">
+    <h1 className="text-5xl md:text-[54px] md:leading-[4.7rem] font-semibold max-w-lg bg-gradient-to-r from-black to-slate-600 bg-clip-text text-transparent">
+      Every startup begins with spark
+    </h1>
 
-        <a href="#" className="flex items-center gap-2 border border-slate-700 rounded-full p-1 pr-3 text-sm mt-20">
-          <span className="bg-indigo-600 text-xs px-3 py-1 rounded-full">Online</span>
-          <p className="flex items-center gap-2">
-            <span>At your service 24/7</span>
-            <svg className="mt-px" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m1 1 4 3.5L1 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </p>
-        </a>
+    <p className="text-sm/7 max-w-md mt-3 text-slate-500">
+      Our latest thoughts, trends, and tools, written to help you learn, build and grow faster.
+    </p>
 
-        <h1 className="text-center text-[40px] leading-[48px] md:text-6xl md:leading-[70px] mt-4 font-semibold max-w-3xl">
-          Contact Us for Exceptional Support and Assistance
-        </h1>
+    <div className="flex items-center text-sm border border-slate-300 rounded-md h-[54px] max-w-md focus-within:border-indigo-600 mt-6">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        className="rounded-md h-full px-4 w-full outline-none"
+      />
+      <button className="px-8 h-[46px] mr-1 flex items-center justify-center text-white rounded-md bg-indigo-600 hover:bg-indigo-700 transition">
+        Subscribe
+      </button>
+    </div>
 
-        <p className="text-center text-base max-w-md mt-2">
-          Our dedicated team is here to help you with any inquiries or issues you may have. Reach out to us and experience top-notch customer service.
-        </p>
+    <p className="text-xs mt-2 text-slate-600">
+      Only the updates you actually want.
+    </p>
 
-        <form onSubmit={onSubmitHandler} className="bg-white/10 max-w-2xl w-full rounded-xl p-4 mt-10 border border-indigo-600/70 focus-within:ring-2 ring-indigo-500 transition-all">
-          <textarea onChange={e => setInput(e.target.value)} className="bg-transparent outline-none text-gray-300 resize-none w-full" rows={4} placeholder="Describe your inquiry, use for below for detailed, feedback, and possible feedback" required />
-          <button className="ml-auto flex items-center gap-2 bg-gradient-to-r from-[#CB52D4] to-indigo-600 rounded-md px-4 py-2">
-            <span>Get in Touch</span>
-          </button>
-        </form>
+    <div className="flex items-center mt-9">
+      <div className="flex -space-x-3.5 pr-3">
+        <img
+          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200"
+          alt="avatar"
+          className="size-10 border-2 border-white rounded-full hover:-translate-y-px transition z-1"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+          alt="avatar"
+          className="size-10 border-2 border-white rounded-full hover:-translate-y-px transition z-[2]"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
+          alt="avatar"
+          className="size-10 border-2 border-white rounded-full hover:-translate-y-px transition z-[3]"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60"
+          alt="avatar"
+          className="size-10 border-2 border-white rounded-full hover:-translate-y-px transition z-[4]"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60"
+          alt="avatar"
+          className="size-10 border-2 border-white rounded-full hover:-translate-y-px transition z-[4]"
+        />
+      </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-16 md:gap-20 mx-auto mt-16">
-          <img className="max-w-28 md:max-w-32" src="https://saasly.prebuiltui.com/assets/companies-logo/framer.svg" alt="" />
-          <img className="max-w-28 md:max-w-32" src="https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg" alt="" />
-          <img className="max-w-28 md:max-w-32" src="https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg" alt="" />
-          <img className="max-w-28 md:max-w-32" src="https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg" alt="" />
-          <img className="max-w-28 md:max-w-32" src="https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg" alt="" />
+      <div>
+        <div className="flex items-center gap-px">
+          {[...Array(5)].map((_, i) => (
+            <svg
+              key={i}
+              width="13"
+              height="12"
+              viewBox="0 0 13 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.85536 0.463527C6.00504 0.00287118 6.65674 0.00287028 6.80642 0.463526L7.82681 3.60397C7.89375 3.80998 8.08572 3.94946 8.30234 3.94946H11.6044C12.0888 3.94946 12.2901 4.56926 11.8983 4.85397L9.22687 6.79486C9.05162 6.92219 8.97829 7.14787 9.04523 7.35388L10.0656 10.4943C10.2153 10.955 9.68806 11.338 9.2962 11.0533L6.62478 9.11244C6.44954 8.98512 6.21224 8.98512 6.037 9.11244L3.36558 11.0533C2.97372 11.338 2.44648 10.955 2.59616 10.4943L3.61655 7.35388C3.68349 7.14787 3.61016 6.92219 3.43491 6.79486L0.763497 4.85397C0.37164 4.56927 0.573027 3.94946 1.05739 3.94946H4.35944C4.57606 3.94946 4.76803 3.80998 4.83497 3.60397L5.85536 0.463527Z"
+                fill="#FF8F20"
+              />
+            </svg>
+          ))}
         </div>
+        <p className="text-sm text-slate-500">Used by 1,000+ people</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="relative">
+    <div className="absolute inset-0 z-[-1] rounded-lg bg-gradient-to-r from-[#661FFF] via-[#FF1994] to-[#2D73FF] blur-2xl opacity-50" />
+    <img
+      src="https://images.unsplash.com/photo-1681949222860-9cb3b0329878?q=80&w=450&h=560&auto=format&fit=crop"
+      alt="hero"
+      className="max-w-md w-full max-h-[560px] rounded-[40px] max-md:px-3 md:mr-10"
+    />
+  </div>
+</div>
       </section>
     </>
   )
