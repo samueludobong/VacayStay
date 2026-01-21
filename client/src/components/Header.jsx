@@ -15,12 +15,7 @@ export default function Header() {
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
                 <a href="#contact"
                     className="px-10 py-2.5 border rounded-full bg-[#396ce5] text-white flex items-center gap-2 dark:border-transparent">
-                    Contact Us
-                </a>
-
-                <a href="./assets/dev-icon.png" download
-                    className="px-10 py-2.5 rounded-full border border-white hover:bg-slate-100/70 hover:bg-darkHover flex items-center gap-2 bg-white dark:bg-transparent dark:text-black">
-                    my resume
+                    Explore Rooms
                 </a>
             </div>
         </div>
