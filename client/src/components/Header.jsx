@@ -10,17 +10,17 @@ export default function Header() {
                 <img src={assets.logo} alt="" className="w-6 mb-1" />
             </h3>
             <h1 className="text-3xl sm:text-6xl lg:text-[66px] font-Ovo">Best hotel rental service on earth.</h1>
-            <p className="max-w-2xl mx-auto font-Ovo">I am a frontend developer from California, USA with 10 years of experience in multiple companies like Microsoft, Tesla and Apple.</p>
+            <p className="max-w-2xl mx-auto font-Ovo">Celebrating 10 years of customer satisfaction in multiple countries.</p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
                 <a href="#contact"
-                    className="px-10 py-2.5 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2 dark:border-transparent">
-                    Contact Us <img src={assets.logo} alt="" className="w-4" />
+                    className="px-10 py-2.5 border rounded-full bg-[#396ce5] text-white flex items-center gap-2 dark:border-transparent">
+                    Contact Us
                 </a>
 
                 <a href="./assets/dev-icon.png" download
-                    className="px-10 py-2.5 rounded-full border border-white dark:border-white hover:bg-slate-100/70 dark:hover:bg-darkHover flex items-center gap-2 bg-white dark:bg-transparent dark:text-black">
-                    my resume <img src="./assets/download-icon.png" alt="" className="w-4 dark:invert" />
+                    className="px-10 py-2.5 rounded-full border border-white hover:bg-slate-100/70 hover:bg-darkHover flex items-center gap-2 bg-white dark:bg-transparent dark:text-black">
+                    my resume
                 </a>
             </div>
         </div>
