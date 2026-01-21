@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 export default function Header() {
     return (
-        <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4 bg-[#0a1b43]">
+        <div className="w-100 max-w-100 text-center mx-auto h-screen flex flex-col items-center justify-center gap-4 bg-[#0a1b43]">
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="wwww" className="rounded-full w-32" />
             <h3 className="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo text-white">
                 Welcome to VacayStay
