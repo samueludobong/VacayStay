@@ -1,6 +1,50 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
+import Booking from "../models/Booking.js";
 import { v2 as cloudinary } from "cloudinary";
+
+export const searchAvailableRooms = async (req, res) => {
+  try {
+    const { roomType, checkIn, checkOut, hotelId } = req.body;
+
+    if (!roomType || !checkIn || !checkOut) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    const rooms = await Room.find({
+      hotel: hotelId,
+      roomType,
+      isAvailable: true,
+    });
+
+    if (!rooms.length) {
+      return res.json({ availableRooms: [] });
+    }
+
+    const roomIds = rooms.map(r => r._id);
+
+    // OVERLAPPING BOOKINGS
+    const bookings = await Booking.find({
+      room: { $in: roomIds },
+      status: { $ne: "cancelled" },
+      checkInDate: { $lt: new Date(checkOut) },
+      checkOutDate: { $gt: new Date(checkIn) },
+    });
+
+    const bookedRoomIds = bookings.map(b => b.room.toString());
+
+    const availableRooms = rooms.filter(
+      room => !bookedRoomIds.includes(room._id.toString())
+    );
+
+    res.json({ availableRooms });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 export const createRoom = async (req, res) => {
   try {
