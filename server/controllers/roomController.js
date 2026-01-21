@@ -23,7 +23,6 @@ export const searchAvailableRooms = async (req, res) => {
 
     const roomIds = rooms.map(r => r._id);
 
-    // OVERLAPPING BOOKINGS
     const bookings = await Booking.find({
       room: { $in: roomIds },
       status: { $ne: "cancelled" },
