@@ -3,25 +3,31 @@ import { useEffect, useState } from 'react'
 export default function Contact() {
     const [result, setResult] = useState("");
     const onSubmit = async (event) => {
-        event.preventDefault();
-        setResult("Sending....");
-        const formData = new FormData(event.target);
-        formData.append("access_key", "--- enter your access key here-------");
+    event.preventDefault();
+    setResult("Sending...");
 
-        const res = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData
-        }).then((res) => res.json());
+    const formData = new FormData(event.target);
+    const payload = Object.fromEntries(formData.entries());
 
-        if (res.success) {
-            console.log("Success", res);
-            setResult(res.message);
-            event.target.reset();
-        } else {
-            console.log("Error", res);
-            setResult(res.message);
-        }
-    };
+    try {
+        const { data } = await axios.post("api/contact",
+            payload,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        setResult("Message sent successfully!");
+        event.target.reset();
+    } catch (error) {
+        console.error(error);
+        setResult(
+            error.response?.data?.message || "Server error"
+        );
+    }
+};
 
     function CaptchaLoader() {
         const captchadiv = document.querySelectorAll('[data-captcha="true"]');

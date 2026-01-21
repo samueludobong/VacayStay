@@ -37,7 +37,6 @@ export default function Services() {
                         <img src={service.icon} alt="" className="w-10" />
                         <h3 className="text-lg my-4 text-gray-700 dark:text-black">{service.name}</h3>
                         <p className="text-sm text-gray-600 leading-5 dark:text-black/80">{service.description}</p>
-                        <a href={service.link} className="flex items-center gap-2 text-sm mt-5">Read more <img src="./assets/right-arrow.png" alt="" className="w-4" /></a>
                     </div>
                 ))}
             </div>
