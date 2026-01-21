@@ -4,12 +4,6 @@ export default function Contact() {
     const [result, setResult] = useState("");
     const onSubmit = async (event) => {
         event.preventDefault();
-        const hCaptcha = event.target.querySelector('textarea[name=h-captcha-response]').value;
-        if (!hCaptcha) {
-            event.preventDefault();
-            setResult("Please fill out captcha field");
-            return
-        }
         setResult("Sending....");
         const formData = new FormData(event.target);
 
@@ -69,9 +63,6 @@ export default function Contact() {
         }
     }
 
-    useEffect(() => {
-        CaptchaLoader();
-    }, []);
     return (
         <div id="contact" className="w-full px-[12%] py-10 scroll-mt-20 bg-[url('./assets/footer-bg-color.png')] bg-no-repeat bg-[length:90%_auto] bg-center dark:bg-none">
 
