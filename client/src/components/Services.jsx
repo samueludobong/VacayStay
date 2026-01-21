@@ -1,27 +1,27 @@
 export default function Services() {
     const services = [
         {
-            name: 'Web design',
+            name: 'Hotel Posting',
             icon: './assets/web-icon.png',
-            description: 'Web development is the process of building, programming...',
+            description: 'Hotels are posted by professional and experienced hoteliers...',
             link: '#',
         },
         {
-            name: 'Mobile app',
+            name: 'Hotel Management',
             icon: './assets/mobile-icon.png',
-            description: 'Web development is the process of building, programming...',
+            description: 'Manage your hotel bookings, customers and services easily...',
             link: '#',
         },
         {
-            name: 'UI/ UX design',
+            name: 'Payment Tracking',
             icon: './assets/ui-icon.png',
-            description: 'Web development is the process of building, programming...',
+            description: 'Track payments and transactions with our integrated system...',
             link: '#',
         },
         {
-            name: 'Graphics design',
+            name: 'User Support',
             icon: './assets/graphics-icon.png',
-            description: 'Web development is the process of building, programming...',
+            description: '24/7 customer support for all your hotel rental needs...',
             link: '#',
         }
     ];
@@ -35,8 +35,8 @@ export default function Services() {
                 {services.map((service) => (
                     <div key={service.name} className="border border-gray-300 dark:border-white/30 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
                         <img src={service.icon} alt="" className="w-10" />
-                        <h3 className="text-lg my-4 text-gray-700 dark:text-white">{service.name}</h3>
-                        <p className="text-sm text-gray-600 leading-5 dark:text-white/80">{service.description}</p>
+                        <h3 className="text-lg my-4 text-gray-700 dark:text-black">{service.name}</h3>
+                        <p className="text-sm text-gray-600 leading-5 dark:text-black/80">{service.description}</p>
                         <a href={service.link} className="flex items-center gap-2 text-sm mt-5">Read more <img src="./assets/right-arrow.png" alt="" className="w-4" /></a>
                     </div>
                 ))}
