@@ -16,7 +16,6 @@ export default function Experience() {
             <About />
             <Services />
             <Contact />
-            <Footer />
         </>
     )
 }

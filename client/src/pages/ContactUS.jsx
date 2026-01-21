@@ -13,7 +13,6 @@ export default function ContactUS() {
             <Navbar />
             <Header />
             <Contact />
-            <Footer />
         </>
     )
 }
