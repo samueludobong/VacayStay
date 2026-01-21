@@ -1,11 +1,11 @@
-import Contact from '../components/experience/Contact'
+import Contact from '../components/Contact'
 import Footer from '../components/Footer'
-import Work from '../components/experience/Work'
-import Services from '../components/experience/Services'
-import About from '../components/experience/About'
-import Header from '../components/experience/Header'
+import Work from '../components/Work'
+import Services from '../components/Services'
+import About from '../components/About'
+import Header from '../components/Header'
 import Navbar from '../components/Navbar'
-import LenisScroll from '../components/experience/LenisScroll'
+import LenisScroll from '../components/LenisScroll'
 
 export default function Experience() {
     return (
