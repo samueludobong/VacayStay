@@ -22,12 +22,12 @@ export default function About() {
     ];
     return (
         <div id="about" className="w-full px-[12%] py-10 scroll-mt-20">
-            <h4 className="text-center mb-2 text-lg font-Ovo">Introduction</h4>
-            <h2 className="text-center text-5xl font-Ovo">About me</h2>
+            <h4 className="text-center mb-2 text-lg font-Ovo">Experience</h4>
+            <h2 className="text-center text-5xl font-Ovo">About Vacay Stay</h2>
 
             <div className="flex w-full flex-col lg:flex-row items-center gap-20 my-20">
                 <div className="max-w-max mx-auto relative">
-                    <img src='./assets/user-image.png' alt="" className="w-64 sm:w-80 rounded-3xl max-w-none" />
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="" className="w-64 sm:w-80 rounded-3xl max-w-none" />
 
                     <div className="bg-white w-1/2 aspect-square absolute right-0 bottom-0 rounded-full translate-x-1/4 translate-y-1/3 shadow-[0_4px_55px_rgba(149,0,162,0.15)] flex items-center justify-center">
                         <img src="./assets/circular-text.png" alt="" className="w-full animate-spin_slow" />
@@ -35,7 +35,7 @@ export default function About() {
                     </div>
                 </div>
                 <div className="flex-1">
-                    <p className="mb-10 max-w-2xl font-Ovo">I am an experienced Frontend Developer with over a decade of professional expertise in the field. Throughout my career, I have had the privilege of collaborating with prestigious organizations, contributing to their success and growth.</p>
+                    <p className="mb-10 max-w-2xl font-Ovo">We are a customer first rental service, offering hotel rental and consultation services globally, with easy to navigate user interface and top notch transparency</p>
 
                     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
                         {data.map((data) => (
