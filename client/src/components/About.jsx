@@ -1,30 +1,23 @@
 export default function About() {
-    const tools = [
-        { name: 'vscode', icon: './assets/vscode.png', },
-        { name: 'firebase', icon: './assets/firebase.png', },
-        { name: 'mongodb', icon: './assets/mongodb.png', },
-        { name: 'figma', icon: './assets/figma.png', },
-        { name: 'git', icon: './assets/git.png', },
-    ];
 
     const data = [
         {
-            name: 'Languages',
+            name: 'Locations',
             icon1: './assets/code-icon.png',
             icon2: './assets/code-icon-dark.png',
-            description: 'HTML, CSS, JavaScript React Js, Next Js',
+            description: 'Nigeria, Dubai, United States, Turkey, ETC.',
         },
         {
-            name: 'Education',
+            name: 'Services',
             icon1: './assets/edu-icon.png',
             icon2: './assets/edu-icon-dark.png',
-            description: 'B.Tech in Computer Science',
+            description: 'Hotel Rental and Consultation Services',
         },
         {
-            name: 'Projects',
+            name: 'User Base',
             icon1: './assets/project-icon.png',
             icon2: './assets/project-icon-dark.png',
-            description: 'Built more than 5 projects',
+            description: 'Over 11 Million Satisfied Customers Worldwide',
         },
     ];
     return (
@@ -51,14 +44,6 @@ export default function About() {
                                 <img src={data.icon2} alt="" className="w-7 mt-3 hidden dark:block" />
                                 <h3 className="my-4 font-semibold text-gray-700 dark:text-black">{data.name}</h3>
                                 <p className="text-gray-600 text-sm dark:text-black/80">{data.description}</p>
-                            </li>
-                        ))}
-                    </ul>
-                    <h4 className="my-6 text-gray-700 font-Ovo dark:text-black/80">Tools i use</h4>
-                    <ul className="flex items-center gap-3 sm:gap-5">
-                        {tools.map((tool) => (
-                            <li key={tool.name} className="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500">
-                                <img src={tool.icon} alt={tool.name} className="w-5 sm:w-7" />
                             </li>
                         ))}
                     </ul>
