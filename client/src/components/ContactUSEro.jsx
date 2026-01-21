@@ -38,9 +38,9 @@ const ContactUSEro = () => {
   return (
     <>
       <section className="flex flex-col items-center text-white text-sm pb-20 px-4 font-poppins bg-[#0a1b43]">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-20 w-full mt-24">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-20 w-full mt-24 ml-20">
   <div className="max-md:px-4 lg:w-1/2">
-    <h1 className="text-5xl md:text-[54px] md:leading-[4.7rem] font-semibold max-w-lg bg-linear-to-r from-white to-white-600 bg-clip-text text-transparent">
+    <h1 className="text-5xl md:text-[54px] md:leading-[4.7rem] font-semibold max-w-lg">
       Every startup begins with spark
     </h1>
 
