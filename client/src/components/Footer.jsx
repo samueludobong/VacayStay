@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 
-const { axios } = useAppContext();
-const [email, setEmail] = useState("");
-const [status, setStatus] = useState("idle");
-const [message, setMessage] = useState("");
 
+const Footer = () => {
 
-const handleSubscribe = async () => {
-    
+    const { axios } = useAppContext();
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState("idle");
+    const [message, setMessage] = useState("");
+
+    const handleSubscribe = async () => {
   if (!email) {
     setStatus("error");
     setMessage("Please enter an email address");
@@ -34,7 +35,7 @@ const handleSubscribe = async () => {
   }
 };
 
-const Footer = () => {
+
     return (
         <div className='bg-[#F6F9FC] text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
