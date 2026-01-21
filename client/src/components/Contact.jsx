@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useAppContext } from "../context/AppContext";
+
 
 export default function Contact() {
     const [result, setResult] = useState("");
+    const { axios } = useAppContext();
+    
     const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Sending...");
