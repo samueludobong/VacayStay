@@ -23,6 +23,9 @@ const Footer = () => {
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="/about">About</a></li>
                         <li><a href="/hotels">Hotels</a></li>
+                        <li><a href="/experience">Experience</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
                     </ul>
                 </div>
 

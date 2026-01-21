@@ -20,6 +20,7 @@ import { Toaster } from 'react-hot-toast'
 import AllHotels from './pages/AllHotels'
 import AllRooms from './pages/AllRooms'
 import RoomDetails from './pages/RoomDetails'
+import ContactUS from './pages/ContactUS'
 import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
 import Loader from './components/Loader'
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/experience" element={<Experience />} />
+          <Route path="/contact" element={<ContactUS />} />
           <Route path="/hotels" element={<AllHotels />} />
           <Route path="/hotels/rooms/:id" element={<AllRooms />} />
           <Route path="/rooms/:id" element={<RoomDetails />} />
