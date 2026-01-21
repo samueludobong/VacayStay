@@ -13,7 +13,6 @@ export default function Contact() {
         setResult("Sending....");
         const formData = new FormData(event.target);
 
-        // ----- Enter your Web3 Forms Access key below---------
 
         formData.append("access_key", "--- enter your access key here-------");
 
