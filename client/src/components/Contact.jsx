@@ -24,14 +24,10 @@ export default function Contact() {
         );
 
         setResult("Message sent successfully!");
-        useEffect(() => {
         const timer = setTimeout(() => {
             setResult("Submit");
         }, 2000);
-
-        // cleanup (important!)
-        return () => clearTimeout(timer);
-    }, []);
+        clearTimeout(timer);
         event.target.reset();
     } catch (error) {
         console.error(error);
