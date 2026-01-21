@@ -5,14 +5,14 @@ import { v2 as cloudinary } from "cloudinary";
 
 export const searchAvailableRooms = async (req, res) => {
   try {
-    const { roomType, checkIn, checkOut, hotelId } = req.body;
+    const { roomType, checkIn, checkOut } = req.body;
 
     if (!roomType || !checkIn || !checkOut) {
       return res.status(400).json({ message: "Missing fields" });
     }
 
+    // 1️⃣ Find rooms by type only
     const rooms = await Room.find({
-      hotel: hotelId,
       roomType,
       isAvailable: true,
     });
@@ -23,6 +23,7 @@ export const searchAvailableRooms = async (req, res) => {
 
     const roomIds = rooms.map(r => r._id);
 
+    // 2️⃣ Find overlapping bookings
     const bookings = await Booking.find({
       room: { $in: roomIds },
       status: { $ne: "cancelled" },
@@ -32,6 +33,7 @@ export const searchAvailableRooms = async (req, res) => {
 
     const bookedRoomIds = bookings.map(b => b.room.toString());
 
+    // 3️⃣ Filter available rooms
     const availableRooms = rooms.filter(
       room => !bookedRoomIds.includes(room._id.toString())
     );
