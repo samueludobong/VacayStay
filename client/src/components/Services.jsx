@@ -33,7 +33,7 @@ export default function Services() {
 
             <div className="grid grid-cols-auto gap-6 my-10">
                 {services.map((service) => (
-                    <div key={service.name} className="border border-gray-300 dark:border-white/30 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white">
+                    <div key={service.name} className="border border-black rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500">
                         <img src={service.icon} alt="" className="w-10" />
                         <h3 className="text-lg my-4 text-gray-700 dark:text-black">{service.name}</h3>
                         <p className="text-sm text-gray-600 leading-5 dark:text-black/80">{service.description}</p>
