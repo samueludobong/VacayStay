@@ -1,42 +1,69 @@
 import React from "react";
+import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const ContactUSEro = () => {
-
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [input, setInput] = React.useState('');
-
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted with input:", input);
+  const { axios } = useAppContext();
       
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState("idle");
 
+
+  const handleSubscribe = async () => {
+  if (!email) {
+    setStatus("error");
+    setMessage("Please enter an email address");
+    return;
   }
+
+  try {
+    setStatus("loading");
+
+    const { data } = await axios.post("/api/newsletter/subscribe", {
+      email,
+    });
+
+    if (data.message) {
+      setStatus("success");
+      setMessage(data.message);
+      setEmail("");
+    }
+  } catch (err) {
+    setStatus("error");
+    setMessage(err.response?.data?.message || err.message);
+  }
+};
 
   return (
     <>
       <section className="flex flex-col items-center text-white text-sm pb-20 px-4 font-poppins bg-[#0a1b43]">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-20 w-full mt-24">
   <div className="max-md:px-4 lg:w-1/2">
-    <h1 className="text-5xl md:text-[54px] md:leading-[4.7rem] font-semibold max-w-lg bg-gradient-to-r from-black to-slate-600 bg-clip-text text-transparent">
+    <h1 className="text-5xl md:text-[54px] md:leading-[4.7rem] font-semibold max-w-lg bg-linear-to-r from-white to-white-600 bg-clip-text text-transparent">
       Every startup begins with spark
     </h1>
 
-    <p className="text-sm/7 max-w-md mt-3 text-slate-500">
-      Our latest thoughts, trends, and tools, written to help you learn, build and grow faster.
+    <p className="text-sm/7 max-w-md mt-3 text-white">
+      Join our newsletter to stay updated with the latest news and exclusive offers.
     </p>
 
     <div className="flex items-center text-sm border border-slate-300 rounded-md h-[54px] max-w-md focus-within:border-indigo-600 mt-6">
       <input
         type="email"
+        value={email}
         placeholder="Enter your email"
         className="rounded-md h-full px-4 w-full outline-none"
+        onChange={(e) => setEmail(e.target.value)}
       />
-      <button className="px-8 h-[46px] mr-1 flex items-center justify-center text-white rounded-md bg-indigo-600 hover:bg-indigo-700 transition">
-        Subscribe
+              <button
+              disabled={status === "loading"}
+                onClick={handleSubscribe}
+        className="px-8 h-[46px] mr-1 flex items-center justify-center text-white rounded-md bg-indigo-600 hover:bg-indigo-700 transition">
+        {status === "loading" ? "Subscribing..." : "Subscribe"}
       </button>
     </div>
 
-    <p className="text-xs mt-2 text-slate-600">
+    <p className="text-xs mt-2 text-white">
       Only the updates you actually want.
     </p>
 
