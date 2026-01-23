@@ -23,6 +23,7 @@ import RoomDetails from './pages/RoomDetails'
 import ContactUS from './pages/ContactUS'
 import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
+import SupportInbox from './pages/admin/SupportInbox'
 import Loader from './components/Loader'
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="hotels" element={<AdminHotels />} />
             <Route path="list-room" element={<AdminRooms />} />
             <Route path="list-city" element={<AdminCity />} />
+            <Route path="support-inbox" element={<SupportInbox />} />
             <Route path="list-users" element={<AdminUsers />} />
           </Route>
         </Routes>

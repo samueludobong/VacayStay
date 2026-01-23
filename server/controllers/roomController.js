@@ -46,7 +46,6 @@ export const searchAvailableRooms = async (req, res) => {
   }
 };
 
-
 export const createRoom = async (req, res) => {
   try {
     const { roomType, pricePerNight, amenities } = req.body;
