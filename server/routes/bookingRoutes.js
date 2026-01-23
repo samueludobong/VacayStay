@@ -4,6 +4,10 @@ import { checkAvailabilityAPI, createBooking, getHotelBookings, getUserBookings,
 
 const bookingRouter = express.Router();
 
+bookingRouter.get("/", protect, getAllBookings);
+bookingRouter.put("/:id/release", protect, releaseBookingRoom);
+bookingRouter.put("/:id/refund", protect, refundBooking);
+
 bookingRouter.post('/check-availability', checkAvailabilityAPI);
 bookingRouter.post('/book', protect, createBooking);
 bookingRouter.get('/user', protect, getUserBookings);
