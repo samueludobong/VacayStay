@@ -82,7 +82,7 @@ export const createBooking = async (req, res) => {
     try {
       await sgMail.send({
         to: req.user.email,
-        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
         subject: "Hotel Booking Details",
         html: `
           <h2>Your Booking Details</h2>
@@ -274,14 +274,12 @@ export const releaseBookingRoom = async (req, res) => {
     booking.refundStatus = "none";
     await booking.save();
 
-    // ✅ respond first
     res.json({ success: true, message: "Room released" });
 
-    // 📧 send email safely
     try {
       await sgMail.send({
         to: booking.user.email,
-        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
         subject: "Your Booking Has Been Cancelled",
         html: `
           <h2>Booking Cancelled</h2>
@@ -334,7 +332,7 @@ export const refundBooking = async (req, res) => {
     try {
       await sgMail.send({
         to: booking.user.email,
-        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
         subject: "Your Refund Has Been Processed",
         html: `
           <h2>Refund Successful</h2>
