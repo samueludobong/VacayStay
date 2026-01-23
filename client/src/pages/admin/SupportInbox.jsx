@@ -10,18 +10,23 @@ const SupportInbox = () => {
   const [activeMessage, setActiveMessage] = useState(null);
   const [reply, setReply] = useState("");
 
-  const fetchMessages = async () => {
-    try {
-      const { data } = await axios.get("/api/contact", {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+const fetchMessages = async () => {
+  try {
+    const { data } = await axios.get("/api/contact", {
+      headers: { Authorization: `Bearer ${await getToken()}` },
+    });
 
-      if (data.success) setMessages(data.messages);
-      else toast.error(data.message);
-    } catch (err) {
-      toast.error(err.message);
+    if (data.success) {
+      setMessages(data.data || []);
+    } else {
+      toast.error(data.message);
     }
-  };
+  } catch (err) {
+    toast.error(err.message);
+    setMessages([]);
+  }
+};
+
 
   const sendReply = async () => {
     if (!reply.trim()) return toast.error("Reply cannot be empty");
