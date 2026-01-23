@@ -4,9 +4,6 @@ import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import stripe from "stripe";
 
-/* =====================================================
-   AVAILABILITY CHECK
-===================================================== */
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   try {
     const bookings = await Booking.find({
