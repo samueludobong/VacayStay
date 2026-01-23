@@ -11,7 +11,7 @@ import { BadgeCheck, XCircle, Clock } from "lucide-react";
 
 export default function Dashboard() {
 
-    const { Pending, PendingPayment, orders, user } = useAppContext()
+    const { Pending, PendingPayment, orders, user, axios } = useAppContext()
 
   const [dashboardData, setDashboardData] = useState({
           bookings: [],
