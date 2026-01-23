@@ -63,25 +63,27 @@ const SupportInbox = () => {
       <div className="mt-6 flex h-[500px] border rounded-lg overflow-hidden">
         {/* Sidebar */}
         <div className="w-1/3 border-r overflow-y-auto">
-        {messages.length > 0 ? (
-          messages.map((msg) => (
-            <div
-              key={msg._id}
-              onClick={() => setActiveMessage(msg)}
-              className={`p-4 cursor-pointer border-b hover:bg-gray-50 ${
-                activeMessage?._id === msg._id && "bg-gray-100"
-              }`}
-            >
-              <p className="font-medium">{msg.name}</p>
-              <p className="text-xs text-gray-500">{msg.email}</p>
-              <p className="text-sm truncate mt-1">{msg.message}</p>
-            </div>
-          ))) : (
-            <p className="text-gray-500 text-center mt-20">
-              No support messages found
-            </p>
-          )}
-        </div>
+  {messages && messages.length > 0 ? (
+    messages.map((msg) => (
+      <div
+        key={msg._id}
+        onClick={() => setActiveMessage(msg)}
+        className={`p-4 cursor-pointer border-b hover:bg-gray-50 ${
+          activeMessage?._id === msg._id ? "bg-gray-100" : ""
+        }`}
+      >
+        <p className="font-medium">{msg.name}</p>
+        <p className="text-xs text-gray-500">{msg.email}</p>
+        <p className="text-sm truncate mt-1">{msg.message}</p>
+      </div>
+    ))
+  ) : (
+    <p className="text-gray-500 text-center mt-20">
+      No support messages found
+    </p>
+  )}
+</div>
+
 
         {/* Message View */}
         <div className="flex-1 flex flex-col p-4">
