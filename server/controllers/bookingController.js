@@ -331,7 +331,6 @@ export const refundBooking = async (req, res) => {
       message: "Booking refunded successfully (simulated)",
     });
 
-    // 📧 send email safely
     try {
       await sgMail.send({
         to: booking.user.email,
