@@ -2,6 +2,9 @@ import React from 'react'
 import { assets } from '../../assets/assets';
 import { NavLink } from 'react-router-dom';
 
+
+
+
 const Sidebar = () => {
 
     const sidebarLinks = [
@@ -10,7 +13,7 @@ const Sidebar = () => {
         { name: "Rooms", path: "/admin/list-room", icon: assets.roomIcon },
         { name: "Bookings", path: "/admin/list-bookings", icon: assets.bookingsIcon },
         { name: "Users", path: "/admin/list-users", icon: assets.userIcon2 },
-        { name: "Support", path: "/admin/support-inbox", icon: assets.userIcon2 },
+        { name: "Support", path: "/admin/support-inbox", icon: assets.support },
         { name: "Cities", path: "/admin/list-city", icon: assets.cityIcon },
     ];
 
