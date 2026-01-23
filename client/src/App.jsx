@@ -25,6 +25,7 @@ import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
 import SupportInbox from './pages/admin/SupportInbox'
 import Loader from './components/Loader'
+import Booking from './pages/admin/ListBookin'
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner");
@@ -64,6 +65,7 @@ const App = () => {
             <Route path="list-room" element={<AdminRooms />} />
             <Route path="list-city" element={<AdminCity />} />
             <Route path="support-inbox" element={<SupportInbox />} />
+            <Route path="list-bookings" element={<Booking />} />
             <Route path="list-users" element={<AdminUsers />} />
           </Route>
         </Routes>
