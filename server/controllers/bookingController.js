@@ -75,31 +75,44 @@ export const createBooking = async (req, res) => {
       refundStatus: "none",
     });
 
+    // ✅ SEND RESPONSE FIRST
     res.json({ success: true, message: "Booking created successfully" });
 
-const msg = {
-  to: req.user.email,
-  from: `VacayStay <${process.env.SENDER_EMAIL}>`,
-  subject: "Hotel Booking Details",
-  html: `
-    <h2>Your Booking Details</h2>
-    <p>Hello ${req.user.username},</p>
-    <ul>
-      <li><b>Booking ID:</b> ${booking._id}</li>
-      <li><b>Hotel:</b> ${roomData.hotel.name}</li>
-      <li><b>Address:</b> ${roomData.hotel.address}</li>
-      <li><b>Check-in:</b> ${booking.checkInDate.toDateString()}</li>
-      <li><b>Total:</b> ${booking.totalPrice}</li>
-    </ul>
-  `,
-};
+    // 📧 EMAIL = SIDE EFFECT (separate try/catch)
+    try {
+      await sgMail.send({
+        to: req.user.email,
+        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        subject: "Hotel Booking Details",
+        html: `
+          <h2>Your Booking Details</h2>
+          <p>Hello ${req.user.username},</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Hotel:</b> ${roomData.hotel.name}</li>
+            <li><b>Address:</b> ${roomData.hotel.address}</li>
+            <li><b>Check-in:</b> ${booking.checkInDate.toDateString()}</li>
+            <li><b>Total:</b> ${booking.totalPrice}</li>
+          </ul>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "SendGrid email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
 
-await sgMail.send(msg);
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Failed to create booking" });
+    console.error(error);
+
+    // Extra safety (prevents double-send in edge cases)
+    if (!res.headersSent) {
+      res.json({ success: false, message: "Failed to create booking" });
+    }
   }
 };
+
 
 export const getUserBookings = async (req, res) => {
   try {
@@ -261,25 +274,38 @@ export const releaseBookingRoom = async (req, res) => {
     booking.refundStatus = "none";
     await booking.save();
 
-    await sgMail.send({
-      to: booking.user.email,
-      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
-      subject: "Your Booking Has Been Cancelled",
-      html: `
-        <h2>Booking Cancelled</h2>
-        <p>Hello ${booking.user.username},</p>
-        <p>Your booking has been successfully cancelled.</p>
-        <ul>
-          <li><b>Booking ID:</b> ${booking._id}</li>
-          <li><b>Status:</b> Cancelled</li>
-        </ul>
-        <p>If this was a mistake, you can make a new booking anytime.</p>
-      `,
-    });
-
+    // ✅ respond first
     res.json({ success: true, message: "Room released" });
+
+    // 📧 send email safely
+    try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        subject: "Your Booking Has Been Cancelled",
+        html: `
+          <h2>Booking Cancelled</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your booking has been successfully cancelled.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Status:</b> Cancelled</li>
+          </ul>
+          <p>If this was a mistake, you can make a new booking anytime.</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "Cancellation email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
+
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error(error);
+    if (!res.headersSent) {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 };
 
@@ -299,27 +325,40 @@ export const refundBooking = async (req, res) => {
     booking.paymentStatus = "awaiting";
     await booking.save();
 
-    await sgMail.send({
-      to: booking.user.email,
-      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
-      subject: "Your Refund Has Been Processed",
-      html: `
-        <h2>Refund Successful</h2>
-        <p>Hello ${booking.user.username},</p>
-        <p>Your refund has been processed successfully.</p>
-        <ul>
-          <li><b>Booking ID:</b> ${booking._id}</li>
-          <li><b>Refund Status:</b> Refunded</li>
-        </ul>
-        <p>The funds should reflect based on your payment provider's timeline.</p>
-      `,
-    });
 
     res.json({
       success: true,
       message: "Booking refunded successfully (simulated)",
     });
+
+    // 📧 send email safely
+    try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+        subject: "Your Refund Has Been Processed",
+        html: `
+          <h2>Refund Successful</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your refund has been processed successfully.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Refund Status:</b> Refunded</li>
+          </ul>
+          <p>The funds should reflect based on your payment provider's timeline.</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "Refund email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
+
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error(error);
+    if (!res.headersSent) {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 };
