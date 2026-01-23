@@ -3,6 +3,10 @@ import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import stripe from "stripe";
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   try {
@@ -34,10 +38,6 @@ export const checkAvailabilityAPI = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
-/* =====================================================
-   CREATE BOOKING
-===================================================== */
 export const createBooking = async (req, res) => {
   try {
     const { room, checkInDate, checkOutDate, guests } = req.body;
@@ -77,31 +77,30 @@ export const createBooking = async (req, res) => {
 
     res.json({ success: true, message: "Booking created successfully" });
 
-    await resend.emails.send({
-      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
-      to: req.user.email,
-      subject: "Hotel Booking Details",
-      html: `
-        <h2>Your Booking Details</h2>
-        <p>Hello ${req.user.username},</p>
-        <ul>
-          <li><b>Booking ID:</b> ${booking._id}</li>
-          <li><b>Hotel:</b> ${roomData.hotel.name}</li>
-          <li><b>Address:</b> ${roomData.hotel.address}</li>
-          <li><b>Check-in:</b> ${booking.checkInDate.toDateString()}</li>
-          <li><b>Total:</b> ${booking.totalPrice}</li>
-        </ul>
-      `,
-    });
+const msg = {
+  to: req.user.email,
+  from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+  subject: "Hotel Booking Details",
+  html: `
+    <h2>Your Booking Details</h2>
+    <p>Hello ${req.user.username},</p>
+    <ul>
+      <li><b>Booking ID:</b> ${booking._id}</li>
+      <li><b>Hotel:</b> ${roomData.hotel.name}</li>
+      <li><b>Address:</b> ${roomData.hotel.address}</li>
+      <li><b>Check-in:</b> ${booking.checkInDate.toDateString()}</li>
+      <li><b>Total:</b> ${booking.totalPrice}</li>
+    </ul>
+  `,
+};
+
+await sgMail.send(msg);
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Failed to create booking" });
   }
 };
 
-/* =====================================================
-   USER BOOKINGS
-===================================================== */
 export const getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user._id })
@@ -114,9 +113,6 @@ export const getUserBookings = async (req, res) => {
   }
 };
 
-/* =====================================================
-   HOTEL BOOKINGS (OWNER)
-===================================================== */
 export const getHotelBookings = async (req, res) => {
   try {
     const hotel = await Hotel.findOne({ owner: req.auth.userId });
@@ -144,9 +140,6 @@ export const getHotelBookings = async (req, res) => {
   }
 };
 
-/* =====================================================
-   ALL HOTELS BOOKINGS (ADMIN)
-===================================================== */
 export const getHotelBookingsAll = async (req, res) => {
   try {
     const hotelIds = (await Hotel.find({})).map((h) => h._id);
@@ -172,9 +165,6 @@ export const getHotelBookingsAll = async (req, res) => {
   }
 };
 
-/* =====================================================
-   ORDERS GENERATOR
-===================================================== */
 function getFinalStatus(b) {
   if (b.status === "refunded") return "Refunded";
   if (b.status === "cancelled")
@@ -209,9 +199,6 @@ export const generateOrders = async (req, res) => {
   }
 };
 
-/* =====================================================
-   STRIPE PAYMENT (SIMULATED SUCCESS)
-===================================================== */
 export const stripePayment = async (req, res) => {
   try {
     const { bookingId } = req.body;
@@ -240,7 +227,6 @@ export const stripePayment = async (req, res) => {
       cancel_url: `${origin}/my-bookings`,
     });
 
-    // ✅ simulated success
     booking.paymentStatus = "paid";
     booking.status = "confirmed";
     await booking.save();
@@ -250,10 +236,6 @@ export const stripePayment = async (req, res) => {
     res.json({ success: false, message: "Payment Failed" });
   }
 };
-
-/* =====================================================
-   ADMIN ACTIONS
-===================================================== */
 export const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find().sort({ createdAt: -1 });
@@ -265,7 +247,7 @@ export const getAllBookings = async (req, res) => {
 
 export const releaseBookingRoom = async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id);
+    const booking = await Booking.findById(req.params.id).populate("user");
     if (!booking)
       return res.status(404).json({ success: false, message: "Not found" });
 
@@ -279,6 +261,22 @@ export const releaseBookingRoom = async (req, res) => {
     booking.refundStatus = "none";
     await booking.save();
 
+    await sgMail.send({
+      to: booking.user.email,
+      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+      subject: "Your Booking Has Been Cancelled",
+      html: `
+        <h2>Booking Cancelled</h2>
+        <p>Hello ${booking.user.username},</p>
+        <p>Your booking has been successfully cancelled.</p>
+        <ul>
+          <li><b>Booking ID:</b> ${booking._id}</li>
+          <li><b>Status:</b> Cancelled</li>
+        </ul>
+        <p>If this was a mistake, you can make a new booking anytime.</p>
+      `,
+    });
+
     res.json({ success: true, message: "Room released" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -287,7 +285,7 @@ export const releaseBookingRoom = async (req, res) => {
 
 export const refundBooking = async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id);
+    const booking = await Booking.findById(req.params.id).populate("user");
     if (!booking)
       return res.status(404).json({ success: false, message: "Not found" });
 
@@ -300,6 +298,22 @@ export const refundBooking = async (req, res) => {
     booking.refundStatus = "refunded";
     booking.paymentStatus = "awaiting";
     await booking.save();
+
+    await sgMail.send({
+      to: booking.user.email,
+      from: `VacayStay <${process.env.SENDER_EMAIL}>`,
+      subject: "Your Refund Has Been Processed",
+      html: `
+        <h2>Refund Successful</h2>
+        <p>Hello ${booking.user.username},</p>
+        <p>Your refund has been processed successfully.</p>
+        <ul>
+          <li><b>Booking ID:</b> ${booking._id}</li>
+          <li><b>Refund Status:</b> Refunded</li>
+        </ul>
+        <p>The funds should reflect based on your payment provider's timeline.</p>
+      `,
+    });
 
     res.json({
       success: true,
