@@ -65,7 +65,7 @@ router.post("/reply", async (req, res) => {
     await sgMail.send({
       to: contact.email,
       from: {
-        email: process.env.MAIL_USER,
+        email: process.env.SENDGRID_SENDER,
         name: "Support",
       },
       subject: "Support Reply",
