@@ -40,14 +40,22 @@ const ListRoom = () => {
     if (user) fetchRooms();
   }, [user]);
 
-  // Group rooms by hotel
+  // Group rooms by hotelId
   const hotels = useMemo(() => {
     const map = {};
 
     rooms.forEach((room) => {
-      const hotelName = room.hotel || "Unknown Hotel";
-      if (!map[hotelName]) map[hotelName] = [];
-      map[hotelName].push(room);
+      const hotelId = room.hotel?._id || "unknown";
+      const hotelName = room.hotel?.name || "Unknown Hotel";
+
+      if (!map[hotelId]) {
+        map[hotelId] = {
+          name: hotelName,
+          rooms: []
+        };
+      }
+
+      map[hotelId].rooms.push(room);
     });
 
     return map;
@@ -62,26 +70,30 @@ const ListRoom = () => {
         subTitle="View, edit, or manage all listed rooms. Keep the information up-to-date to provide the best experience for users."
       />
 
-      <p className="text-gray-500 mt-8">Total Hotels: {Object.keys(hotels).length}</p>
+      <p className="text-gray-500 mt-8">
+        Total Hotels: {Object.keys(hotels).length}
+      </p>
 
       <div className="w-full mt-4">
-        {Object.keys(hotels).map((hotelName) => (
-          <div key={hotelName} className="mb-4 border rounded-lg p-3">
+        {Object.keys(hotels).map((hotelId) => (
+          <div key={hotelId} className="mb-4 border rounded-lg p-3">
             <button
               className="w-full text-left font-semibold text-lg"
               onClick={() =>
-                setOpenHotel(openHotel === hotelName ? null : hotelName)
+                setOpenHotel(openHotel === hotelId ? null : hotelId)
               }
             >
-              {hotelName}
+              {hotels[hotelId].name}
             </button>
 
-            {openHotel === hotelName && (
+            {openHotel === hotelId && (
               <div className="mt-3 border-t pt-3">
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="py-3 px-4 text-gray-800 font-medium">Name</th>
+                      <th className="py-3 px-4 text-gray-800 font-medium">
+                        Name
+                      </th>
                       <th className="py-3 px-4 text-gray-800 font-medium max-sm:hidden">
                         Facility
                       </th>
@@ -95,7 +107,7 @@ const ListRoom = () => {
                   </thead>
 
                   <tbody className="text-sm">
-                    {hotels[hotelName].map((room) => (
+                    {hotels[hotelId].rooms.map((room) => (
                       <tr key={room._id}>
                         <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                           {room.roomType}

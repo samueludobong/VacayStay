@@ -96,11 +96,14 @@ export const getAdminRooms = async (req, res) => {
     const rooms = await Room.find()
       .populate({
         path: 'hotel',
+        select: 'name',
         populate: {
-          path: 'owner', 
+          path: 'owner',
           select: 'image',
         },
-      }).sort({ createdAt: -1 });
+      })
+      .sort({ createdAt: -1 });
+
     res.json({ success: true, rooms });
   } catch (error) {
     res.json({ success: false, message: error.message });
