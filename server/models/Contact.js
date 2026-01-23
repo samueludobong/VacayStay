@@ -14,7 +14,7 @@ const contactSchema = new mongoose.Schema(
     email: { type: String, required: true },
     message: { type: String, required: true },
 
-    replies: [replySchema],          // 👈 replies stored here
+    replies: [replySchema],
     replied: { type: Boolean, default: false },
   },
   { timestamps: true }

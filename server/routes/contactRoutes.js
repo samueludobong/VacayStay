@@ -69,7 +69,19 @@ router.post("/reply", async (req, res) => {
         name: "Support",
       },
       subject: "Support Reply",
-      text: reply,
+      text: `Hello ${contact.name},
+
+            Thank you for reaching out to our support team.
+
+            We have reviewed your message and would like to provide the following response:
+
+            ${reply}
+
+            If you have any further questions or require additional assistance, please do not hesitate to contact us. We are always happy to help.
+
+            Kind regards,  
+            Support Team
+`,
     });
 
     contact.replies.push({ message: reply });
