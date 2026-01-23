@@ -244,6 +244,34 @@ export const stripePayment = async (req, res) => {
     booking.status = "confirmed";
     await booking.save();
 
+    try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
+        subject: "Your Refund Has Been Processed",
+        html: `
+          <h2>Refund Successful</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your payment refund has been processed successfully.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Refund Status:</b> Refunded</li>
+            <li><b>Amount:</b> ${booking.totalPrice}</li>
+          </ul>
+          <p>
+            The refunded amount will reflect in your account based on your
+            payment provider's processing timeline.
+          </p>
+        `,
+      });
+} catch (emailError) {
+  console.error(
+    "Refund email failed:",
+    emailError.response?.body?.errors || emailError.message
+  );
+}
+
+
     res.json({ success: true, url: session.url });
   } catch {
     res.json({ success: false, message: "Payment Failed" });
