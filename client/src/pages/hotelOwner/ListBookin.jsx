@@ -10,7 +10,7 @@ const BookingList = () => {
 
   const fetchBookings = async () => {
     try {
-      const { data } = await axios.get("/api/bookings/owner", {
+      const { data } = await axios.get("/api/bookings", {
         headers: { Authorization: `Bearer ${await getToken()}` },
       });
 
