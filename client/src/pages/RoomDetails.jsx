@@ -52,29 +52,44 @@ const RoomDetails = () => {
     }, [rooms]);
 
     useEffect(() => {
-  const fetchBookings = async () => {
-    const { data } = await axios.get(`/api/bookings/room/${room._id}`);
-    setBookings(data);
-  };
+        const fetchBookings = async () => {
+            const { data } = await axios.get(`/api/bookings/room/${room._id}`);
+            setBookings(data);
+        };
 
-  if (room?._id) fetchBookings();
-}, [room]);
+        if (room?._id) fetchBookings();
+    }, [room]);
+    
+    const normalizeDate = (date) =>
+        new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-    const disabledDates = React.useMemo(() => {
-        const dates = [];
 
-        bookings.forEach(({ checkIn, checkOut }) => {
-            let current = new Date(checkIn);
-            const end = new Date(checkOut);
+    const disabledDates = useMemo(() => {
+    const dates = [];
 
-            while (current <= end) {
-            dates.push(new Date(current));
-            current.setDate(current.getDate() + 1);
-            }
-        });
+  bookings.forEach(({ checkInDate, checkOutDate }) => {
+    let current = normalizeDate(new Date(checkInDate));
+    const end = normalizeDate(new Date(checkOutDate));
 
-        return dates;
-        }, [bookings]);
+
+    while (current <= end) {
+      dates.push(new Date(current));
+      current.setDate(current.getDate() + 1);
+    }
+  });
+
+  return dates;
+    }, [bookings]);
+    
+const isDateBooked = (date) => {
+  return bookings.some(({ checkInDate, checkOutDate }) => {
+    return (
+      date >= new Date(checkInDate) &&
+      date <= new Date(checkOutDate)
+    );
+  });
+};
+
 
 
     return room && (
