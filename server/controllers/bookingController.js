@@ -93,10 +93,8 @@ export const createBooking = async (req, res) => {
       refundStatus: "none",
     });
 
-    // ✅ SEND RESPONSE FIRST
     res.json({ success: true, message: "Booking created successfully" });
 
-    // 📧 EMAIL = SIDE EFFECT (separate try/catch)
     try {
       await sgMail.send({
         to: req.user.email,
@@ -123,8 +121,6 @@ export const createBooking = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-
-    // Extra safety (prevents double-send in edge cases)
     if (!res.headersSent) {
       res.json({ success: false, message: "Failed to create booking" });
     }
@@ -303,6 +299,30 @@ export const getAllBookings = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getOwnerBookings = async (req, res) => {
+  try {
+    const ownerId = req.user.id; // from auth middleware
+
+    const bookings = await Booking.find()
+      .populate({
+        path: "hotel",
+        match: { owner: ownerId },
+        select: "name owner",
+      })
+      .populate("room", "roomType")
+      .populate("user", "name email")
+      .sort({ createdAt: -1 });
+
+    // remove bookings where hotel didn't match owner
+    const ownerBookings = bookings.filter(b => b.hotel !== null);
+
+    res.json({ success: true, bookings: ownerBookings });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 
 export const releaseBookingRoom = async (req, res) => {
   try {
