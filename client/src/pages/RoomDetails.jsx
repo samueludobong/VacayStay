@@ -215,13 +215,16 @@ const isDateBooked = (date) => {
   <button
   type="submit"
   className={`
-    bg-primary hover:bg-primary-dull
-    active:scale-95 transition-all
+    transition-all active:scale-95
     text-white rounded-md
     max-md:w-full max-md:mt-6
     md:px-25 py-3 md:py-4 text-base
     cursor-pointer
-    ${(!user || ifUserPrev) ? "opacity-60 cursor-not-allowed hover:bg-red/10 bg-red" : ""}
+    ${
+      !user || ifUserPrev
+        ? "bg-red-500 hover:bg-red-600"
+        : "bg-primary hover:bg-primary-dull"
+    }
   `}
 >
   {!user
@@ -230,6 +233,7 @@ const isDateBooked = (date) => {
     ? "You Booked Already"
     : "Book Now"}
 </button>
+
 
 </form>
 
