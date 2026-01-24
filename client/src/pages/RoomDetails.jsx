@@ -19,8 +19,12 @@ const RoomDetails = () => {
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
     const [bookings, setBookings] = useState([]);
-    
-    
+    const ifUserPrev = bookings.some(
+  booking =>
+    booking.user === user?.id &&
+    booking.room === room?._id
+);
+
     const [guests, setGuests] = useState(1);
 
     const currency = import.meta.env.VITE_CURRENCY
@@ -30,7 +34,12 @@ const RoomDetails = () => {
             if (checkOutDate <= checkInDate) {
                 toast.error("Invalid date selection, Check-Out date must be after Check-In date");
                 return;
-                }
+            }
+            if (ifUserPrev) {
+                toast.error("You have already booked this room");
+                navigate('/my-bookings');
+                return;
+            }
             e.preventDefault();
             const { data } = await axios.post('/api/bookings/book', { room: id, checkInDate, checkOutDate, guests, paymentMethod: "Pay At Hotel" }, { headers: { Authorization: `Bearer ${await getToken()}` } })
             if (data.success) {
@@ -44,6 +53,13 @@ const RoomDetails = () => {
             toast.error(error.message)
         }
     }
+
+    useEffect(() => {
+        if (ifUserPrev) {
+            toast.error("You have already booked this room");
+            navigate('/my-bookings');
+        }
+    })
 
     useEffect(() => {
         const room = rooms.find(room => room._id === id);
@@ -67,7 +83,7 @@ const RoomDetails = () => {
     const disabledDates = useMemo(() => {
     const dates = [];
 
-  bookings.forEach(({ checkInDate, checkOutDate }) => {
+  bookings.forEach(({ checkInDate, checkOutDate, user }) => {
     let current = normalizeDate(new Date(checkInDate));
     const end = normalizeDate(new Date(checkOutDate));
 
@@ -205,7 +221,7 @@ const isDateBooked = (date) => {
     type='submit'
     className='bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'
   >
-    {!user ? "Login to Book" : "Book Now" }
+    {!user ? "Login to Book" : !ifUserPrev ? "Book Now" : "Room Booked By You"  }
   </button>
 </form>
 

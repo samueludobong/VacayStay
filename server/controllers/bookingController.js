@@ -15,7 +15,7 @@ export const getRoomBookings = async (req, res) => {
     const bookings = await Booking.find({
       room: roomId,
       status: { $ne: "cancelled" },
-    }).select("checkInDate checkOutDate");
+    }).select("checkInDate checkOutDate user room");
 
     res.status(200).json(bookings);
   } catch (error) {
