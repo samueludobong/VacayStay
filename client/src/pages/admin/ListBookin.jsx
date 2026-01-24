@@ -70,7 +70,6 @@ const BookingList = () => {
       <div className="border rounded-lg mt-6 overflow-hidden">
         {bookings.map((b) => (
           <div key={b._id} className="border-b">
-            {/* COLLAPSED ROW */}
             <div
               onClick={() =>
                 setExpanded(expanded === b._id ? null : b._id)
@@ -91,7 +90,6 @@ const BookingList = () => {
               </span>
             </div>
 
-            {/* EXPANDED DETAILS */}
             {expanded === b._id && (
               <div className="bg-gray-50 px-6 py-4 text-sm space-y-2">
                 <p><b>Room:</b> {b.room}</p>
