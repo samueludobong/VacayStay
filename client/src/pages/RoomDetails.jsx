@@ -215,15 +215,15 @@ const isDateBooked = (date) => {
   <button
   type="submit"
   className={`
-    transition-all active:scale-95
+    transition-all 
     text-white rounded-md
     max-md:w-full max-md:mt-6
     md:px-25 py-3 md:py-4 text-base
     cursor-pointer
     ${
       !user || ifUserPrev
-        ? "bg-red-500 hover:bg-red-600"
-        : "bg-primary hover:bg-primary-dull"
+        ? "bg-red-500 hover:bg-red-600 active:scale-55"
+        : "bg-primary hover:bg-primary-dull active:scale-95"
     }
   `}
 >
