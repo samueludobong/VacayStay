@@ -20,6 +20,7 @@ const RoomDetails = () => {
     const [checkOutDate, setCheckOutDate] = useState(null);
     const [bookings, setBookings] = useState([]);
     
+    
     const [guests, setGuests] = useState(1);
 
     const currency = import.meta.env.VITE_CURRENCY
@@ -189,7 +190,7 @@ const RoomDetails = () => {
     type='submit'
     className='bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'
   >
-    {!user ? "Login to Book" : isAvailable ? "Book Now" : "Check Availability"}
+    {!user ? "Login to Book" : "Book Now" }
   </button>
 </form>
 
