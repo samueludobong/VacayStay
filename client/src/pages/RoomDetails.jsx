@@ -23,7 +23,10 @@ const RoomDetails = () => {
   booking =>
     booking.user === user?.id &&
     booking.room === room?._id
-);
+    );
+    if (ifUserPrev) {
+            toast.error("You have already booked this room");
+        }
 
     const [guests, setGuests] = useState(1);
 
@@ -52,12 +55,6 @@ const RoomDetails = () => {
             toast.error(error.message)
         }
     }
-
-    useEffect(() => {
-        if (ifUserPrev) {
-            toast.error("You have already booked this room");
-        }
-    })
 
     useEffect(() => {
         const room = rooms.find(room => room._id === id);
@@ -216,11 +213,24 @@ const isDateBooked = (date) => {
   </div>
 
   <button
-    type='submit'
-    className='bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'
-  >
-    {!user ? "Login to Book" : !ifUserPrev ? "Book Now" : "Open My Booking"  }
-  </button>
+  type="submit"
+  className={`
+    bg-primary hover:bg-primary-dull
+    active:scale-95 transition-all
+    text-white rounded-md
+    max-md:w-full max-md:mt-6
+    md:px-25 py-3 md:py-4 text-base
+    cursor-pointer
+    ${(!user || ifUserPrev) ? "opacity-60 cursor-not-allowed hover:bg-red/10 bg-red" : ""}
+  `}
+>
+  {!user
+    ? "Login to Book"
+    : ifUserPrev
+    ? "You Booked Already"
+    : "Book Now"}
+</button>
+
 </form>
 
 
