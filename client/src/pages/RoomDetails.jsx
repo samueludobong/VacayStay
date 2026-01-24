@@ -24,9 +24,6 @@ const RoomDetails = () => {
     booking.user === user?.id &&
     booking.room === room?._id
     );
-    if (ifUserPrev) {
-            toast.error("You have already booked this room");
-        }
 
     const [guests, setGuests] = useState(1);
 
@@ -39,6 +36,7 @@ const RoomDetails = () => {
                 return;
             }
             if (ifUserPrev) {
+                toast.error("You have already booked this room");
                 navigate('/my-bookings');
                 return;
             }
@@ -212,18 +210,18 @@ const isDateBooked = (date) => {
     </div>
   </div>
 
-  <button
+<button
   type="submit"
   className={`
-    transition-all 
+    transition-all active:scale-95
     text-white rounded-md
     max-md:w-full max-md:mt-6
-    md:px-25 py-3 md:py-4 text-base
+    md:px-25 py-3 md:py-4
     cursor-pointer
     ${
       !user || ifUserPrev
-        ? "bg-red-500 hover:bg-red-600 active:scale-55"
-        : "bg-primary hover:bg-primary-dull active:scale-95"
+        ? "bg-red-500 hover:bg-red-600 text-sm"
+        : "bg-primary hover:bg-primary-dull text-base"
     }
   `}
 >
@@ -233,6 +231,7 @@ const isDateBooked = (date) => {
     ? "You Booked Already"
     : "Book Now"}
 </button>
+
 
 
 </form>
