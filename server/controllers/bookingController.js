@@ -8,6 +8,24 @@ import sgMail from "@sendgrid/mail";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
+export const getRoomBookings = async (req, res) => {
+  try {
+    const { roomId } = req.params;
+
+    const bookings = await Booking.find({
+      room: roomId,
+      status: { $ne: "cancelled" },
+    }).select("checkInDate checkOutDate");
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch room bookings",
+    });
+  }
+};
+
+
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   try {
     const bookings = await Booking.find({
