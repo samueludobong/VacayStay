@@ -36,7 +36,6 @@ const RoomDetails = () => {
                 return;
             }
             if (ifUserPrev) {
-                toast.error("You have already booked this room");
                 navigate('/my-bookings');
                 return;
             }
@@ -57,7 +56,6 @@ const RoomDetails = () => {
     useEffect(() => {
         if (ifUserPrev) {
             toast.error("You have already booked this room");
-            navigate('/my-bookings');
         }
     })
 
@@ -221,7 +219,7 @@ const isDateBooked = (date) => {
     type='submit'
     className='bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer'
   >
-    {!user ? "Login to Book" : !ifUserPrev ? "Book Now" : "Room Booked By You"  }
+    {!user ? "Login to Book" : !ifUserPrev ? "Book Now" : "Open My Booking"  }
   </button>
 </form>
 
