@@ -26,6 +26,7 @@ import MyBookings from './pages/MyBookings'
 import SupportInbox from './pages/admin/SupportInbox'
 import Loader from './components/Loader'
 import Booking from './pages/admin/ListBookin'
+import BookingList from './pages/hotelOwner/ListBookin'
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner");
@@ -56,6 +57,7 @@ const App = () => {
             <Route index element={<Dashboard />} />
             <Route path="add-room" element={<AddRoom />} />
             <Route path="list-room" element={<ListRoom />} />
+            <Route path="bookings" element={<BookingList />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}>
