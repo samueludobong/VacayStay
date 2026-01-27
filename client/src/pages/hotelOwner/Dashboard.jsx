@@ -8,19 +8,19 @@ const Dashboard = () => {
 
     const STATUS_MAP = {
       "paid": {
-        color: "text-green-500",
+        color: "text-green-500 bg-green-100",
       },
       "cancelled": {
-        color: "text-red-500",
+        color: "text-red-500 bg-red-100",
       },
       "pending": {
-        color: "text-yellow-500",
+        color: "text-yellow-500 bg-yellow-100",
         },
       "awaiting": {
-        color: "text-yellow-500",
+        color: "text-yellow-500 bg-yellow-100",
       },
       "refunded": {
-        color: "text-yellow-500",
+        color: "text-yellow-500 bg-yellow-100",
       },
     };
     
