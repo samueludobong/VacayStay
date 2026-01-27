@@ -5,6 +5,37 @@ import { useAppContext } from '../../context/AppContext';
 
 const Dashboard = () => {
 
+
+    const STATUS_MAP = {
+      Paid: {
+        color: "text-green-500",
+      },
+      "Paid & Confirmed": {
+        color: "text-green-500",
+      },
+      "Paid (Awaiting Confirmation)": {
+        color: "text-green-500",
+      },
+      Cancelled: {
+        color: "text-red-500",
+      },
+      "Cancelled & Refunded": {
+        color: "text-red-500",
+      },
+      "Pending Payment": {
+        color: "text-yellow-500",
+      },
+      "Confirmed (Unpaid)": {
+        color: "text-yellow-500",
+      },
+    };
+    
+      const statusColor = (status) => {
+      return STATUS_MAP[status]?.color || "text-gray-500";
+    };
+    
+    
+
     const { currency, user, getToken, toast, axios } = useAppContext();
 
     const [dashboardData, setDashboardData] = useState({
@@ -75,6 +106,7 @@ const Dashboard = () => {
                                         <button className={`py-1 px-3 text-xs rounded-full mx-auto ${item.isPaid ? "bg-green-200 text-green-600" : "bg-amber-200 text-yellow-600"}`}>
                                             {item.isPaid ? "Completed" : "Pending"}
                                         </button>
+                                        <span className={`py-1 px-3 text-xs rounded-full mx-auto ${statusColor(item.status)}`}>{item.status}</span>
                                     </td>
                                 </tr>
                             ))
