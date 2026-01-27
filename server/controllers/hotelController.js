@@ -145,7 +145,7 @@ export const declinePending = async (req, res) => {
 
 export const getAllPendingPayments = async (req, res) => {
   try {
-    const pendingBookings = await Booking.find({ paymentStatus: "awaiting" });
+    const pendingBookings = await Booking.find({ paymentStatus: "pending" });
 
     res.json({
       success: true,
