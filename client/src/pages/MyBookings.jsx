@@ -160,7 +160,7 @@ const MyBookings = () => {
     </div>
 
     {/* RIGHT */}
-    <div className="flex flex-col items-start justify-center pt-3 gap-2">
+    <div className="flex flex-row items-start justify-center pt-3 gap-2">
   <StatusBadge
     status={booking.status}
     paymentStatus={booking.paymentStatus}
