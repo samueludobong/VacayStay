@@ -67,7 +67,11 @@ const MyBookings = () => {
         } catch (error) {
             toast.error(error.message)
         }
-    }
+  }
+  
+  const RebookRoom = (roomId) => {
+    navigate(`/rooms/${roomId}`);
+  }
 
     useEffect(() => {
         if (user) {
@@ -203,7 +207,7 @@ const MyBookings = () => {
 {(booking.status === "cancelled" ||
   booking.status === "refunded") && (
   <button
-    onClick={() => handleRebook(booking._id)}
+    onClick={() => handleRebook(booking.room._id)}
     className="px-4 py-1.5 mt-2 text-xs border border-blue-400 text-blue-500 rounded-full hover:bg-blue-50 transition-all"
   >
     Rebook Room
