@@ -8,7 +8,13 @@ import toast from 'react-hot-toast'
 const MyBookings = () => {
 
     const { axios, getToken, user, currency, navigate } = useAppContext();
-    const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [showReschedule, setShowReschedule] = useState(false);
+  const [activeBookingId, setActiveBookingId] = React.useState(null);
+
+  const [checkInDate, setCheckInDate] = React.useState(null);
+  const [checkOutDate, setCheckOutDate] = React.useState(null);
+
 
     const StatusBadge = ({ status, paymentStatus }) => {
   let label = "Pending";
@@ -73,6 +79,15 @@ const MyBookings = () => {
   const handleRebook = (roomId) => {
     navigate(`/rooms/${roomId}`);
   }
+
+  const handleReschedule = (bookingId) => {
+  setActiveBookingId(bookingId);
+  setCheckInDate(null);
+  setCheckOutDate(null);
+  setShowReschedule(true);
+};
+
+  
 
     useEffect(() => {
         if (user) {
@@ -196,10 +211,10 @@ const MyBookings = () => {
       </button>
 
       <button
-        onClick={() => handleRefund(booking._id)}
+        onClick={() => handleReschedule(booking._id)}
         className="px-4 py-1.5 text-xs border border-amber-400 text-amber-600 rounded-full hover:bg-amber-50 transition-all"
       >
-        Request Refund
+        Reschedule Date
       </button>
     </div>
   )}
@@ -220,7 +235,49 @@ const MyBookings = () => {
 ))}
 
             </div>
-        </div>
+      {showReschedule && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div className="bg-white rounded-lg w-full max-w-md p-5">
+      <h3 className="text-lg font-semibold mb-3">Reschedule Booking</h3>
+
+      <DatePicker
+        selected={checkInDate}
+        onChange={(date) => {
+          setCheckInDate(date);
+          setCheckOutDate(null);
+        }}
+        minDate={new Date()}
+        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        excludeDates={disabledDates}
+        placeholderText="Check-In"
+        className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
+      />
+
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          onClick={() => setShowReschedule(false)}
+          className="px-4 py-1.5 text-xs border rounded-full hover:bg-gray-50"
+        >
+          Cancel
+        </button>
+
+        <button
+          disabled={!checkInDate}
+          onClick={() => {
+            submitReschedule(activeBookingId, checkInDate);
+            setShowReschedule(false);
+          }}
+          className="px-4 py-1.5 text-xs border border-blue-500 text-blue-600 rounded-full hover:bg-blue-50 disabled:opacity-50"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+)}  
+      </div>
+
+      
     )
 }
 
