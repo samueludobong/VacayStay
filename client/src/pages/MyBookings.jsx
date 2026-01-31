@@ -4,9 +4,10 @@ import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 
+
 const MyBookings = () => {
 
-    const { axios, getToken, user, currency } = useAppContext();
+    const { axios, getToken, user, currency, navigate } = useAppContext();
     const [bookings, setBookings] = useState([]);
 
     const StatusBadge = ({ status, paymentStatus }) => {
