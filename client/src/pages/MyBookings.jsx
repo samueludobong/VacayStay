@@ -69,7 +69,7 @@ const MyBookings = () => {
         }
   }
   
-  const RebookRoom = (roomId) => {
+  const handleRebook = (roomId) => {
     navigate(`/rooms/${roomId}`);
   }
 
