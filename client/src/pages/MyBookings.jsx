@@ -42,8 +42,6 @@ const MyBookings = () => {
   );
 };
 
-
-
     const fetchUserBookings = async () => {
         try {
             const { data } = await axios.get('/api/bookings/user', { headers: { Authorization: `Bearer ${await getToken()}` } })
@@ -168,16 +166,50 @@ const MyBookings = () => {
     </p>
   </div>
 
-  {booking.paymentStatus !== "paid" &&
-    booking.status !== "cancelled" &&
-    booking.status !== "refunded" && (
+{/* PAY NOW */}
+{booking.paymentStatus !== "paid" &&
+  booking.status !== "cancelled" &&
+  booking.status !== "refunded" && (
+    <button
+      onClick={() => handlePayment(booking._id)}
+      className="px-4 py-1.5 mt-2 text-xs border border-gray-400 rounded-full hover:bg-gray-50 transition-all"
+    >
+      Pay Now
+    </button>
+  )}
+
+{/* CANCEL + REFUND */}
+{booking.paymentStatus === "paid" &&
+  booking.status !== "cancelled" &&
+  booking.status !== "refunded" && (
+    <div className="flex gap-2 mt-2">
       <button
-        onClick={() => handlePayment(booking._id)}
-        className="px-4 py-1.5 mt-2 text-xs border border-gray-400 rounded-full hover:bg-gray-50 transition-all"
+        onClick={() => handleCancel(booking._id)}
+        className="px-4 py-1.5 text-xs border border-red-400 text-red-500 rounded-full hover:bg-red-50 transition-all"
       >
-        Pay Now
+        Cancel Booking
       </button>
-    )}
+
+      <button
+        onClick={() => handleRefund(booking._id)}
+        className="px-4 py-1.5 text-xs border border-amber-400 text-amber-600 rounded-full hover:bg-amber-50 transition-all"
+      >
+        Request Refund
+      </button>
+    </div>
+  )}
+
+{/* REBOOK */}
+{(booking.status === "cancelled" ||
+  booking.status === "refunded") && (
+  <button
+    onClick={() => handleRebook(booking._id)}
+    className="px-4 py-1.5 mt-2 text-xs border border-blue-400 text-blue-500 rounded-full hover:bg-blue-50 transition-all"
+  >
+    Rebook Room
+  </button>
+)}
+
 </div>
   </div>
 ))}
