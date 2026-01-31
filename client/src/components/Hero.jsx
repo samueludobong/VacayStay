@@ -8,8 +8,8 @@ const Hero = () => {
   const { axios, rooms } = useAppContext();
 
   const [destination, setDestination] = useState("");
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
   const navigate = useNavigate();
   const [guests, setGuests] = useState(1);
 
@@ -17,7 +17,6 @@ const Hero = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
-  // 📅 Limit calendar to current year
   const currentYear = new Date().getFullYear();
   const minDate = `${currentYear}-01-01`;
   const maxDate = `${currentYear}-12-31`;
@@ -28,13 +27,13 @@ const Hero = () => {
     setAvailableRooms([]);
     setShowPopup(false);
 
-    if (!destination || !checkIn || !checkOut) return;
+    if (!destination || !checkInDate || !checkOutDate) return;
 
     try {
       const res = await axios.post("/api/rooms/search", {
         roomType: destination,
-        checkIn,
-        checkOut,
+        checkIn: checkInDate,
+        checkOut: checkOutDate,
         guests,
       });
 
@@ -90,15 +89,17 @@ const Hero = () => {
             <img src={assets.calenderIcon} className="h-4" />
             Check in
           </label>
-          <input
-            type="date"
-            min={minDate}
-            max={maxDate}
-            value={checkIn}
-            onChange={(e) => setCheckIn(e.target.value)}
-            className="rounded border px-3 py-1.5 mt-1.5 text-sm outline-none"
-            required
-          />
+        <DatePicker
+        selected={checkInDate}
+        onChange={(date) => {
+            setCheckInDate(date);
+            setCheckOutDate(null);
+        }}
+        minDate={new Date()}
+        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        placeholderText="Check-In"
+        className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
+        />
         </div>
 
         {/* CHECK OUT */}
@@ -107,15 +108,16 @@ const Hero = () => {
             <img src={assets.calenderIcon} className="h-4" />
             Check out
           </label>
-          <input
-            type="date"
-            min={checkIn || minDate}
-            max={maxDate}
-            value={checkOut}
-            onChange={(e) => setCheckOut(e.target.value)}
-            className="rounded border px-3 py-1.5 mt-1.5 text-sm outline-none"
-            required
-          />
+          <DatePicker
+                  selected={checkInDate}
+                  onChange={(date) => {
+                      setCheckOutDate(date);
+                  }}
+                  minDate={new Date()}
+                  maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+                  placeholderText="Check-Out"
+                  className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
+                  />
         </div>
 
         {/* GUESTS */}
