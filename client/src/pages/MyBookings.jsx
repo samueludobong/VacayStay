@@ -13,7 +13,8 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [showReschedule, setShowReschedule] = useState(false);
   const [activeBookingId, setActiveBookingId] = React.useState(null);
-
+ const [NewcheckInDate, setNewCheckInDate] = React.useState(null);
+  const [NewcheckOutDate, setNewCheckOutDate] = React.useState(null);
   const [checkInDate, setCheckInDate] = React.useState(null);
   const [checkOutDate, setCheckOutDate] = React.useState(null);
 
@@ -78,10 +79,10 @@ const MyBookings = () => {
     setShowReschedule(true);
   };
 
-  const submitReschedule = (bookingId, newDate) => {
-    if (!bookingId || !newDate) return;
+  const submitReschedule = (bookingId, newCheckInDate, newCheckOutDate) => {
+    if (!bookingId || !newCheckInDate || !newCheckOutDate) return;
 
-    console.log("Reschedule booking:", bookingId, newDate);
+    console.log("Reschedule booking:", bookingId, newCheckInDate, newCheckOutDate);
 
     // API CALL
     // api.rescheduleBooking(bookingId, newDate);
@@ -224,14 +225,14 @@ return (
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleCancel(booking._id)}
-                      className="px-4 py-1.5 text-xs border border-red-400 text-red-500 rounded-full"
+                      className="px-4 py-1.5 text-xs border border-red-400 text-red-500 rounded-full hover:bg-red-200 transition-colors duration-200"
                     >
                       Cancel
                     </button>
 
                     <button
                       onClick={() => handleReschedule(booking._id)}
-                      className="px-4 py-1.5 text-xs border border-amber-400 text-amber-600 rounded-full"
+                      className="px-4 py-1.5 text-xs border border-amber-400 text-amber-600 rounded-full hover:bg-amber-200 transition-colors duration-200"
                     >
                       Reschedule
                     </button>
@@ -243,7 +244,7 @@ return (
                 booking.status === "refunded") && (
                 <button
                   onClick={() => handleRebook(booking.room._id)}
-                  className="px-4 py-1.5 text-xs border border-blue-400 text-blue-500 rounded-full"
+                  className="px-4 py-1.5 text-xs border border-blue-400 text-blue-500 rounded-full hover:bg-blue-200 transition-colors duration-200"
                 >
                   Rebook Room
                 </button>
@@ -267,11 +268,15 @@ return (
               Reschedule Booking
             </h3>
 
+            <h4 className="text-lg font-semibold mb-3">
+              New Check-In Date
+            </h4>
+
             <DatePicker
-              selected={checkInDate}
+              selected={NewcheckInDate}
               onChange={(date) => {
-                setCheckInDate(date);
-                setCheckOutDate(null);
+                setNewCheckInDate(date);
+                setNewCheckOutDate(null);
               }}
               minDate={new Date()}
               maxDate={new Date(
@@ -279,6 +284,24 @@ return (
               )}
               excludeDates={disabledDates}
               placeholderText="Check-In"
+              className="w-full rounded border px-3 py-2 mt-1.5"
+          />
+          
+            <h4 className="text-lg font-semibold mb-3 mt-4">
+              New Check-Out Date
+            </h4>
+
+          <DatePicker
+              selected={NewcheckOutDate}
+              onChange={(Outdate) => {
+                setNewCheckOutDate(Outdate);
+              }}
+              minDate={new Date()}
+              maxDate={new Date(
+                new Date().setFullYear(new Date().getFullYear() + 1)
+              )}
+              excludeDates={disabledDates}
+              placeholderText="Check-Out"
               className="w-full rounded border px-3 py-2 mt-1.5"
             />
 
@@ -291,9 +314,9 @@ return (
               </button>
 
               <button
-                disabled={!checkInDate || !activeBookingId}
+                disabled={!NewcheckInDate || !NewcheckOutDate || !activeBookingId}
                 onClick={() => {
-                  submitReschedule(activeBookingId, checkInDate);
+                  submitReschedule(activeBookingId, NewcheckInDate, NewcheckOutDate);
                   setShowReschedule(false);
                 }}
                 className="px-4 py-1.5 text-xs border border-blue-500 text-blue-600 rounded-full disabled:opacity-50"
