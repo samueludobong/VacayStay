@@ -20,7 +20,7 @@ const MyBookings = () => {
 const getPaymentLabel = (
   paymentStatus,
   refundStatus,
-  status
+  status, rescheduleRequest
 ) => {
   if (paymentStatus === "paid" && refundStatus === "none") {
     return "Paid";
@@ -40,6 +40,10 @@ const getPaymentLabel = (
 
   if (status === "pending" && paymentStatus === "awaiting" && refundStatus === "none") {
     return "Pending Payment";
+  }
+
+  if (rescheduleRequest && rescheduleRequest.requested && rescheduleRequest.status === "pending") {
+    return "Reschedule Requested";
   }
 
   return "Unknown";
@@ -210,6 +214,7 @@ return (
             {/* MIDDLE */}
             <div className="flex flex-row md:items-center md:gap-12 mt-3 gap-8">
               <div>
+                
                 <p>Check-In:</p>
                 <p className="text-gray-500 text-sm">
                   {new Date(booking.checkInDate).toDateString()}
@@ -240,7 +245,7 @@ return (
                       : "text-red-500"
                   }`}
                 >
-                  {getPaymentLabel(booking.paymentStatus, booking.refundStatus, booking.status)}
+                  {getPaymentLabel(booking.paymentStatus, booking.refundStatus, booking.status, booking.rescheduleRequest)}
 
                 </p>
 

@@ -493,6 +493,29 @@ export const requestReschedule = async (req, res) => {
 
   await booking.save();
 
+  try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
+        subject: "Your Reschedule Has Been Requested",
+        html: `
+          <h2>Reschedule Requested</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your reschedule has been requested successfully.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Reschedule Status:</b> Requested</li>
+          </ul>
+          <p>Our team will review your request and process the reschedule within 5-7 business days.</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "Reschedule email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
+
   res.json({ message: "Reschedule request submitted" });
 };
 
@@ -508,8 +531,52 @@ export const approveReschedule = async (req, res) => {
     booking.checkInDate = booking.rescheduleRequest.newCheckInDate;
     booking.checkOutDate = booking.rescheduleRequest.newCheckOutDate;
     booking.rescheduleRequest.status = "approved";
+    try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
+        subject: "Your Reschedule Has Been Approved",
+        html: `
+          <h2>Reschedule Approved</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your reschedule has been approved successfully.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Reschedule Status:</b> Approved</li>
+          </ul>
+          <p>Your new check-in date is ${new Date(booking.checkInDate).toDateString()} and your new check-out date is ${new Date(booking.checkOutDate).toDateString()}.</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "Reschedule email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
   } else {
     booking.rescheduleRequest.status = "rejected";
+    try {
+      await sgMail.send({
+        to: booking.user.email,
+        from: `VacayStay <${process.env.SENDGRID_SENDER}>`,
+        subject: "Your Reschedule Has Been Rejected",
+        html: `
+          <h2>Reschedule Rejected</h2>
+          <p>Hello ${booking.user.username},</p>
+          <p>Your reschedule has been rejected.</p>
+          <ul>
+            <li><b>Booking ID:</b> ${booking._id}</li>
+            <li><b>Reschedule Status:</b> Rejected</li>
+          </ul>
+          <p>Our team will review your request and process the refund within 5-7 business days.</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error(
+        "Reschedule email failed:",
+        emailError.response?.body?.errors || emailError.message
+      );
+    }
   }
 
   booking.rescheduleRequest.reviewedAt = new Date();
