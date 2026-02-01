@@ -33,7 +33,6 @@ const bookingSchema = new Schema(
       default: "none",
     },
 
-    /* 🔥 RESCHEDULE REQUEST */
     rescheduleRequest: {
       requested: { type: Boolean, default: false },
       newCheckInDate: Date,

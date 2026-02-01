@@ -496,3 +496,28 @@ export const requestReschedule = async (req, res) => {
   res.json({ message: "Reschedule request submitted" });
 };
 
+export const approveReschedule = async (req, res) => {
+  const { bookingId, approve } = req.body;
+
+  const booking = await Booking.findById(bookingId);
+  if (!booking || !booking.rescheduleRequest?.requested) {
+    return res.status(404).json({ message: "No reschedule request found" });
+  }
+
+  if (approve) {
+    booking.checkInDate = booking.rescheduleRequest.newCheckInDate;
+    booking.checkOutDate = booking.rescheduleRequest.newCheckOutDate;
+    booking.rescheduleRequest.status = "approved";
+  } else {
+    booking.rescheduleRequest.status = "rejected";
+  }
+
+  booking.rescheduleRequest.reviewedAt = new Date();
+  booking.rescheduleRequest.requested = false;
+
+  await booking.save();
+
+  res.json({ message: "Reschedule processed" });
+};
+
+
