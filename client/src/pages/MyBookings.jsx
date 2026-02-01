@@ -33,14 +33,6 @@ const getPaymentLabel = (
     return "Refunded";
   }
 
-  if (paymentStatus === "awaiting") {
-    return "Awaiting Payment";
-  }
-
-  if (paymentStatus === "failed") {
-    return "Payment Failed";
-  }
-
   return "Unknown";
 };
 
