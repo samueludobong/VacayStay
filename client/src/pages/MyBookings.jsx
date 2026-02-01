@@ -25,11 +25,11 @@ const getPaymentLabel = (
     return "Paid";
   }
 
-  if (paymentStatus === "paid" && refundStatus === "requested") {
+  if (paymentStatus === "awaiting" && refundStatus === "requested") {
     return "Refund Requested";
   }
 
-  if (paymentStatus === "paid" && refundStatus === "refunded") {
+  if (paymentStatus === "awaiting" && refundStatus === "refunded") {
     return "Refunded";
   }
 
