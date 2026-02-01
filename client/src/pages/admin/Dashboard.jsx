@@ -46,37 +46,64 @@ const CardContent = ({ children }) => (
   <div className="p-5">{children}</div>
 );
 
+const resolveOrderStatus = (order) => {
+  const { paymentStatus, refundStatus } = order;
+
+  // ⏳ Awaiting payment
+  if (paymentStatus === "awaiting") {
+    return "Pending Payment";
+  }
+
+  // 💰 Paid cases
+  if (paymentStatus === "awaiting") {
+    if (refundStatus === "requested") {
+      return "Requested Refund";
+    }
+
+    if (refundStatus === "refunded") {
+      return "Cancelled & Refunded";
+    }
+
+    return "Paid";
+  }
+
+  return "Unknown";
+};
+
+
 
 const STATUS_MAP = {
   Paid: {
     color: "text-green-500",
     icon: <BadgeCheck className="w-4 h-4 text-green-500" />,
   },
-  "Paid & Confirmed": {
-    color: "text-green-500",
-    icon: <BadgeCheck className="w-4 h-4 text-green-500" />,
-  },
-  "Paid (Awaiting Confirmation)": {
-    color: "text-green-500",
-    icon: <Clock className="w-4 h-4 text-green-500" />,
-  },
-  Cancelled: {
-    color: "text-red-500",
-    icon: <XCircle className="w-4 h-4 text-red-500" />,
-  },
+
   "Cancelled & Refunded": {
     color: "text-red-500",
     icon: <XCircle className="w-4 h-4 text-red-500" />,
   },
+
+  Cancelled: {
+    color: "text-red-500",
+    icon: <XCircle className="w-4 h-4 text-red-500" />,
+  },
+
   "Pending Payment": {
     color: "text-yellow-500",
     icon: <Clock className="w-4 h-4 text-yellow-500" />,
   },
-  "Confirmed (Unpaid)": {
+
+    "Requested Refund": {
     color: "text-yellow-500",
     icon: <Clock className="w-4 h-4 text-yellow-500" />,
   },
+
+  Unknown: {
+    color: "text-gray-500",
+    icon: <Clock className="w-4 h-4 text-gray-500" />,
+  },
 };
+
 
   const statusColor = (status) => {
   return STATUS_MAP[status]?.color || "text-gray-500";
@@ -129,18 +156,25 @@ const statusIcon = (status) => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
-              <tr key={index} className="border-b hover:bg-slate-50 transition">
-                <td className="p-3">{order.id}</td>
-                <td className="p-3">{order.date}</td>
-                <td className="p-3">{order.name}</td>
-                <td className="p-3">{order.price}</td>
-                <td className="p-3 flex items-center gap-2">
-                  {statusIcon(order.status)}
-                  <span className={statusColor(order.status)}>{order.status}</span>
-                </td>
-              </tr>
-            ))}
+            {orders.map((order, index) => {
+  const displayStatus = resolveOrderStatus(order);
+
+  return (
+    <tr key={index} className="border-b hover:bg-slate-50 transition">
+      <td className="p-3">{order.id}</td>
+      <td className="p-3">{order.date}</td>
+      <td className="p-3">{order.name}</td>
+      <td className="p-3">{order.price}</td>
+      <td className="p-3 flex items-center gap-2">
+        {statusIcon(displayStatus)}
+        <span className={statusColor(displayStatus)}>
+          {displayStatus}
+        </span>
+      </td>
+    </tr>
+  );
+})}
+
           </tbody>
         </table>
       </div>
