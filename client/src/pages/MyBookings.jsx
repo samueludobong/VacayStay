@@ -19,7 +19,8 @@ const MyBookings = () => {
 
 const getPaymentLabel = (
   paymentStatus,
-  refundStatus
+  refundStatus,
+  status
 ) => {
   if (paymentStatus === "paid" && refundStatus === "none") {
     return "Paid";
@@ -31,6 +32,10 @@ const getPaymentLabel = (
 
   if (paymentStatus === "awaiting" && refundStatus === "refunded") {
     return "Refunded";
+  }
+
+  if (status === "cancelled") {
+    return "Cancelled";
   }
 
   return "Unknown";
@@ -231,7 +236,7 @@ return (
                       : "text-red-500"
                   }`}
                 >
-                  {getPaymentLabel(booking.paymentStatus, booking.refundStatus)}
+                  {getPaymentLabel(booking.paymentStatus, booking.refundStatus, booking.status)}
 
                 </p>
 
