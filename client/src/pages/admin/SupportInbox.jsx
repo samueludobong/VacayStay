@@ -92,8 +92,13 @@ const fetchMessages = async () => {
         key={msg._id}
         onClick={() => MarkAsRead(msg)}
         className={`p-4 cursor-pointer border-b hover:bg-gray-50 ${
-          activeMessage?._id === msg._id ? "bg-gray-100" : ""
-        }` + (!msg.isRead ? "bg-blue-100" : " ")}
+  activeMessage?._id === msg._id
+    ? "bg-gray-100"
+    : !msg.isRead
+    ? "bg-blue-100"
+    : ""
+}`}
+
       >
         <p className="font-medium">{msg.name}</p>
         <p className="text-xs text-gray-500">{msg.email}</p>
