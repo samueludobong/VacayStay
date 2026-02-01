@@ -69,7 +69,7 @@ const BookingList = () => {
 
       <div className="border rounded-lg mt-6 overflow-hidden">
         {bookings.map((b) => (
-          <div key={b._id} className="border-b">
+          <div key={b._id} className={`border-b ${b.refundStatus === "requested" ? "bg-blue-100" : ""}`}>
             <div
               onClick={() =>
                 setExpanded(expanded === b._id ? null : b._id)
@@ -81,7 +81,7 @@ const BookingList = () => {
                   Booking #{b._id.slice(-6)}
                 </p>
                 <p className="text-sm text-gray-500">
-                  {b.paymentStatus.toUpperCase()} • {b.status}
+                  {b.paymentStatus.toUpperCase()} • {b.status} • {b.refundStatus === "requested" ? `Refund Requested` : ""}
                 </p>
               </div>
 
@@ -118,6 +118,16 @@ const BookingList = () => {
                         className="px-4 py-2 bg-red-600 text-white rounded"
                       >
                         Refund
+                      </button>
+                    )}
+
+                  {b.paymentStatus === "awaiting" &&
+                    b.refundStatus === "requested" && (
+                      <button
+                        onClick={() => refundBooking(b._id)}
+                        className="px-4 py-2 bg-red-600 text-white rounded"
+                      >
+                        Approve Refund
                       </button>
                     )}
                 </div>

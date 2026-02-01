@@ -121,7 +121,6 @@ const statusIcon = (status) => {
           <CardContent className="p-5">
             <p className="text-slate-600">Pending Hotel Requests</p>
             <h2 className="text-3xl font-semibold">{ Pending.length }</h2>
-            <p className="text-sm text-blue-500 mt-1">From An Hour Ago</p>
           </CardContent>
         </Card>
 
@@ -129,7 +128,6 @@ const statusIcon = (status) => {
           <CardContent className="p-5">
             <p className="text-slate-600">Pending Payments</p>
             <h2 className="text-3xl font-semibold">{PendingPayment.length}</h2>
-            <p className="text-sm text-purple-500 mt-1">Non Paid Customers</p>
           </CardContent>
         </Card>
 
@@ -137,7 +135,6 @@ const statusIcon = (status) => {
           <CardContent className="p-5">
             <p className="text-slate-600">Booked Rooms</p>
             <h2 className="text-3xl font-semibold">{ dashboardData.totalBookings }</h2>
-            <p className="text-sm text-orange-500 mt-1">Impression - 18%</p>
           </CardContent>
         </Card>
       </div>
