@@ -46,8 +46,8 @@ const CardContent = ({ children }) => (
   <div className="p-5">{children}</div>
 );
 
-const resolveOrderStatus = (order) => {
-  const { paymentStatus, refundStatus } = order;
+const resolveOrderStatus = (dashboardData) => {
+  const { paymentStatus, refundStatus } = dashboardData;
 
   // ⏳ Awaiting payment
   if (paymentStatus === "awaiting") {
@@ -157,7 +157,7 @@ const statusIcon = (status) => {
           </thead>
           <tbody>
             {orders.map((order, index) => {
-  const displayStatus = resolveOrderStatus(order);
+  const displayStatus = resolveOrderStatus(dashboardData);
 
   return (
     <tr key={index} className="border-b hover:bg-slate-50 transition">
