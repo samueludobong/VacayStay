@@ -54,13 +54,14 @@ const resolveOrderStatus = (dashboardData) => {
   }
 
   if (paymentStatus === "awaiting" && refundStatus === "requested") {
-      return "Requested Refund";
-    }
+    return "Requested Refund";
+  }
 
-    if (refundStatus === "refunded") {
-      return "Cancelled & Refunded";
-    }
+  if (refundStatus === "refunded") {
+    return "Cancelled & Refunded";
+  }
 
+  if (paymentStatus === "paid") {
     return "Paid";
   }
 
