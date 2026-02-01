@@ -17,40 +17,33 @@ const MyBookings = () => {
  const [NewcheckInDate, setNewCheckInDate] = React.useState(null);
   const [NewcheckOutDate, setNewCheckOutDate] = React.useState(null);
 
-
-
-    const StatusBadge = ({ status, paymentStatus }) => {
-  let label = "Pending";
-  let style = "bg-yellow-100 text-yellow-700";
-
-  if (status === "cancelled") {
-    label = "Cancelled";
-    style = "bg-gray-200 text-gray-700";
+const getPaymentLabel = (
+  paymentStatus,
+  refundStatus
+) => {
+  if (paymentStatus === "paid" && refundStatus === "none") {
+    return "Paid";
   }
 
-  if (status === "refunded") {
-    label = "Refunded";
-    style = "bg-red-100 text-red-700";
+  if (paymentStatus === "paid" && refundStatus === "requested") {
+    return "Refund Requested";
   }
 
-  if (paymentStatus === "paid" && status === "confirmed") {
-    label = "Confirmed";
-    style = "bg-green-100 text-green-700";
+  if (paymentStatus === "paid" && refundStatus === "refunded") {
+    return "Refunded";
   }
 
-  if (paymentStatus === "paid" && status !== "confirmed") {
-    label = "Paid";
-    style = "bg-blue-100 text-blue-700";
+  if (paymentStatus === "awaiting") {
+    return "Awaiting Payment";
   }
 
-  return (
-    <span
-      className={`px-3 py-1 rounded-full text-xs font-medium ${style}`}
-    >
-      {label}
-    </span>
-  );
-  };
+  if (paymentStatus === "failed") {
+    return "Payment Failed";
+  }
+
+  return "Unknown";
+};
+
   
   const disabledDates = React.useMemo(() => {
     const dates = [];
@@ -246,14 +239,19 @@ return (
                       : "text-red-500"
                   }`}
                 >
-                  {booking.paymentStatus === "paid" ? "Paid" : "Unpaid"}
+                  {getPaymentLabel(booking.paymentStatus, booking.refundStatus)}
+
                 </p>
+
+
               </div>
 
               {/* PAY NOW */}
               {booking.paymentStatus !== "paid" &&
                 booking.status !== "cancelled" &&
-                booking.status !== "refunded" && (
+                booking.status !== "refunded" &&
+                booking.refundStatus !== "requested" &&
+                (
                   <button
                     onClick={() => handlePayment(booking._id)}
                     className="px-4 py-1.5 text-xs border rounded-full"
@@ -262,7 +260,12 @@ return (
                   </button>
                 )}
 
-              {/* CANCEL + RESCHEDULE */}
+              {booking.refundStatus === "requested" &&
+                booking.status !== "cancelled" &&
+                booking.status !== "refunded" && (
+                <> </>
+                )}
+
               {booking.paymentStatus === "paid" &&
                 booking.status !== "cancelled" &&
                 booking.status !== "refunded" && (
