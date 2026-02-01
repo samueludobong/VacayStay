@@ -38,6 +38,10 @@ const getPaymentLabel = (
     return "Cancelled";
   }
 
+  if (status === "pending" && paymentStatus === "awaiting" && refundStatus === "none") {
+    return "Pending Payment";
+  }
+
   return "Unknown";
 };
 
@@ -251,7 +255,7 @@ return (
                 (
                   <button
                     onClick={() => handlePayment(booking._id)}
-                    className="px-4 py-1.5 text-xs border rounded-full"
+                    className="px-4 py-1.5 text-xs border rounded-full hover:bg-gray-200 transition-colors duration-200"
                   >
                     Pay Now
                   </button>
