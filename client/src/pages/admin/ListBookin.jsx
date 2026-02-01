@@ -81,7 +81,7 @@ const BookingList = () => {
                   Booking #{b._id.slice(-6)}
                 </p>
                 <p className="text-sm text-gray-500">
-                  {b.paymentStatus.toUpperCase()} • {b.status} • {b.refundStatus === "requested" ? `Refund Requested` : ""}
+                  {b.paymentStatus.toUpperCase()} • {b.status} {b.refundStatus === "requested" ? `• Refund Requested` : ""}
                 </p>
               </div>
 
