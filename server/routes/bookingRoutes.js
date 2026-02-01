@@ -15,7 +15,7 @@ bookingRouter.post('/check-availability', checkAvailabilityAPI);
 bookingRouter.post('/book', protect, createBooking);
 bookingRouter.get('/user', protect, getUserBookings);
 bookingRouter.get('/orders', generateOrders);
-bookingRouter.put('/reschedule', protect, requestReschedule);
+bookingRouter.post('/reschedule', protect, requestReschedule);
 bookingRouter.get("/room/:roomId", getRoomBookings);
 bookingRouter.get('/hotel', protect, getHotelBookings);
 bookingRouter.get('/hotelAdmin', getHotelBookingsAll);
