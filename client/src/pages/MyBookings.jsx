@@ -22,7 +22,7 @@ const getPaymentLabel = (
   refundStatus,
   status, rescheduleRequest
 ) => {
-  if (paymentStatus === "paid" && refundStatus === "none") {
+  if (paymentStatus === "paid" && refundStatus === "none" && rescheduleRequest.requested === false) {
     return "Paid";
   }
 
@@ -42,7 +42,7 @@ const getPaymentLabel = (
     return "Pending Payment";
   }
 
-  if (rescheduleRequest && rescheduleRequest.requested && rescheduleRequest.status === "pending") {
+  if (rescheduleRequest && rescheduleRequest.status === "pending") {
     return "Reschedule Requested";
   }
 
