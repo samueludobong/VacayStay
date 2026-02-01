@@ -12,11 +12,11 @@ const MyBookings = () => {
     const { axios, getToken, user, currency, navigate } = useAppContext();
   const [bookings, setBookings] = useState([]);
   const [showReschedule, setShowReschedule] = useState(false);
+  const [showCancel, setShowCancel] = useState(false);
   const [activeBookingId, setActiveBookingId] = React.useState(null);
  const [NewcheckInDate, setNewCheckInDate] = React.useState(null);
   const [NewcheckOutDate, setNewCheckOutDate] = React.useState(null);
-  const [checkInDate, setCheckInDate] = React.useState(null);
-  const [checkOutDate, setCheckOutDate] = React.useState(null);
+
 
 
     const StatusBadge = ({ status, paymentStatus }) => {
@@ -74,19 +74,45 @@ const MyBookings = () => {
 
   const handleReschedule = (bookingId) => {
     setActiveBookingId(bookingId);
-    setCheckInDate(null);
-    setCheckOutDate(null);
+    setNewCheckInDate(null);
+    setNewCheckOutDate(null);
     setShowReschedule(true);
   };
 
-  const submitReschedule = (bookingId, newCheckInDate, newCheckOutDate) => {
-    if (!bookingId || !newCheckInDate || !newCheckOutDate) return;
-
-    console.log("Reschedule booking:", bookingId, newCheckInDate, newCheckOutDate);
-
-    // API CALL
-    // api.rescheduleBooking(bookingId, newDate);
+  const handleCancelPopup = (bookingId) => {
+    setActiveBookingId(bookingId);
+    setShowCancel(true);
   };
+
+const submitReschedule = async (bookingId, newCheckInDate, newCheckOutDate) => {
+  if (!bookingId || !newCheckInDate || !newCheckOutDate) return;
+
+  try {
+    const { data } = await axios.post(
+      "/api/bookings/reschedule",
+      {
+        bookingId,
+        newCheckInDate,
+        newCheckOutDate,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+
+    if (data.success) {
+      toast.success("Reschedule request sent");
+      fetchUserBookings();
+      setShowReschedule(false);
+    }
+  } catch (err) {
+    toast.error(
+      err?.response?.data?.message || "Failed to request reschedule"
+    );
+  }
+};
 
     const fetchUserBookings = async () => {
         try {
@@ -117,6 +143,24 @@ const MyBookings = () => {
   
   const handleRebook = (roomId) => {
     navigate(`/rooms/${roomId}`);
+  }
+
+  const handleCancel = async (bookingId) => {
+    try {
+      const { data } = await axios.put(
+        `/api/bookings/${bookingId}/request_refund`,
+        {},
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+      );
+    
+      if (data.success) {
+        toast.success("Booking refunded");
+        fetchUserBookings();
+        setShowCancel(false)
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   }
 
 
@@ -224,7 +268,7 @@ return (
                 booking.status !== "refunded" && (
                   <div className="flex gap-2">
                     <button
-                      onClick={() => handleCancel(booking._id)}
+                      onClick={() => handleCancelPopup(booking._id)}
                       className="px-4 py-1.5 text-xs border border-red-400 text-red-500 rounded-full hover:bg-red-200 transition-colors duration-200"
                     >
                       Cancel
@@ -322,6 +366,45 @@ return (
                 className="px-4 py-1.5 text-xs border border-blue-500 text-blue-600 rounded-full disabled:opacity-50"
               >
                 Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+    {showCancel && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          onClick={() => setShowCancel(false)}
+        >
+          <div
+            className="bg-white rounded-lg w-full max-w-md p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-semibold mb-3">
+              Cancel Booking
+            </h3>
+
+            <h4 className="text-lg font-semibold mb-3">
+              Are you sure you want to cancel this booking, and request a refund?
+            </h4>
+            
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                onClick={() => setShowCancel(false)}
+                className="px-4 py-1.5 text-xs border rounded-full"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => {
+                  handleCancel(activeBookingId);
+                  setShowCancel(false);
+                }}
+                className="px-4 py-1.5 text-xs border border-blue-500 text-blue-600 rounded-full disabled:opacity-50"
+              >
+                Confirm Cancelation
               </button>
             </div>
           </div>
