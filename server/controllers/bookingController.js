@@ -376,11 +376,6 @@ export const refundBooking = async (req, res) => {
     if (!booking)
       return res.status(404).json({ success: false, message: "Not found" });
 
-    if (booking.paymentStatus !== "paid")
-      return res
-        .status(400)
-        .json({ success: false, message: "Only paid bookings refundable" });
-
     booking.status = "refunded";
     booking.refundStatus = "refunded";
     booking.paymentStatus = "awaiting";
