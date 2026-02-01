@@ -49,7 +49,7 @@ const CardContent = ({ children }) => (
 const resolveOrderStatus = (dashboardData) => {
   const { paymentStatus, refundStatus } = dashboardData;
 
-  // ⏳ Awaiting payment
+
   if (paymentStatus === "awaiting") {
     return "Pending Payment";
   }
