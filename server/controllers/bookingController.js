@@ -207,7 +207,8 @@ function getFinalStatus(b) {
 export const generateOrders = async (req, res) => {
   try {
     const bookings = await Booking.find()
-      .populate("room", "name")
+      .populate("room", "roomType")
+      .populate("hotel", "name")
       .populate("user", "name");
 
     const orders = bookings.map((b) => ({
@@ -215,7 +216,7 @@ export const generateOrders = async (req, res) => {
       user: b.user?.name || "Unknown",
       date: b.checkInDate.toISOString().split("T")[0],
       checkOutDate: b.checkOutDate.toISOString().split("T")[0],
-      name: b.room?.name || "Unknown Room",
+      name: b.roomType || "Unknown Room",
       price: `${b.totalPrice} NGN`,
       status: getFinalStatus(b),
     }));
