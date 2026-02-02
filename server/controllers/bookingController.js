@@ -151,7 +151,7 @@ export const getHotelBookings = async (req, res) => {
       .sort({ createdAt: -1 });
 
     const totalRevenue = bookings
-      .filter((b) => b.status !== "refunded")
+      .filter((b) => b.status !== "refunded" && b.paymentStatus === "paid" && b.refundStatus !== "refunded")
       .reduce((acc, b) => acc + b.totalPrice, 0);
 
     res.json({
