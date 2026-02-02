@@ -216,7 +216,8 @@ export const generateOrders = async (req, res) => {
       user: b.user?.name || "Unknown",
       date: b.checkInDate.toISOString().split("T")[0],
       checkOutDate: b.checkOutDate.toISOString().split("T")[0],
-      name: b.roomType || "Unknown Room",
+      name: b.room?.roomType || "Unknown Room",
+      hotel: b.hotel?.name || "Unknown Hotel",
       price: `${b.totalPrice} NGN`,
       status: getFinalStatus(b),
     }));
